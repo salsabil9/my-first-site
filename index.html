@@ -4,159 +4,254 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>المنزل الآمن: تشافي صدمات الطفولة</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiko:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* CSS Variables for colors and fonts - Easy customization */
+        /* --- CSS Variables for Theming --- */
         :root {
-            /* Light Mode Colors */
-            --light-bg: #F0F2F5; /* A soft, light blue-grey */
-            --light-text-color: #333;
-            --light-primary-color: #4CAF50; /* A vibrant green for main elements */
-            --light-secondary-color: #2196F3; /* A bright blue for accents and highlights */
-            --light-accent-color: #FFC107; /* A warm yellow for interactive elements */
-            --light-card-bg: #FFFFFF; /* Pure white for cards */
-            --light-border-color: #E0E0E0; /* Light grey for subtle borders */
-            --light-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Soft, subtle shadow */
+            /* Light Mode Defaults */
+            --bg-color: #F8F9FA; /* Very light grey */
+            --card-bg: #FFFFFF;
+            --text-color: #343A40; /* Dark grey for text */
+            --primary-color: #5B8C5A; /* Muted Green */
+            --secondary-color: #4A90E2; /* Soft Blue */
+            --accent-color: #F5B041; /* Warm Yellow */
+            --border-color: #E0E0E0; /* Light border */
+            --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.08);
 
-            /* Dark Mode Colors */
-            --dark-bg: #1A202C; /* Dark charcoal */
-            --dark-text-color: #E2E8F0; /* Off-white for text */
-            --dark-primary-color: #689F38; /* A darker, more muted green */
-            --dark-secondary-color: #1976D2; /* A darker, richer blue */
-            --dark-accent-color: #FFB300; /* A deeper yellow */
-            --dark-card-bg: #2D3748; /* Darker grey for cards */
-            --dark-border-color: #4A5568; /* Muted grey for borders */
-            --dark-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Deeper shadow for contrast */
-
-            /* Current active colors (default to light) */
-            --current-bg: var(--light-bg);
-            --current-text-color: var(--light-text-color);
-            --current-primary-color: var(--light-primary-color);
-            --current-secondary-color: var(--light-secondary-color);
-            --current-accent-color: var(--light-accent-color);
-            --current-card-bg: var(--light-card-bg);
-            --current-border-color: var(--light-border-color);
-            --current-shadow: var(--light-shadow);
+            /* Dark Mode Colors (will be applied via .dark-mode class) */
+            --dark-bg-color: #2C3E50; /* Darker blue-grey */
+            --dark-card-bg: #34495E; /* Slightly lighter than dark-bg */
+            --dark-text-color: #ECF0F1; /* Light grey for dark mode text */
+            --dark-primary-color: #7DB97D; /* Softer Green */
+            --dark-secondary-color: #6FAEE0; /* Softer Blue */
+            --dark-accent-color: #F8CB6F; /* Softer Yellow */
+            --dark-border-color: #4A637C; /* Darker border */
+            --shadow-dark: 0 4px 15px rgba(0, 0, 0, 0.3);
 
             /* Fonts */
-            --heading-font: 'Amiri', serif;
-            --body-font: 'Cairo', sans-serif;
+            --font-heading: 'Amiko', serif;
+            --font-body: 'Cairo', sans-serif;
+
+            /* Transitions */
+            --transition-speed: 0.4s ease-in-out;
         }
 
-        /* Base styles */
+        /* --- Base Styles --- */
         body {
-            font-family: var(--body-font);
+            font-family: var(--font-body);
             margin: 0;
             padding: 0;
-            background-color: var(--current-bg);
-            color: var(--current-text-color);
-            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             direction: rtl; /* Right-to-left for Arabic */
             text-align: right;
-            transition: background-color 0.5s ease, color 0.5s ease; /* Smooth mode transition */
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+            overflow-x: hidden;
+            line-height: 1.7;
         }
 
-        /* Initial Assessment Overlay */
+        /* Dark Mode Specific Styles */
+        body.dark-mode {
+            background-color: var(--dark-bg-color);
+            color: var(--dark-text-color);
+            --bg-color: var(--dark-bg-color);
+            --card-bg: var(--dark-card-bg);
+            --text-color: var(--dark-text-color);
+            --primary-color: var(--dark-primary-color);
+            --secondary-color: var(--dark-secondary-color);
+            --accent-color: var(--dark-accent-color);
+            --border-color: var(--dark-border-color);
+            --shadow-light: var(--shadow-dark);
+        }
+
+        /* --- General Elements Styling --- */
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        h1 { font-size: 2.8em; }
+        h2 { font-size: 2.2em; border-bottom: 2px solid var(--primary-color); padding-bottom: 10px; }
+        h3 { font-size: 1.6em; color: var(--secondary-color); }
+        h4 { font-size: 1.3em; color: var(--secondary-color); }
+
+        p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease, color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* --- Assessment Overlay --- */
         #assessment-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8); /* Dark overlay */
+            background-color: rgba(0, 0, 0, 0.85); /* Darker overlay */
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 2000; /* Above everything else */
-            backdrop-filter: blur(5px); /* Blurred background */
-            transition: opacity 0.5s ease;
+            z-index: 2000;
+            backdrop-filter: blur(8px); /* More blur */
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+        }
+
+        #assessment-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
         }
 
         .assessment-card {
-            background-color: var(--light-card-bg); /* Always light for assessment */
-            color: var(--light-text-color);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            max-width: 600px;
+            background-color: var(--card-bg); /* Use theme card bg */
+            color: var(--text-color); /* Use theme text color */
+            padding: 50px;
+            border-radius: 20px; /* More rounded */
+            box-shadow: var(--shadow-light);
+            max-width: 700px;
             text-align: center;
-            animation: fadeInScale 0.6s ease-out; /* Animation on load */
+            animation: fadeInScale 0.7s ease-out;
+            border: 1px solid var(--border-color); /* Subtle border */
         }
 
         .assessment-card h2 {
-            font-family: var(--heading-font);
-            color: var(--light-primary-color);
-            margin-bottom: 25px;
-            font-size: 2.2em;
-            border-bottom: 2px solid var(--light-primary-color);
-            padding-bottom: 10px;
+            font-size: 2.5em;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            border-bottom: none; /* Remove border from card h2 */
         }
 
         .assessment-card p {
-            font-size: 1.1em;
-            margin-bottom: 25px;
+            font-size: 1.2em;
+            margin-bottom: 30px;
         }
 
         .assessment-card .quiz-question {
-            background-color: var(--light-border-color);
-            border: 1px solid var(--light-border-color);
-            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+            background-color: var(--bg-color); /* Lighter background for questions */
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: right;
+            transition: background-color var(--transition-speed), border-color var(--transition-speed);
+        }
+        .assessment-card .quiz-question p {
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            color: var(--secondary-color); /* Question text color */
+        }
+        .assessment-card .quiz-question label {
+            display: block;
+            background-color: var(--card-bg);
+            padding: 12px 18px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
         }
         .assessment-card .quiz-question label:hover {
-            background-color: var(--light-bg);
+            background-color: var(--bg-color);
+            border-color: var(--secondary-color);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        .assessment-card .quiz-question input[type="radio"] {
+            display: none; /* Hide default radio button */
         }
         .assessment-card .quiz-question input[type="radio"]:checked + label {
-            background-color: var(--light-secondary-color);
+            background-color: var(--secondary-color);
             color: white;
-            border-color: var(--light-secondary-color);
+            border-color: var(--secondary-color);
+            box-shadow: 0 3px 10px rgba(74, 144, 226, 0.3); /* Blue shadow for selected */
         }
-
         .assessment-card .btn {
-            background-color: var(--light-accent-color);
-            color: var(--light-text-color);
-            margin-top: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            margin-top: 30px;
         }
         .assessment-card .btn:hover {
-            background-color: var(--light-primary-color);
-            color: white;
+            background-color: var(--secondary-color);
         }
 
-
-        /* Main container layout using Flexbox */
+        /* --- Main Layout --- */
         .container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 20px auto;
             padding: 0 20px;
             display: flex;
-            gap: 20px; /* Space between sidebar and main content */
-            flex-wrap: wrap; /* Allow wrapping on smaller screens */
-            justify-content: center; /* Center items when wrapped */
+            gap: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+            opacity: 0; /* Hidden initially */
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
 
-        /* Sidebar Navigation - Canva Style */
+        .container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Sidebar Navigation */
         .sidebar {
-            width: 250px;
-            background-color: var(--current-card-bg);
-            padding: 20px;
-            border-radius: 12px; /* Rounded corners */
-            box-shadow: var(--current-shadow); /* Soft shadow */
-            flex-shrink: 0; /* Prevent shrinking */
-            position: sticky; /* Sticky sidebar for long content */
-            top: 20px; /* Position from top */
-            height: fit-content; /* Fit content height */
-            z-index: 1000; /* Ensure it's above other content */
+            width: 280px;
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-light);
+            flex-shrink: 0;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+            transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
         }
 
         .sidebar h2 {
-            font-family: var(--heading-font);
-            color: var(--current-primary-color);
             text-align: center;
             margin-bottom: 30px;
-            font-size: 1.8em;
-            border-bottom: 2px solid var(--current-primary-color);
-            padding-bottom: 10px;
+            font-size: 2em;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 15px;
+            color: var(--primary-color);
         }
 
         .sidebar ul {
@@ -166,186 +261,178 @@
         }
 
         .sidebar ul li {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .sidebar ul li a {
             display: flex;
             align-items: center;
-            padding: 12px 15px;
-            color: var(--current-text-color);
+            padding: 15px 20px;
+            color: var(--text-color);
             text-decoration: none;
-            font-weight: bold;
-            border-radius: 8px;
-            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+            font-weight: 600;
+            border-radius: 10px;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
         }
 
         .sidebar ul li a i {
-            margin-left: 10px; /* Space for icon */
-            font-size: 1.2em;
+            margin-left: 15px; /* Space for icon */
+            font-size: 1.3em;
+            color: var(--secondary-color);
+            transition: color 0.3s ease;
         }
 
-        .sidebar ul li a:hover,
+        .sidebar ul li a:hover {
+            background-color: var(--bg-color);
+            transform: translateX(-5px);
+        }
+        body.dark-mode .sidebar ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.05); /* Lighter hover in dark mode */
+        }
+
+
         .sidebar ul li a.active {
-            background-color: var(--current-secondary-color);
+            background-color: var(--secondary-color);
             color: white;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle lift on hover/active */
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+            transform: translateX(-5px);
+        }
+        .sidebar ul li a.active i {
+            color: white;
         }
 
-        /* Main Content Area */
+
+        /* Mode Toggle */
+        .mode-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+            background-color: var(--bg-color);
+            padding: 8px;
+            border-radius: 50px;
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.08);
+            transition: background-color var(--transition-speed);
+        }
+        .mode-toggle button {
+            background: none;
+            border: none;
+            font-size: 1.6em;
+            cursor: pointer;
+            color: var(--text-color);
+            padding: 10px 18px;
+            border-radius: 40px;
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .mode-toggle button:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        body.dark-mode .mode-toggle button:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+        .mode-toggle button.active {
+            background-color: var(--secondary-color);
+            color: white;
+            box-shadow: 0 2px 10px rgba(74, 144, 226, 0.4);
+        }
+
+        /* Audio Controls */
+        .audio-controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        .audio-controls button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s ease, box-shadow 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .audio-controls button:hover {
+            background-color: var(--primary-color);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .audio-controls button.active {
+            background-color: var(--primary-color);
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+        audio { display: none; }
+
+        /* --- Main Content Area --- */
         .main-content {
-            flex-grow: 1; /* Allows it to take remaining space */
-            min-width: 700px; /* Minimum width for content to prevent squishing */
+            flex-grow: 1;
+            min-width: 600px;
+            max-width: 900px; /* Constrain max width for readability */
         }
 
         header {
-            background-color: var(--current-primary-color);
+            background-color: var(--primary-color);
             color: white;
-            padding: 20px 0;
+            padding: 30px 0;
             text-align: center;
-            box-shadow: var(--current-shadow);
-            border-radius: 12px;
-            margin-bottom: 20px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-light);
+            margin-bottom: 25px;
+            transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
         }
 
         header h1 {
             margin: 0;
-            font-size: 2.5em;
-            font-family: var(--heading-font);
+            font-size: 3em;
+            color: white;
+            border-bottom: none;
+        }
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
         }
 
         section {
-            background-color: var(--current-card-bg);
+            background-color: var(--card-bg);
             padding: 40px;
-            margin-bottom: 20px;
-            border-radius: 12px;
-            box-shadow: var(--current-shadow);
-            display: none; /* Hidden by default, shown by JS */
-            opacity: 0; /* For fade-in effect */
-            transform: translateY(20px); /* For slight slide-up effect */
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            margin-bottom: 25px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-light);
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease, background-color var(--transition-speed), box-shadow var(--transition-speed);
+            border: 1px solid var(--border-color);
         }
 
         section.active {
-            display: block; /* Show active section */
-            opacity: 1; /* Fade in */
-            transform: translateY(0); /* Slide up to position */
-        }
-
-        h2 {
-            font-family: var(--heading-font);
-            color: var(--current-primary-color);
-            font-size: 2em;
-            border-bottom: 2px solid var(--current-primary-color);
-            padding-bottom: 10px;
-            margin-bottom: 30px;
-            text-align: right;
-        }
-
-        h3 {
-            font-family: var(--heading-font);
-            color: var(--current-secondary-color);
-            font-size: 1.5em;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            text-align: right;
-        }
-
-        p {
-            font-size: 1.1em;
-            line-height: 1.8;
-            margin-bottom: 15px;
-        }
-
-        /* Buttons - Modern & Interactive */
-        .btn {
-            display: inline-block;
-            background-color: var(--current-accent-color);
-            color: var(--current-text-color); /* Text color adjusts with mode */
-            padding: 12px 25px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 1em;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-        }
-
-        .btn:hover {
-            background-color: var(--current-primary-color);
-            color: white; /* Text turns white on hover */
-            transform: translateY(-2px); /* Slight lift */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* More prominent shadow */
-        }
-
-        .btn-secondary {
-            background-color: var(--current-secondary-color);
-            color: white;
-        }
-        .btn-secondary:hover {
-            background-color: var(--current-primary-color);
-        }
-
-        /* Quiz Section Styling */
-        .quiz-question {
-            background-color: var(--current-border-color); /* Uses border color for subtle background */
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.05); /* Inner shadow for depth */
-        }
-        .quiz-question p {
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: var(--current-primary-color); /* Question text stands out */
-        }
-        .quiz-question label {
             display: block;
-            margin-bottom: 8px;
-            cursor: pointer;
-            padding: 10px 15px; /* More padding */
-            background-color: var(--current-card-bg);
-            border-radius: 5px;
-            transition: background-color 0.2s ease, box-shadow 0.2s ease;
-            border: 1px solid var(--current-border-color); /* Subtle border */
-        }
-        .quiz-question label:hover {
-            background-color: var(--light-bg); /* Use light background for hover to show difference */
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-        body.dark-mode .quiz-question label:hover {
-            background-color: #3f4a5a; /* Darker background for hover in dark mode */
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-        }
-        .quiz-question input[type="radio"]:checked + label {
-            background-color: var(--current-secondary-color);
-            color: white;
-            border-color: var(--current-secondary-color);
+            opacity: 1;
+            transform: translateY(0);
         }
 
-
-        /* Tasks Section Styling */
-        .tasks-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
+        /* --- Specific Section Styles --- */
+        /* Task Cards */
         .task-card {
-            background-color: var(--current-border-color);
+            background-color: var(--bg-color);
             padding: 25px;
-            border-radius: 10px;
-            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease, color 0.3s ease, opacity 0.3s ease;
-            position: relative; /* For badge positioning */
+            border-radius: 12px;
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.3s ease, color 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            border: 1px solid var(--border-color);
         }
         .task-card h4 {
-            color: var(--current-secondary-color);
             margin-top: 0;
             margin-bottom: 15px;
-            font-size: 1.3em;
         }
         .task-card p {
             margin-bottom: 15px;
@@ -357,276 +444,228 @@
             justify-content: space-between;
             margin-top: 20px;
         }
-        .task-card .task-completion input[type="checkbox"] {
-            transform: scale(1.5);
-            margin-left: 10px; /* Space for checkbox */
+        .task-card input[type="checkbox"] {
+            transform: scale(1.6); /* Larger checkbox */
+            margin-left: 15px;
             cursor: pointer;
-            accent-color: var(--current-primary-color); /* Checkbox color */
+            accent-color: var(--primary-color);
         }
         .task-card.completed {
-            opacity: 0.8; /* Slightly transparent when completed */
-            background-color: var(--current-primary-color);
+            background-color: var(--primary-color);
             color: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            border-color: var(--primary-color);
         }
-        .task-card.completed h4 {
+        .task-card.completed h4, .task-card.completed p {
             color: white;
         }
-        .task-card.completed p {
-            color: rgba(255, 255, 255, 0.9); /* Lighter text for completed tasks */
-        }
-
-        /* Completed Task Badge */
         .task-card.completed::after {
             content: "\f00c"; /* Font Awesome check icon */
             font-family: 'Font Awesome 6 Free';
             font-weight: 900;
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: var(--current-accent-color);
+            top: 15px;
+            right: 15px;
+            background-color: var(--accent-color);
             color: white;
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
+            width: 35px;
+            height: 35px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1em;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            font-size: 1.2em;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        .tasks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
         }
 
-        /* Score & Progress Styling */
+        /* Progress Bar */
         .progress-container {
-            background-color: var(--current-border-color);
-            padding: 25px;
-            border-radius: 10px;
+            background-color: var(--bg-color);
+            padding: 30px;
+            border-radius: 12px;
             margin-top: 20px;
-            box-shadow: var(--current-shadow);
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--border-color);
+            transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+        }
+        .progress-container h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: var(--text-color);
         }
         .progress-bar-wrapper {
             width: 100%;
-            background-color: var(--light-bg); /* Fixed light background for progress bar */
+            background-color: var(--border-color);
             border-radius: 15px;
             overflow: hidden;
-            height: 30px;
+            height: 35px;
             margin-top: 15px;
-            border: 1px solid var(--current-border-color);
-        }
-        body.dark-mode .progress-bar-wrapper {
-            background-color: #333; /* Darker background for progress bar in dark mode */
+            transition: background-color var(--transition-speed);
         }
         .progress-bar {
             height: 100%;
             width: 0%;
-            background-color: var(--current-primary-color);
+            background-color: var(--primary-color);
             border-radius: 15px;
             text-align: center;
             color: white;
-            line-height: 30px;
-            transition: width 0.5s ease-in-out;
+            line-height: 35px;
+            transition: width 0.6s ease-in-out;
             font-weight: bold;
             display: flex;
             align-items: center;
             justify-content: center;
-            white-space: nowrap; /* Prevent text wrap */
+            white-space: nowrap;
         }
         .score-info {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 10px;
+            margin-top: 15px;
+            font-size: 1.1em;
+            color: var(--text-color);
         }
 
-        /* Journal/Notebook Styling */
-        .notebook-container {
-            margin-top: 20px;
-        }
+        /* Journal */
         #journalEntry {
             width: 100%;
-            min-height: 300px;
-            padding: 15px;
-            border: 1px solid var(--current-border-color);
-            border-radius: 8px;
-            font-family: var(--body-font);
+            min-height: 350px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            font-family: var(--font-body);
             font-size: 1.1em;
-            background-color: var(--current-card-bg);
-            color: var(--current-text-color);
-            resize: vertical; /* Allow vertical resizing */
-            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
-            outline: none; /* Remove default focus outline */
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            resize: vertical;
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.05);
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color var(--transition-speed), color var(--transition-speed);
         }
         #journalEntry:focus {
-            border-color: var(--current-secondary-color);
-            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(33, 150, 243, 0.2); /* Blue glow on focus */
+            border-color: var(--secondary-color);
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1), 0 0 0 4px rgba(74, 144, 226, 0.2);
         }
         #saveJournalBtn {
-            margin-top: 15px;
+            margin-top: 20px;
         }
 
-        /* Nature Connection Section */
+        /* Nature Section */
         .nature-image-container {
             width: 100%;
-            height: 300px; /* Fixed height for consistency */
+            height: 380px;
             background-size: cover;
             background-position: center;
-            border-radius: 10px;
-            box-shadow: var(--current-shadow);
-            margin-bottom: 20px;
-            transition: background-image 1s ease-in-out; /* Smooth image transition */
+            border-radius: 15px;
+            box-shadow: var(--shadow-light);
+            margin-bottom: 25px;
+            transition: background-image 1.2s ease-in-out, box-shadow var(--transition-speed);
         }
         .nature-image-caption {
             text-align: center;
             font-style: italic;
-            color: var(--current-text-color);
-            margin-top: 10px;
+            color: var(--text-color);
+            margin-top: 15px;
+            font-size: 1.1em;
         }
-
-        /* Day/Night Mode Toggle */
-        .mode-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 30px;
-            background-color: var(--current-border-color);
-            padding: 8px;
-            border-radius: 50px; /* Pill shape */
-            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
-        }
-        .mode-toggle button {
-            background: none;
-            border: none;
-            font-size: 1.5em;
-            cursor: pointer;
-            color: var(--current-text-color);
-            padding: 8px 15px;
-            border-radius: 50px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        .mode-toggle button:hover {
-            background-color: rgba(0, 0, 0, 0.1);
-        }
-        .mode-toggle button.active {
-            background-color: var(--current-secondary-color);
-            color: white;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Audio Controls Styling */
-        .audio-controls {
-            display: flex;
-            flex-wrap: wrap; /* Allow wrapping of buttons */
-            justify-content: center;
-            gap: 15px;
+        #nextNatureImageBtn {
             margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid var(--current-border-color);
-        }
-        .audio-controls button {
-            background-color: var(--current-secondary-color);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.95em; /* Slightly smaller font for buttons */
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: background-color 0.3s ease, box-shadow 0.2s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .audio-controls button:hover {
-            background-color: var(--current-primary-color);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        .audio-controls button.active {
-            background-color: var(--current-primary-color);
-            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2); /* Inset shadow for active state */
         }
 
-        /* Hide audio elements visually */
-        audio {
-            display: none;
-        }
-
-
-        /* Dark Mode Specific Styles - Applies when body has .dark-mode class */
-        body.dark-mode {
-            --current-bg: var(--dark-bg);
-            --current-text-color: var(--dark-text-color);
-            --current-primary-color: var(--dark-primary-color);
-            --current-secondary-color: var(--dark-secondary-color);
-            --current-accent-color: var(--dark-accent-color);
-            --current-card-bg: var(--dark-card-bg);
-            --current-border-color: var(--dark-border-color);
-            --current-shadow: var(--dark-shadow);
-        }
-
-        /* Animations */
+        /* --- Animations --- */
         @keyframes fadeInScale {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
         }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
 
-        /* Responsive Adjustments */
-        @media (max-width: 992px) {
+        /* --- Responsive Design --- */
+        @media (max-width: 1024px) {
             .container {
                 flex-direction: column;
                 align-items: center;
+                padding: 0 15px;
             }
             .sidebar {
-                width: 90%;
-                position: static; /* Remove sticky on small screens */
-                margin-bottom: 20px;
+                width: 95%;
+                position: static;
+                margin-bottom: 25px;
+                max-width: 400px; /* Limit sidebar width on smaller screens */
             }
             .main-content {
-                min-width: unset; /* Remove min-width */
-                width: 100%;
+                min-width: unset;
+                width: 95%;
             }
             section {
-                padding: 20px;
-            }
-            .assessment-card {
                 padding: 30px;
+            }
+            header h1 {
+                font-size: 2.2em;
+            }
+            h2 {
+                font-size: 1.8em;
             }
         }
 
         @media (max-width: 768px) {
+            .assessment-card {
+                padding: 30px;
+                max-width: 95%;
+            }
+            .assessment-card h2 {
+                font-size: 2em;
+            }
+            .assessment-card p {
+                font-size: 1em;
+            }
+            .assessment-card .btn {
+                padding: 12px 30px;
+                font-size: 1.1em;
+            }
+            .sidebar h2 {
+                font-size: 1.6em;
+            }
+            .sidebar ul li a {
+                padding: 12px 15px;
+                font-size: 0.95em;
+            }
+            .sidebar ul li a i {
+                font-size: 1.1em;
+            }
+            .audio-controls button {
+                padding: 8px 12px;
+                font-size: 0.85em;
+            }
+            .task-card, .progress-container, #journalEntry, .nature-image-container {
+                padding: 20px;
+            }
+            .nature-image-container {
+                height: 280px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .assessment-card {
+                padding: 20px;
+            }
             header h1 {
                 font-size: 1.8em;
             }
             h2 {
-                font-size: 1.6em;
-            }
-            h3 {
-                font-size: 1.3em;
+                font-size: 1.5em;
             }
             .btn {
                 padding: 10px 20px;
                 font-size: 0.9em;
-            }
-            .audio-controls button {
-                font-size: 0.9em;
-                padding: 8px 12px;
-            }
-            .assessment-card {
-                padding: 20px;
-                max-width: 90%;
-            }
-            .assessment-card h2 {
-                font-size: 1.8em;
             }
         }
     </style>
@@ -640,38 +679,24 @@
             <form id="initialAssessmentForm">
                 <div class="quiz-question">
                     <p>1. في الأسبوع الماضي، كم مرة شعرت بالتوتر أو القلق الشديد؟</p>
-                    <label><input type="radio" name="initialQ1" value="3"> معظم الوقت</label>
+                    <label><input type="radio" name="initialQ1" value="3" required> معظم الوقت</label>
                     <label><input type="radio" name="initialQ1" value="2"> أحيانًا</label>
                     <label><input type="radio" name="initialQ1" value="1"> نادرًا</label>
                     <label><input type="radio" name="initialQ1" value="0"> أبدًا</label>
                 </div>
                 <div class="quiz-question">
                     <p>2. هل واجهت صعوبة في النوم أو البقاء نائمًا؟</p>
-                    <label><input type="radio" name="initialQ2" value="3"> كل ليلة تقريبًا</label>
+                    <label><input type="radio" name="initialQ2" value="3" required> كل ليلة تقريبًا</label>
                     <label><input type="radio" name="initialQ2" value="2"> عدة ليالٍ في الأسبوع</label>
                     <label><input type="radio" name="initialQ2" value="1"> ليلة أو ليلتين في الأسبوع</label>
                     <label><input type="radio" name="initialQ2" value="0"> لا أواجه صعوبة</label>
                 </div>
                 <div class="quiz-question">
                     <p>3. هل تشعر بالإرهاق أو نقص الطاقة بشكل متكرر؟</p>
-                    <label><input type="radio" name="initialQ3" value="3"> نعم، غالبًا</label>
+                    <label><input type="radio" name="initialQ3" value="3" required> نعم، غالبًا</label>
                     <label><input type="radio" name="initialQ3" value="2"> أحيانًا</label>
                     <label><input type="radio" name="initialQ3" value="1"> نادرًا</label>
                     <label><input type="radio" name="initialQ3" value="0"> أبدًا</label>
-                </div>
-                <div class="quiz-question">
-                    <p>4. هل تجد صعوبة في الاستمتاع بالأنشطة التي كنت تستمتع بها سابقًا؟</p>
-                    <label><input type="radio" name="initialQ4" value="3"> نعم، بشكل كبير</label>
-                    <label><input type="radio" name="initialQ4" value="2"> أحيانًا</label>
-                    <label><input type="radio" name="initialQ4" value="1"> نادرًا</label>
-                    <label><input type="radio" name="initialQ4" value="0"> لا أواجه صعوبة</label>
-                </div>
-                <div class="quiz-question">
-                    <p>5. هل شعرت بالوحدة أو العزلة الاجتماعية؟</p>
-                    <label><input type="radio" name="initialQ5" value="3"> معظم الوقت</label>
-                    <label><input type="radio" name="initialQ5" value="2"> أحيانًا</label>
-                    <label><input type="radio" name="initialQ5" value="1"> نادرًا</label>
-                    <label><input type="radio" name="initialQ5" value="0"> أبدًا</label>
                 </div>
                 <button type="submit" class="btn">ابدأ رحلتي</button>
             </form>
@@ -681,7 +706,8 @@
     <audio id="windSound" loop></audio>
     <audio id="nightSound" loop></audio>
 
-    <div class="container" style="display: none;"> <aside class="sidebar">
+    <div class="container">
+        <aside class="sidebar">
             <h2><i class="fas fa-home"></i> المنزل الآمن</h2>
             <nav>
                 <ul>
@@ -714,8 +740,8 @@
             <section id="welcome" class="active">
                 <h2>أهلاً بك في منزلك الآمن</h2>
                 <p>هنا تبدأ رحلة التعافي من صدمات الطفولة. نحن نؤمن بأن كل شخص يستحق الشفاء والعيش بحرية من آثار الماضي. هذا الدليل ليس بديلاً عن الدعم المهني، ولكنه أداة لمساعدتك على فهم نفسك بشكل أفضل، وتحديد مسار للشفاء يناسبك.</p>
-                <p>ابدأ بمهمة **"مهمة اليوم"** لتحديد المهام المناسبة لك.</p>
-                <button class="btn btn-secondary" onclick="showSection('daily-task')">انتقل إلى مهمة اليوم</button>
+                <p>ابدأ بـ **"مهمة اليوم"** لتحديد المهام المناسبة لك والمتابعة اليومية.</p>
+                <button class="btn btn-secondary" onclick="showSection('daily-task')"><i class="fas fa-arrow-left"></i> انتقل إلى مهمة اليوم</button>
             </section>
 
             <section id="daily-task">
@@ -729,7 +755,7 @@
                         <input type="checkbox" id="dailyTaskCheckbox">
                     </div>
                 </div>
-                <p style="margin-top: 20px;">**ملاحظة:** تظهر مهمة جديدة كل يوم. عد غداً لمهمة جديدة!</p>
+                <p style="margin-top: 20px; font-size: 0.95em; opacity: 0.8;">**ملاحظة:** تظهر مهمة جديدة كل يوم. عد غداً لمهمة جديدة!</p>
             </section>
 
             <section id="nature">
@@ -746,697 +772,316 @@
                 <form id="healingQuiz">
                     <div class="quiz-question">
                         <p>1. هل تجد صعوبة في الثقة بالآخرين، حتى المقربين منهم؟</p>
-                        <label><input type="radio" name="q1" value="1"> غالبًا ما أجد صعوبة.</label>
+                        <label><input type="radio" name="q1" value="1" required> غالبًا ما أجد صعوبة.</label>
                         <label><input type="radio" name="q1" value="0"> أحيانًا أجد صعوبة.</label>
                         <label><input type="radio" name="q1" value="-1"> نادرًا ما أجد صعوبة.</label>
                     </div>
                     <div class="quiz-question">
                         <p>2. هل تشعر أحيانًا أنك تعيش الماضي، أو أن الذكريات السيئة تسيطر عليك فجأة؟</p>
-                        <label><input type="radio" name="q2" value="1"> نعم، يحدث كثيرًا.</label>
+                        <label><input type="radio" name="q2" value="1" required> نعم، يحدث كثيرًا.</label>
                         <label><input type="radio" name="q2" value="0"> أحيانًا.</label>
                         <label><input type="radio" name="q2" value="-1"> نادرًا أو لا يحدث أبدًا.</label>
                     </div>
                     <div class="quiz-question">
                         <p>3. كيف تتعامل مع الغضب أو الحزن الشديد؟</p>
-                        <label><input type="radio" name="q3" value="1"> غالبًا ما أكبت مشاعري أو أنفجر.</label>
+                        <label><input type="radio" name="q3" value="1" required> غالبًا ما أكبت مشاعري أو أنفجر.</label>
                         <label><input type="radio" name="q3" value="0"> أحاول السيطرة عليها، لكنها صعبة أحيانًا.</label>
                         <label><input type="radio" name="q3" value="-1"> أستطيع التعبير عنها بطرق صحية.</label>
                     </div>
                     <div class="quiz-question">
                         <p>4. هل تشعر بالذنب أو الخجل بشأن أحداث ماضية، حتى لو لم تكن مسؤولاً عنها؟</p>
-                        <label><input type="radio" name="q4" value="1"> نعم، غالبًا ما أشعر بذلك.</label>
+                        <label><input type="radio" name="q4" value="1" required> نعم، غالبًا ما أشعر بذلك.</label>
                         <label><input type="radio" name="q4" value="0"> أحيانًا، لكن أحاول تجاوزها.</label>
                         <label><input type="radio" name="q4" value="-1"> لا أشعر بذلك غالبًا.</label>
                     </div>
                     <div class="quiz-question">
                         <p>5. هل تواجه صعوبة في وضع حدود صحية في علاقاتك؟</p>
-                        <label><input type="radio" name="q5" value="1"> نعم، أجد صعوبة كبيرة.</label>
+                        <label><input type="radio" name="q5" value="1" required> نعم، أجد صعوبة كبيرة.</label>
                         <label><input type="radio" name="q5" value="0"> أحيانًا، لكنني أعمل على ذلك.</label>
                         <label><input type="radio" name="q5" value="-1"> أستطيع وضع حدود واضحة.</label>
                     </div>
-                    <div class="quiz-question">
-                        <p>6. هل تلاحظ أنك تنجذب لأنماط علاقات غير صحية أو مدمرة؟</p>
-                        <label><input type="radio" name="q6" value="1"> نعم، يبدو أنني أكرر نفس الأخطاء.</label>
-                        <label><input type="radio" name="q6" value="0"> أحيانًا، لكنني أصبح أكثر وعيًا.</label>
-                        <label><input type="radio" name="q6" value="-1"> لا أجد صعوبة في اختيار العلاقات الصحية.</label>
+                    <button type="submit" class="btn">احصل على المهام المخصصة</button>
+                </form>
+            </section>
+
+            <section id="progress">
+                <h2><i class="fas fa-chart-line"></i> تتبع التقدم</h2>
+                <p>تابع تقدمك في مهام التشافي. كل مهمة تنجزها تساهم في نقاط التشافي. تذكر أن التشافي عملية مستمرة.</p>
+                <div class="progress-container">
+                    <h3>نقاط التشافي الكلية: <span id="totalHealingPoints">0</span></h3>
+                    <h3>نسبة التشافي التقديرية: <span id="healingPercentage">0%</span></h3>
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-bar" id="healingProgressBar"></div>
                     </div>
-                    <div class="quiz-question">
-                        <p>7. هل تعاني من مشاكل في النوم (أرق، كوابيس، استيقاظ متكرر)؟</p>
-                        <label><input type="radio" name="q7" value="1"> نعم، غالبًا.</label>
-                        <label><input type="radio" name="q7" value="0"> أحيانًا.</label>
-                        <label><input type="radio" name="q7" value="-1"> نادرًا أو لا أواجه مشاكل في النوم.</label>
+                    <div class="score-info">
+                        <span>أنجزت <span id="completedTasksCount">0</span> من <span id="totalTasksCount">0</span> مهام.</span>
+                        <button class="btn btn-secondary" onclick="resetAllProgress()"><i class="fas fa-redo"></i> إعادة تعيين كل التقدم</button>
                     </div>
-                    <div class="quiz-question">
-                        <p>8. هل تلجأ إلى آليات تأقلم غير صحية (مثل الإفراط في الأكل، تعاطي المواد، إدمان العمل) للتعامل مع التوتر؟</p>
-                        <label><input type="radio" name="q8" value="1"> نعم، هذه عادتي.</label>
-                        <label><input type="radio" name="q8" value="0"> أحيانًا، لكنني أحاول التوقف.</label>
-                        <label><input type="radio" name="q8" value="-1"> أتعامل مع التوتر بطرق صحية.</label>
+                </div>
+            </section>
+
+            <section id="journal">
+                <h2><i class="fas fa-book"></i> مذكرة التدوين</h2>
+                <p>هنا يمكنك تدوين أفكارك ومشاعرك وتجاربك. الكتابة تساعد على معالجة المشاعر واكتشاف الذات. سيتم حفظ ما تكتبه تلقائيًا في متصفحك.</p>
+                <div class="notebook-container">
+                    <textarea id="journalEntry" placeholder="ابدأ بالكتابة هنا..."></textarea>
+                    <button id="saveJournalBtn" class="btn"><i class="fas fa-save"></i> حفظ المذكرة</button>
+                    <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.7;">*ملاحظة: يتم حفظ المذكرة تلقائيًا في متصفحك. لن تكون متاحة على أجهزة أخرى.*</p>
+                </div>
+            </section>
+
+            <section id="resources">
+                <h2><i class="fas fa-hand-holding-heart"></i> مصادر الدعم والتعافي</h2>
+                <p>لا تتردد في طلب المساعدة. هناك العديد من الموارد المتاحة لمساعدتك في رحلة التعافي.</p>
+                <div class="tasks-grid">
+                    <div class="task-card">
+                        <h4>العلاج النفسي</h4>
+                        <p>العلاج السلوكي المعرفي (CBT)، العلاج الجدلي السلوكي (DBT)، وعلاج إزالة حساسية حركة العين وإعادة المعالجة (EMDR) هي بعض الأساليب الفعالة في معالجة صدمات الطفولة.</p>
+                        <a href="https://www.google.com/search?q=أطباء+نفسيون+متخصصون+في+صدمات+الطفولة" target="_blank" class="btn btn-secondary"><i class="fas fa-search"></i> ابحث عن معالج</a>
                     </div>
-                    <div class="quiz-question">
-                        <p>9. هل تشعر بانفصال عن مشاعرك أو عن الواقع أحيانًا؟</p>
-                        <label><input type="radio" name="q9" value="1"> نعم، أشعر بالخدر العاطفي.</label>
-                        <label><input type="radio" name="q9" value="0"> أحيانًا، في المواقف الصعبة.</label>
-                        <label><input type="radio" name="q9" value="-1"> نادرًا ما أشعر بذلك.</label>
+                    <div class="task-card">
+                        <h4>مجموعات الدعم</h4>
+                        <p>الانضمام إلى مجموعات الدعم مع أشخاص يشاركونك تجارب مماثلة يمكن أن يوفر شعورًا بالانتماء والتفهم والدعم المتبادل.</p>
+                        <a href="https://www.google.com/search?q=مجموعات+دعم+صدمات+الطفولة" target="_blank" class="btn btn-secondary"><i class="fas fa-users"></i> تعرف على المجموعات</a>
                     </div>
-                    <div class="quiz-question">
-                        <p>10. هل تجد صعوبة في الشعور بالأمان أو الاسترخاء في بيئات معينة؟</p>
-                        <label><input type="radio" name="q10" value="1"> نعم، أشعر بالتوتر غالبًا.</label>
-                        <label><input type="radio" name="q10" value="0"> أحيانًا، في الأماكن غير المألوفة.</label>
-                        <label><input type="radio" name="q10" value="-1"> أشعر بالأمان والاسترخاء بسهولة.</label>
+                    <div class="task-card">
+                        <h4>كتب وموارد إلكترونية</h4>
+                        <p>قراءة الكتب والمقالات المتخصصة حول صدمات الطفولة والتعافي منها يمكن أن تزيد من وعيك وتفهمك للموضوع.</p>
+                        <a href="https://www.google.com/search?q=كتب+عن+علاج+صدمات+الطفولة" target="_blank" class="btn btn-secondary"><i class="fas fa-book-open"></i> استكشف الموارد</a>
                     </div>
-                    <div class="quiz-question">
-                        <p>11. هل تعاني من مشاكل صحية جسدية مزمنة (مثل الصداع، مشاكل الجهاز الهضمي) بدون سبب عضوي واضح؟</p>
-                        <label><input type="radio" name="q11" value="1"> نعم، أعاني منها غالبًا.</label>
-                        <label><input type="radio" name="q11" value="0"> أحيانًا.</label>
-                        <label><input type="radio" name="q11" value="-1"> نادرًا أو لا أعاني منها.</label>
-                    </div>
-                    <div class="quiz-question">
-                        <p>12. هل تجد صعوبة في التسامح مع نفسك أو مع الآخرين على أخطاء الماضي؟</p>
-                        <label><input type="radio" name="q12" value="1"> نعم، أجد صعوبة كبيرة.</label>
-                        <label><input type="radio" name="q12" value="0"> أحيانًا، لكنني أحاول.</label>
-                        <label><input type="radio" name="q12" value="-1"> أستطيع التسامح بسهولة.</label>
-                    </div>
-                    <div class="quiz-question">
-                <p>13. هل تشعر أحيانًا أنك تستحق ما حدث لك في الماضي؟</p>
-                <label><input type="radio" name="q13" value="1"> نعم، هذا الشعور يراودني.</label>
-                <label><input type="radio" name="q13" value="0"> أحيانًا، لكنني أعلم أنه غير صحيح.</label>
-                <label><input type="radio" name="q13" value="-1"> لا، أعلم أنني لم أكن أستحق ذلك.</label>
-            </div>
-            <div class="quiz-question">
-                <p>14. هل تجد صعوبة في طلب المساعدة أو الدعم عندما تحتاج إليه؟</p>
-                <label><input type="radio" name="q14" value="1"> نعم، أجد الأمر محرجًا أو صعبًا.</label>
-                <label><input type="radio" name="q14" value="0"> أحيانًا، حسب الموقف.</label>
-                <label><input type="radio" name="q14" value="-1"> لا، أستطيع طلب المساعدة بسهولة.</label>
-            </div>
-            <div class="quiz-question">
-                <p>15. هل تشعر أن صدمات الطفولة لا تزال تؤثر بشكل كبير على حياتك اليومية؟</p>
-                <label><input type="radio" name="q15" value="1"> نعم، بشكل كبير جدًا.</label>
-                <label><input type="radio" name="q15" value="0"> نعم، بشكل متوسط.</label>
-                <label><input type="radio" name="q15" value="-1"> لا، تأثيرها محدود أو تلاشى.</label>
-            </div>
-            <button type="submit" class="btn">احصل على المهام المخصصة</button>
-        </form>
-    </section>
+                </div>
+            </section>
+        </main>
+    </div>
 
-    <section id="progress">
-        <h2><i class="fas fa-chart-line"></i> تتبع التقدم الأسبوعي</h2>
-        <p>تابع تقدمك في مهام التشافي. كل مهمة تنجزها تساهم في نقطة تشافي. تذكر أن التشافي عملية مستمرة.</p>
-        <div class="progress-container">
-            <h3>نقاط التشافي الكلية: <span id="totalHealingPoints">0</span></h3>
-            <h3>نسبة التشافي التقديرية: <span id="healingPercentage">0%</span></h3>
-            <div class="progress-bar-wrapper">
-                <div class="progress-bar" id="healingProgressBar"></div>
-            </div>
-            <div class="score-info">
-                <span>أنجزت <span id="completedTasksCount">0</span> من <span id="totalTasksCount">0</span> مهام.</span>
-                <button class="btn btn-secondary" onclick="resetWeeklyProgress()">إعادة تعيين التقدم الأسبوعي</button>
-            </div>
-        </div>
-    </section>
+    <script>
+        // --- Global Variables & Initial Setup ---
+        const sections = document.querySelectorAll('main section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const healingQuizForm = document.getElementById('healingQuiz');
+        const totalHealingPointsSpan = document.getElementById('totalHealingPoints');
+        const healingPercentageSpan = document.getElementById('healingPercentage');
+        const healingProgressBar = document.getElementById('healingProgressBar');
+        const completedTasksCountSpan = document.getElementById('completedTasksCount');
+        const totalTasksCountSpan = document.getElementById('totalTasksCount');
+        const journalEntry = document.getElementById('journalEntry');
+        const saveJournalBtn = document.getElementById('saveJournalBtn');
+        const dayModeBtn = document.getElementById('dayModeBtn');
+        const nightModeBtn = document.getElementById('nightModeBtn');
 
-    <section id="journal">
-        <h2><i class="fas fa-book"></i> مذكرة التدوين</h2>
-        <p>هنا يمكنك تدوين أفكارك ومشاعرك وتجاربك. الكتابة تساعد على معالجة المشاعر واكتشاف الذات. سيتم حفظ ما تكتبه تلقائيًا في متصفحك.</p>
-        <div class="notebook-container">
-            <textarea id="journalEntry" placeholder="ابدأ بالكتابة هنا..."></textarea>
-            <button id="saveJournalBtn" class="btn">حفظ المذكرة</button>
-            <p style="margin-top: 10px; font-size: 0.9em; color: gray;">*ملاحظة: يتم حفظ المذكرة تلقائيًا في متصفحك. لن تكون متاحة على أجهزة أخرى.*</p>
-        </div>
-    </section>
+        const windSound = document.getElementById('windSound');
+        const nightSound = document.getElementById('nightSound');
+        const playWindBtn = document.getElementById('playWindBtn');
+        const playNightBtn = document.getElementById('playNightBtn');
+        const stopAllAudioBtn = document.getElementById('stopAllAudioBtn');
 
-    <section id="resources">
-        <h2><i class="fas fa-hand-holding-heart"></i> مصادر الدعم والتعافي</h2>
-        <p>لا تتردد في طلب المساعدة. هناك العديد من الموارد المتاحة لمساعدتك في رحلة التعافي.</p>
-        <div class="tasks-grid">
-            <div class="task-card">
-                <h4>العلاج النفسي</h4>
-                <p>العلاج السلوكي المعرفي (CBT)، العلاج الجدلي السلوكي (DBT)، وعلاج إزالة حساسية حركة العين وإعادة المعالجة (EMDR) هي بعض الأساليب الفعالة في معالجة صدمات الطفولة.</p>
-                <a href="https://www.google.com/search?q=أطباء+نفسيون+متخصصون+في+صدمات+الطفولة" target="_blank" class="btn btn-secondary">ابحث عن معالج</a>
-            </div>
-            <div class="task-card">
-                <h4>مجموعات الدعم</h4>
-                <p>الانضمام إلى مجموعات الدعم مع أشخاص يشاركونك تجارب مماثلة يمكن أن يوفر شعورًا بالانتماء والتفهم والدعم المتبادل.</p>
-                <a href="https://www.google.com/search?q=مجموعات+دعم+صدمات+الطفولة" target="_blank" class="btn btn-secondary">تعرف على المجموعات</a>
-            </div>
-            <div class="task-card">
-                <h4>كتب وموارد إلكترونية</h4>
-                <p>قراءة الكتب والمقالات المتخصصة حول صدمات الطفولة والتعافي منها يمكن أن تزيد من وعيك وتفهمك للموضوع.</p>
-                <a href="https://www.google.com/search?q=كتب+عن+علاج+صدمات+الطفولة" target="_blank" class="btn btn-secondary">استكشف الموارد</a>
-            </div>
-        </div>
-    </section>
-</main>
-</div>
+        const natureImageContainer = document.getElementById('natureImageContainer');
+        const natureImageCaption = document.getElementById('natureImageCaption');
+        const nextNatureImageBtn = document.getElementById('nextNatureImageBtn');
 
-<script>
-// --- Global Variables & Initial Setup ---
-const sections = document.querySelectorAll('main section');
-const navLinks = document.querySelectorAll('.nav-link');
-const healingQuizForm = document.getElementById('healingQuiz');
-const assignedTasksDiv = document.getElementById('assignedTasks'); // This element is no longer used for daily tasks, but still for initial quiz tasks.
-const totalHealingPointsSpan = document.getElementById('totalHealingPoints');
-const healingPercentageSpan = document.getElementById('healingPercentage');
-const healingProgressBar = document.getElementById('healingProgressBar');
-const completedTasksCountSpan = document.getElementById('completedTasksCount');
-const totalTasksCountSpan = document.getElementById('totalTasksCount');
-const journalEntry = document.getElementById('journalEntry');
-const saveJournalBtn = document.getElementById('saveJournalBtn');
-const dayModeBtn = document.getElementById('dayModeBtn');
-const nightModeBtn = document.getElementById('nightModeBtn');
+        const assessmentOverlay = document.getElementById('assessment-overlay');
+        const initialAssessmentForm = document.getElementById('initialAssessmentForm');
 
-// Define audio elements
-const windSound = document.getElementById('windSound');
-const nightSound = document.getElementById('nightSound');
+        const currentDailyTaskCard = document.getElementById('currentDailyTaskCard');
+        const dailyTaskTitle = document.getElementById('dailyTaskTitle');
+        const dailyTaskDescription = document.getElementById('dailyTaskDescription');
+        const dailyTaskCheckbox = document.getElementById('dailyTaskCheckbox');
 
-const playWindBtn = document.getElementById('playWindBtn');
-const playNightBtn = document.getElementById('playNightBtn');
-const stopAllAudioBtn = document.getElementById('stopAllAudioBtn');
+        let initialHealingScore = 0;
+        let currentNatureImageIndex = 0;
+        let currentQuizScore = 0; // Score from the main healing quiz
 
-// Nature Section elements
-const natureImageContainer = document.getElementById('natureImageContainer');
-const natureImageCaption = document.getElementById('natureImageCaption');
-const nextNatureImageBtn = document.getElementById('nextNatureImageBtn');
+        // --- IMPORTANT: CONFIGURE YOUR MEDIA FILES HERE ---
+        // REPLACE these URLs with your actual hosted audio files.
+        // Example: If you host on your website, it could be "/audio/wind.mp3"
+        // Or if you use a cloud storage like Google Drive, ensure it's a direct public link.
+        windSound.src = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"; // Placeholder: Replace with actual wind sound URL
+        nightSound.src = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"; // Placeholder: Replace with actual night sound URL
 
-// Initial Assessment elements
-const assessmentOverlay = document.getElementById('assessment-overlay');
-const initialAssessmentForm = document.getElementById('initialAssessmentForm');
-let initialHealingScore = 0; // User's initial healing score from assessment
+        // Array of nature images for light mode (Daytime scenes)
+        // Ensure these links are direct links to images. Unsplash provides good ones.
+        const natureImagesLightMode = [
+            { src: 'https://images.unsplash.com/photo-1500964757637-acf1c26dfcd3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwxfHxzdW5zZXQlMjBsYWtlfGVufDB8fHx8MTcwMTU1NDg0MXww&ixlib=rb-4.0.3&q=80&w=1080', caption: 'بحيرة عند غروب الشمس' },
+            { src: 'https://images.unsplash.com/photo-1470770903676-69d8529db1c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwzMXx8Zm9yZXN0JTIwZGF5bGlnaXJ5fGVufDB8fHx8MTcwMTU1NDg0NHww&ixlib=rb-4.0.3&q=80&w=1080', caption: 'غابة خضراء مشمسة' },
+            { src: 'https://images.unsplash.com/photo-1470240237020-f5a045995584?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHw0OXx8bW91bnRhaW4lMjBzY2VuZXJ5fGVufDB8fHx8MTcwMTU1NDg0N3ww&ixlib=rb-4.0.3&q=80&w=1080', caption: 'جبال خلابة في وضح النهار' },
+            { src: 'https://images.unsplash.com/photo-1502652610530-5ff681a941a5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwxMjJ8fGJlYWNoJTIwZGF5bGlnaXJ5fGVufDB8fHx8MTcwNTU0MzczNnw1MjVlZGJjYzgzMzUxMjN8MA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'شاطئ مشمس وهادئ' },
+            { src: 'https://images.unsplash.com/photo-1472214343130-9b6348ef11c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwyMDF8fGZpZWxkJTIwb2YlMjBmbG93ZXJzfGVufDB8fHx8MTcwNTU0Mzg2N3ww&ixlib=rb-4.0.3&q=80&w=1080', caption: 'حقل من الزهور' }
+        ];
 
-// Daily Task elements
-const currentDailyTaskCard = document.getElementById('currentDailyTaskCard');
-const dailyTaskTitle = document.getElementById('dailyTaskTitle');
-const dailyTaskDescription = document.getElementById('dailyTaskDescription');
-const dailyTaskCheckbox = document.getElementById('dailyTaskCheckbox');
+        // Array of nature images for dark mode (Nighttime or calming scenes)
+        const natureImagesDarkMode = [
+            { src: 'https://images.unsplash.com/photo-1447012985160-c3d317058a5e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwyMHx8bmlnaHQlMjBmb3Jlc3R8ZW58MHx8fHwxNzAxNTU0OTE0fDA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'غابة ليلية تحت النجوم' },
+            { src: 'https://images.unsplash.com/photo-1464802686167-b933a6ce870b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwyOXx8bmlnaHQlMjBsYWtlfGVufDB8fHx8MTcwMTU1NDkxN3ww&ixlib=rb-4.0.3&q=80&w=1080', caption: 'بحيرة هادئة في الليل' },
+            { src: 'https://images.unsplash.com/photo-1475274474936-ce476318e807?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwyN3x8c3RhcnJ5JTIwbmlnaHR8ZW58MHx8fHwxNzA1NTQ0MDEyfDA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'سماء مرصعة بالنجوم' },
+            { src: 'https://images.unsplash.com/photo-1465101162482-6a4a6e38b0e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwxMzJ8fGZpcmVmbHklMjBuaWdodHxlbnwwfHx8fDE3MDU1NDQxMTJ8MA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'اليراعات في الليل' },
+            { src: 'https://images.unsplash.com/photo-1502652610530-5ff681a941a5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwyMDF8fG1vb25saWdodCUyMG9uJTIwb3JjZWFuJTIwYXIlMjBub29ufGVufDB8fHx8MTcwNTU0NDI2MXww&ixlib=rb-4.0.3&q=80&w=1080', caption: 'ضوء القمر على المحيط' }
+        ];
 
-// Task definitions (can be expanded)
-const initialQuizTasks = { // These are tasks based on the initial comprehensive quiz
-    general: [
-        { id: 'task_quiz_1', text: 'مارس التنفس الواعي لمدة 5 دقائق يوميًا.' },
-        { id: 'task_quiz_2', text: 'اكتب في المذكرة عن مشاعرك مرة واحدة على الأقل هذا الأسبوع.' },
-        { id: 'task_quiz_3', text: 'تواصل مع صديق مقرب أو فرد من العائلة واقضِ وقتًا ممتعًا.' },
-        { id: 'task_quiz_4', text: 'خصص 30 دقيقة لنشاط تستمتع به ويجلب لك الهدوء.' },
-        { id: 'task_quiz_5', text: 'تعلم معلومة جديدة عن صدمات الطفولة أو آليات التأقلم الصحية.' },
-    ],
-    females: [
-        { id: 'task_quiz_F1', text: 'تدربي على قول "لا" لطلب لا تشعرين بالراحة تجاهه.' },
-        { id: 'task_quiz_F2', text: 'مارسي التأمل الموجه لتعزيز تقدير الذات.' },
-        { id: 'task_quiz_F3', text: 'شاركي مشاعر الخجل أو الذنب مع شخص تثقين به أو معالج.' },
-        { id: 'task_quiz_F4', text: 'دللي نفسك بنشاط بسيط (مثل حمام دافئ، قراءة كتاب، مشاهدة فيلم).' },
-        { id: 'task_quiz_F5', text: 'ابحثي عن مجموعة دعم نسائية عبر الإنترنت أو في مجتمعك.' },
-    ],
-    males: [
-        { id: 'task_quiz_M1', text: 'اسمح لنفسك بالشعور بالحزن أو الغضب دون الحكم عليه.' },
-        { id: 'task_quiz_M2', text: 'مارس نشاطًا بدنيًا قويًا لتفريغ الطاقة السلبية.' },
-        { id: 'task_quiz_M3', text: 'تحدث مع مرشد أو ذكر موثوق به عن تحدياتك.' },
-        { id: 'task_quiz_M4', text: 'حدد هدفًا صغيرًا وحققه لتعزيز إحساسك بالإنجاز والقوة.' },
-        { id: 'task_quiz_M5', text: 'تحدّى فكرة "الرجل القوي الذي لا يبكي" بداخلك.' },
-    ]
-};
+        // Daily Task definitions (30 unique tasks for a month cycle)
+        const dailyTasks = [
+            { id: 'dt1', title: "تأمل التنفس الواعي", description: "اغمض عينيك وركز على أنفاسك لمدة 5 دقائق. لاحظ كيف يدخل ويخرج الهواء من جسدك دون الحكم." },
+            { id: 'dt2', title: "تمرين الامتنان", description: "اكتب 3 أشياء تشعر بالامتنان لوجودها في حياتك اليوم، مهما كانت صغيرة." },
+            { id: 'dt3', title: "التواصل البناء", description: "تحدث مع شخص تثق به (صديق، فرد عائلة) عن شيء إيجابي حدث لك اليوم." },
+            { id: 'dt4', title: "استكشاف جديد", description: "استمع إلى أغنية أو قطعة موسيقية جديدة تثير فيك مشاعر إيجابية." },
+            { id: 'dt5', title: "نشاط بدني خفيف", description: "اذهب في نزهة قصيرة لمدة 15-20 دقيقة في الهواء الطلق، ولاحظ التفاصيل من حولك." },
+            { id: 'dt6', title: "لحظة استرخاء", description: "خصص 10 دقائق لتناول مشروبك المفضل ببطء وانتباه كامل، واستمتع بكل رشفة." },
+            { id: 'dt7', title: "التعبير الفني", description: "ارسم شيئًا بسيطًا، أو قم بتلوين رسمة، أو حتى اكتب جملة إبداعية. لا يهم مدى جودتها." },
+            { id: 'dt8', title: "تنظيف مساحة صغيرة", description: "نظم درجًا واحدًا أو جزءًا صغيرًا من غرفتك. الترتيب الخارجي يساعد على الترتيب الداخلي." },
+            { id: 'dt9', title: "التواصل مع الطبيعة (نشاط)", description: "اجلس في مكان طبيعي (حديقة، شرفة) ولاحظ 5 أشياء يمكنك رؤيتها، 4 أشياء يمكنك سماعها، 3 أشياء يمكنك شمها، 2 يمكنك لمسها، 1 يمكنك تذوقها (إن أمكن)." },
+            { id: 'dt10', title: "تحديد هدف صغير", description: "حدد هدفًا صغيرًا جدًا يمكنك تحقيقه اليوم وشجّع نفسك على إنجازه." },
+            { id: 'dt11', title: "تأكيد ذاتي إيجابي", description: "انظر في المرآة وقل لنفسك 3 تأكيدات إيجابية (مثال: 'أنا قوي'، 'أنا أستحق الحب')." },
+            { id: 'dt12', title: "مشاهدة ملهمة", description: "شاهد فيديو قصيرًا ملهمًا أو وثائقيًا عن موضوع يثير اهتمامك (بعيدًا عن الأخبار السلبية)." },
+            { id: 'dt13', title: "التعلم المستمر", description: "اقرأ مقالًا أو فصلاً قصيرًا من كتاب عن موضوع ينمي وعيك الذاتي أو مهارة جديدة." },
+            { id: 'dt14', title: "اللطف العشوائي", description: "قم بعمل لطيف بسيط لشخص آخر، حتى لو كان غريبًا (مثال: ابتسامة، كلمة شكر، فتح باب)." },
+            { id: 'dt15', title: "تمرين الاسترخاء العضلي التدريجي", description: "قم بشد ثم إرخاء مجموعة عضلية واحدة تلو الأخرى في جسدك، من أصابع القدم وحتى الرأس." },
+            { id: 'dt16', title: "إدارة الوقت الرقمي", description: "حدد ساعة واحدة اليوم تكون فيها بعيدًا عن الشاشات (الهاتف، التلفاز، الكمبيوتر)." },
+            { id: 'dt17', title: "التدوين الحر", description: "اكتب بحرية في مذكرتك لمدة 10 دقائق عن أي شيء يخطر ببالك دون قيود أو أحكام." },
+            { id: 'dt18', title: "تحضير وجبة صحية", description: "قم بإعداد وجبة واحدة صحية ومغذية لنفسك، واستمتع بعملية الطهي." },
+            { id: 'dt19', title: "الاستماع النشط", description: "عند التحدث مع شخص ما، ركز بالكامل على ما يقوله دون مقاطعة أو التفكير في ردك." },
+            { id: 'dt20', title: "تخيل مكان آمن", description: "اغمض عينيك وتخيل مكانًا تشعر فيه بالأمان التام والراحة المطلقة. اجعل التفاصيل حية قدر الإمكان." },
+            { id: 'dt21', title: "مراجعة اليوم", description: "قبل النوم، فكر في 3 أشياء سارت على ما يرام اليوم، مهما كانت صغيرة." },
+            { id: 'dt22', title: "إعطاء الأولوية للنوم", description: "حاول النوم والاستيقاظ في نفس الوقت اليوم للحفاظ على جدول نوم منتظم." },
+            { id: 'dt23', title: "تمرين الحدود", description: "مارس قول 'لا' بلطف وحزم لطلب لا ترغب في القيام به، حتى لو كان طلبًا وهميًا." },
+            { id: 'dt24', title: "العلاج بالموسيقى", description: "قم بتشغيل قائمة تشغيل من الموسيقى الهادئة والمريحة التي تساعدك على الاسترخاء." },
+            { id: 'dt25', title: "التعاطف مع الذات", description: "اكتب رسالة صغيرة لنفسك وكأنك تكتب لصديق يمر بوقت عصيب، وقدم لنفسك الدعم والتعاطف." },
+            { id: 'dt26', title: "التخلص من الإلهاء", description: "أغلق جميع الإشعارات على هاتفك لمدة ساعة واحدة على الأقل." },
+            { id: 'dt27', title: "التواصل غير اللفظي", description: "تبادل ابتسامة أو إيماءة ودودة مع شخص ما دون الحاجة إلى الكلام." },
+            { id: 'dt28', title: "تقييم العواطف", description: "عندما تشعر بمشاعر قوية، حاول تسميتها (غضب، حزن، فرح) وتحديد سببها دون حكم." },
+            { id: 'dt29', title: "فحص الجسد", description: "اجلس أو استلقِ وركز على أجزاء مختلفة من جسدك. لاحظ أي توتر أو راحة في كل منطقة." },
+            { id: 'dt30', title: "الاحتفال بالتقدم", description: "راجع المهام التي أنجزتها خلال الشهر واحتفل بتقدمك، مهما كان بسيطًا. أنت تستحق ذلك!" }
+        ];
 
-const dailyTasks = [
-    { title: "مهمة اليوم 1", description: "اكتب 3 أشياء أنت ممتن لها اليوم." },
-    { title: "مهمة اليوم 2", description: "خصص 10 دقائق للتأمل في مكان هادئ." },
-    { title: "مهمة اليوم 3", description: "تواصل مع شخص قريب لم تتحدث إليه منذ فترة." },
-    { title: "مهمة اليوم 4", description: "اقرأ فصلاً من كتاب ملهم." },
-    { title: "مهمة اليوم 5", description: "مارس تمرينًا خفيفًا مثل المشي لمدة 20 دقيقة." },
-    { title: "مهمة اليوم 6", description: "اكتب رسالة اعتذار (لنفسك أو لشخص آخر)." },
-    { title: "مهمة اليوم 7", description: "حدد هدفًا صغيرًا قابل للتحقيق لهذا الأسبوع." },
-    { title: "مهمة اليوم 8", description: "شاهد فيلمًا أو مسلسلًا كوميديًا يجعلك تضحك." },
-    { title: "مهمة اليوم 9", description: "جرب وصفة طعام جديدة ومختلفة." },
-    { title: "مهمة اليوم 10", description: "استمع إلى بودكاست عن التنمية الذاتية." },
-    { title: "مهمة اليوم 11", description: "ارسم شيئًا بسيطًا أو لون صفحة." },
-    { title: "مهمة اليوم 12", description: "رتّب جزءًا صغيرًا من منزلك (درج، خزانة)." },
-    { title: "مهمة اليوم 13", description: "اسمح لنفسك بأخذ قسط من الراحة دون الشعور بالذنب." },
-    { title: "مهمة اليوم 14", description: "اكتب قائمة بالأشياء التي تود تحقيقها في الشهر القادم." },
-    { title: "مهمة اليوم 15", description: "مارس اليوجا أو تمارين الإطالة لمدة 15 دقيقة." },
-    { title: "مهمة اليوم 16", description: "اكتشف أغنية جديدة أو نوع موسيقي جديد." },
-    { title: "مهمة اليوم 17", description: "تحدث مع شخص غريب بطريقة ودودة (في متجر، مقهى)." },
-    { title: "مهمة اليوم 18", description: "اكتب عن أحد أحلامك أو طموحاتك." },
-    { title: "مهمة اليوم 19", description: "تذكر 3 إنجازات صغيرة قمت بها في حياتك." },
-    { title: "مهمة اليوم 20", description: "تطوع بوقتك أو ساعد شخصًا محتاجًا." },
-    { title: "مهمة اليوم 21", description: "شاهد وثائقيًا عن الطبيعة أو الحيوانات." },
-    { title: "مهمة اليوم 22", description: "أرسل رسالة شكر لشخص أثر في حياتك." },
-    { title: "مهمة اليوم 23", description: "جرب أن تكون حاضرًا بشكل كامل في لحظة واحدة (مثال: أثناء تناول الطعام)." },
-    { title: "مهمة اليوم 24", description: "تخلص من شيء قديم لا تحتاجه في منزلك." },
-    { title: "مهمة اليوم 25", description: "اذهب في نزهة قصيرة في الهواء الطلق." },
-    { title: "مهمة اليوم 26", description: "دون 3 صفات إيجابية تحبها في نفسك." },
-    { title: "مهمة اليوم 27", description: "شاهد شروق الشمس أو غروبها." },
-    { title: "مهمة اليوم 28", description: "جرب تمرينًا رياضيًا جديدًا أو نشاطًا بدنيًا." },
-    { title: "مهمة اليوم 29", description: "أعد تواصلًا مع هواية قديمة كنت تستمتع بها." },
-    { title: "مهمة اليوم 30", description: "راجع تقدمك خلال الشهر واحتفل بإنجازاتك." }
-];
+        // --- Utility Functions ---
 
-const natureImagesLightMode = [
-    { src: 'https://images.unsplash.com/photo-1500964757637-acf1c26dfcd3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwxfHxzdW5zZXQlMjBsYWtlfGVufDB8fHx8MTcwMTU1NDg0MXww&ixlib=rb-4.0.3&q=80&w=1080', caption: 'بحيرة عند غروب الشمس' },
-    { src: 'https://images.unsplash.com/photo-1470770903676-69d8529db1c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwzMXx8Zm9yZXN0JTIwZGF5bGlnaHR8ZW58MHx8fHwxNzAxNTU0ODQ0fDA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'غابة خضراء مشمسة' },
-    { src: 'https://images.unsplash.com/photo-1470240237020-f5a045995584?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHw0OXx8bW91bnRhaW4lMjBzY2VuZXJ5fGVufDB8fHx8MTcwMTU1NDg0N3ww&ixlib=rb-4.0.3&q=80&w=1080', caption: 'جبال خلابة في وضح النهار' },
-    { src: 'https://images.unsplash.com/photo-1502652610530-5ff681a941a5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwxMjJ8fGJlYWNoJTIwZGF5bGlnaHR8ZW58MHx8fHwxNzA1NTQzNzQ4fDA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'شاطئ مشمس وهادئ' },
-    { src: 'https://images.unsplash.com/photo-1472214343130-9b6348ef11c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwyMDF8fGZpZWxkJTIwb2YlMjBmbG93ZXJzfGVufDB8fHx8MTcwNTU0Mzg2N3ww&ixlib=rb-4.0.3&q=80&w=1080', caption: 'حقل من الزهور' }
-];
-
-const natureImagesDarkMode = [
-    { src: 'https://images.unsplash.com/photo-1447012985160-c3d317058a5e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwyMHx8bmlnaHQlMjBmb3Jlc3R8ZW58MHx8fHwxNzAxNTU0OTE0fDA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'غابة ليلية تحت النجوم' },
-    { src: 'https://images.unsplash.com/photo-1464802686167-b933a6ce870b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwyOXx8bmlnaHQlMjBsYWtlfGVufDB8fHx8MTcwMTU1NDkxN3ww&ixlib=rb-4.0.3&q=80&w=1080', caption: 'بحيرة هادئة في الليل' },
-    { src: 'https://images.unsplash.com/photo-1475274474936-ce476318e807?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwyN3x8c3RhcnJ5JTIwbmlnaHR8ZW58MHx8fHwxNzA1NTQ0MDEyfDA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'سماء مرصعة بالنجوم' },
-    { src: 'https://images.unsplash.com/photo-1465101162482-6a4a6e38b0e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwxMzJ8fGZpcmVmbHklMjBuaWdodHxlbnwwfHx8fDE3MDU1NDQxMTJ8MA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'اليراعات في الليل' },
-    { src: 'https://images.unsplash.com/photo-1502652610530-5ff681a941a5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwyMDF8fG1vb25saWdodCUyMG9uJTIwb3JjZWFuJTIwYXIlMjBub29ufGVufDB8fHx8MTcwNTU0NDI2MXww&ixlib=rb-4.0.3&q=80&w=1080', caption: 'ضوء القمر على المحيط' }
-];
-
-
-let currentNatureImageIndex = 0;
-let currentAssignedQuizTasks = []; // To store tasks assigned from the comprehensive quiz
-let completedQuizTasks = {}; // To store completion status for each quiz task { taskId: true/false }
-let currentWeeklyScore = 0;
-const MAX_WEEKLY_SCORE = 100; // Example max score for calculating percentage
-
-// --- Utility Functions ---
-
-// Function to show/hide sections
-function showSection(id) {
-    sections.forEach(section => {
-        section.classList.remove('active');
-    });
-    document.getElementById(id).classList.add('active');
-
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === '#' + id) {
-            link.classList.add('active');
+        // Function to get the day number within the year (1 to 365/366)
+        function getDayOfYear() {
+            const now = new Date();
+            const start = new Date(now.getFullYear(), 0, 0); // January 1st of current year
+            const diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
+            const oneDay = 1000 * 60 * 60 * 24;
+            return Math.floor(diff / oneDay);
         }
-    });
 
-    if (id === 'nature') {
-        renderNatureImage();
-    }
-}
+        // Function to show/hide main sections
+        function showSection(id) {
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(id).classList.add('active');
 
-// --- Initial Assessment Logic ---
-initialAssessmentForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    let score = 0;
-    const formData = new FormData(initialAssessmentForm);
-    for (let [name, value] of formData.entries()) {
-        score += parseInt(value);
-    }
-    initialHealingScore = score; // Store initial score
-    localStorage.setItem('initialHealingScore', initialHealingScore); // Save to local storage
-    localStorage.setItem('assessmentCompleted', 'true'); // Mark assessment as completed
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + id) {
+                    link.classList.add('active');
+                }
+            });
 
-    assessmentOverlay.style.opacity = '0';
-    setTimeout(() => {
-        assessmentOverlay.style.display = 'none';
-        document.querySelector('.container').style.display = 'flex'; // Show main content
-        // Optionally, assign initial quiz tasks based on this score here
-        // assignHealingTasks(initialHealingScore); // Uncomment if you want to assign tasks based on initial assessment
-        showSection('welcome'); // Go to welcome page after assessment
-    }, 500);
-});
-
-// --- Quiz (Comprehensive) Section Logic ---
-healingQuizForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    let userHealingScore = 0;
-    const formData = new FormData(healingQuizForm);
-    const answers = {};
-    for (let [name, value] of formData.entries()) {
-        answers[name] = parseInt(value);
-        userHealingScore += parseInt(value);
-    }
-
-    console.log("Quiz Score:", userHealingScore); // Debugging
-
-    assignHealingQuizTasks(userHealingScore); // Assign tasks based on this quiz
-    showSection('progress'); // Show progress section after quiz, where these tasks are tracked
-});
-
-function assignHealingQuizTasks(score) {
-    let tasksToAssign = [...initialQuizTasks.general]; // Start with general tasks
-
-    // Example: Assign gender-specific tasks based on a prompt (or an actual selection in a real app)
-    const userGender = prompt("الرجاء إدخال جنسك (ذكر/أنثى) لتخصيص المهام في الاختبار الشامل:", "ذكر").trim();
-    if (userGender === "أنثى") {
-        tasksToAssign = tasksToAssign.concat(initialQuizTasks.females);
-    } else if (userGender === "ذكر") {
-        tasksToAssign = tasksToAssign.concat(initialQuizTasks.males);
-    }
-
-    currentAssignedQuizTasks = tasksToAssign;
-    saveQuizTasksToLocalStorage(); // Save these tasks
-
-    // Render the assigned tasks (for the comprehensive quiz) in the progress section (or a dedicated tasks section if you add one)
-    renderQuizTasksForProgress();
-    updateProgressDisplay();
-}
-
-function renderQuizTasksForProgress() {
-    // This function will render tasks from the comprehensive quiz
-    // For now, these are not directly displayed in a 'tasks' section but impact progress.
-    // If you want a dedicated section for these, you'd create a new section for 'المهام الشاملة'
-    // and render them there, similar to how daily tasks are rendered.
-    // For simplicity, we are just managing their state for the progress bar.
-    console.log("Comprehensive Quiz Tasks assigned:", currentAssignedQuizTasks);
-}
-
-function updateQuizTaskCompletion(taskId, isChecked) {
-    completedQuizTasks[taskId] = isChecked;
-    updateProgressDisplay();
-    saveQuizTasksToLocalStorage();
-}
-
-function saveQuizTasksToLocalStorage() {
-    localStorage.setItem('assignedQuizTasks', JSON.stringify(currentAssignedQuizTasks));
-    localStorage.setItem('completedQuizTasks', JSON.stringify(completedQuizTasks));
-}
-
-function loadQuizTasksFromLocalStorage() {
-    const savedAssignedQuizTasks = localStorage.getItem('assignedQuizTasks');
-    const savedCompletedQuizTasks = localStorage.getItem('completedQuizTasks');
-
-    if (savedAssignedQuizTasks) {
-        currentAssignedQuizTasks = JSON.parse(savedAssignedQuizTasks);
-    } else {
-        // Default to general tasks if no quiz tasks were assigned yet
-        currentAssignedQuizTasks = [...initialQuizTasks.general];
-    }
-
-    if (savedCompletedQuizTasks) {
-        completedQuizTasks = JSON.parse(savedCompletedTasks);
-    }
-}
-
-
-// --- Daily Task Logic ---
-function getDayOfYear() {
-    const now = new Date();
-    const start = new Date(now.getFullYear(), 0, 0);
-    const diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
-    const oneDay = 1000 * 60 * 60 * 24;
-    return Math.floor(diff / oneDay);
-}
-
-function getDailyTask() {
-    const dayIndex = (getDayOfYear() - 1) % dailyTasks.length; // -1 because array is 0-indexed
-    return dailyTasks[dayIndex];
-}
-
-function renderDailyTask() {
-    const task = getDailyTask();
-    dailyTaskTitle.textContent = task.title;
-    dailyTaskDescription.textContent = task.description;
-
-    const today = new Date().toDateString();
-    const savedDailyTask = JSON.parse(localStorage.getItem('dailyTaskStatus') || '{}');
-
-    if (savedDailyTask.date === today) {
-        dailyTaskCheckbox.checked = savedDailyTask.completed;
-    } else {
-        dailyTaskCheckbox.checked = false; // New day, uncheck
-        localStorage.setItem('dailyTaskStatus', JSON.stringify({ date: today, completed: false }));
-    }
-    updateDailyTaskCardStyle(); // Apply completed style if already checked
-}
-
-function updateDailyTaskCardStyle() {
-    if (dailyTaskCheckbox.checked) {
-        currentDailyTaskCard.classList.add('completed');
-    } else {
-        currentDailyTaskCard.classList.remove('completed');
-    }
-}
-
-dailyTaskCheckbox.addEventListener('change', function() {
-    const today = new Date().toDateString();
-    localStorage.setItem('dailyTaskStatus', JSON.stringify({
-        date: today,
-        completed: this.checked
-    }));
-    updateDailyTaskCardStyle();
-    updateProgressDisplay(); // Update progress when daily task changes
-});
-
-
-// --- Progress Tracking (Combines all tasks now) ---
-function updateProgressDisplay() {
-    let totalPossiblePoints = 0;
-    let completedPoints = 0;
-
-    // Points from Initial Quiz Tasks (if assigned/tracked here)
-    if (currentAssignedQuizTasks && currentAssignedQuizTasks.length > 0) {
-        totalPossiblePoints += currentAssignedQuizTasks.length;
-        currentAssignedQuizTasks.forEach(task => {
-            if (completedQuizTasks[task.id]) {
-                completedPoints++;
+            if (id === 'nature') {
+                renderNatureImage();
             }
-        });
-    }
-
-    // Points from Daily Task
-    const savedDailyTask = JSON.parse(localStorage.getItem('dailyTaskStatus') || '{}');
-    if (savedDailyTask.completed) {
-        completedPoints++;
-    }
-    totalPossiblePoints++; // Daily task always counts as one possible point
-
-    // You can adjust how each type of task contributes to total score if needed.
-    // For simplicity, each task (daily or quiz-based) counts as 1 point.
-
-    currentWeeklyScore = (completedPoints / totalPossiblePoints) * MAX_WEEKLY_SCORE || 0;
-    currentWeeklyScore = Math.min(currentWeeklyScore, MAX_WEEKLY_SCORE); // Cap at 100%
-
-    totalHealingPointsSpan.textContent = completedPoints;
-    healingPercentageSpan.textContent = `${Math.round(currentWeeklyScore)}%`;
-    healingProgressBar.style.width = `${Math.round(currentWeeklyScore)}%`;
-    completedTasksCountSpan.textContent = completedPoints;
-    totalTasksCountSpan.textContent = totalPossiblePoints; // Show total current possible tasks
-}
-
-function resetWeeklyProgress() {
-    if (confirm("هل أنت متأكد أنك تريد إعادة تعيين تقدم المهام الأسبوعي؟ سيتم إعادة تعيين جميع المهام.")) {
-        completedQuizTasks = {}; // Reset comprehensive quiz tasks
-        localStorage.removeItem('completedQuizTasks');
-
-        const today = new Date().toDateString();
-        localStorage.setItem('dailyTaskStatus', JSON.stringify({ date: today, completed: false })); // Reset daily task
-        
-        currentWeeklyScore = 0;
-        
-        renderQuizTasksForProgress(); // Re-render if necessary (mostly for internal state)
-        renderDailyTask(); // Reset daily task display
-        updateProgressDisplay();
-        alert("تم إعادة تعيين تقدم المهام الأسبوعي بنجاح.");
-    }
-}
-
-
-// --- Local Storage Management ---
-function saveTasksToLocalStorage() {
-    // This function is still generic, might be replaced by specific saves
-    // For daily tasks, we use 'dailyTaskStatus'
-    // For comprehensive quiz tasks, we use 'assignedQuizTasks' and 'completedQuizTasks'
-}
-
-function loadTasksFromLocalStorage() {
-    loadQuizTasksFromLocalStorage();
-    renderDailyTask(); // Load and display daily task
-}
-
-// --- Journal Functionality ---
-function loadJournalEntry() {
-    const savedEntry = localStorage.getItem('journalEntry');
-    if (savedEntry) {
-        journalEntry.value = savedEntry;
-    }
-}
-
-function saveJournalEntry() {
-    localStorage.setItem('journalEntry', journalEntry.value);
-    alert('تم حفظ المذكرة بنجاح!');
-}
-
-journalEntry.addEventListener('input', () => {
-         // Optional: Auto-save on input with a debounce
-         // This prevents saving too frequently while typing.
-         clearTimeout(journalEntry.timeout);
-         journalEntry.timeout = setTimeout(() => {
-             localStorage.setItem('journalEntry', journalEntry.value);
-             console.log("Journal auto-saved!");
-         }, 1000); // Save after 1 second of no typing
-});
-saveJournalBtn.addEventListener('click', saveJournalEntry);
-
-// --- Nature Connection Section Logic ---
-function renderNatureImage() {
-    const isDarkMode = document.body.classList.contains('dark-mode');
-    const imagesArray = isDarkMode ? natureImagesDarkMode : natureImagesLightMode;
-
-    // Ensure index loops around
-    currentNatureImageIndex = currentNatureImageIndex % imagesArray.length;
-    if (currentNatureImageIndex < 0) { // Handle negative if array length is 0 (shouldn't happen with fixed arrays)
-        currentNatureImageIndex = imagesArray.length - 1;
-    }
-
-    const image = imagesArray[currentNatureImageIndex];
-    natureImageContainer.style.backgroundImage = `url('${image.src}')`;
-    natureImageCaption.textContent = image.caption;
-}
-
-nextNatureImageBtn.addEventListener('click', () => {
-    currentNatureImageIndex++;
-    renderNatureImage();
-});
-
-
-// --- Day/Night Mode & Sound ---
-function stopAllAudio() {
-    windSound.pause();
-    windSound.currentTime = 0; // Reset audio to start
-    nightSound.pause();
-    nightSound.currentTime = 0; // Reset audio to start
-
-    // Remove active class from audio buttons if any
-    playWindBtn.classList.remove('active');
-    playNightBtn.classList.remove('active');
-}
-
-function setLightMode() {
-    document.body.classList.remove('dark-mode');
-    dayModeBtn.classList.add('active');
-    nightModeBtn.classList.remove('active');
-    localStorage.setItem('theme', 'light');
-    stopAllAudio();
-    // Play wind sound automatically when switching to light mode
-    if (windSound.readyState >= 2) { // Check if audio is ready to play
-        windSound.play();
-        playWindBtn.classList.add('active');
-    } else {
-        windSound.addEventListener('canplaythrough', function handler() {
-            windSound.play();
-            playWindBtn.classList.add('active');
-            windSound.removeEventListener('canplaythrough', handler);
-        });
-    }
-    renderNatureImage(); // Update nature image for light mode
-}
-
-function setDarkMode() {
-    document.body.classList.add('dark-mode');
-    nightModeBtn.classList.add('active');
-    dayModeBtn.classList.remove('active');
-    localStorage.setItem('theme', 'dark');
-    stopAllAudio();
-    // Play night sound automatically when switching to dark mode
-    if (nightSound.readyState >= 2) { // Check if audio is ready to play
-        nightSound.play();
-        playNightBtn.classList.add('active');
-    } else {
-        nightSound.addEventListener('canplaythrough', function handler() {
-            nightSound.play();
-            playNightBtn.classList.add('active');
-            nightSound.removeEventListener('canplaythrough', handler);
-        });
-    }
-    renderNatureImage(); // Update nature image for dark mode
-}
-
-dayModeBtn.addEventListener('click', setLightMode);
-nightModeBtn.addEventListener('click', setDarkMode);
-
-playWindBtn.addEventListener('click', () => {
-    stopAllAudio(); // Stop other sounds first
-    if (windSound.readyState >= 2) { // Check if audio is ready to play
-        windSound.play();
-        playWindBtn.classList.add('active');
-    } else {
-        alert("صوت الريح غير جاهز للتشغيل بعد. يرجى الانتظار قليلاً أو التأكد من الرابط.");
-    }
-});
-
-playNightBtn.addEventListener('click', () => {
-    stopAllAudio(); // Stop other sounds first
-    if (nightSound.readyState >= 2) { // Check if audio is ready to play
-        nightSound.play();
-        playNightBtn.classList.add('active');
-    } else {
-        alert("صوت الليل غير جاهز للتشغيل بعد. يرجى الانتظار قليلاً أو التأكد من الرابط.");
-    }
-});
-
-stopAllAudioBtn.addEventListener('click', stopAllAudio);
-
-
-// Initialize theme and sound on page load
-function initializeThemeAndAudio() {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        document.body.classList.add('dark-mode');
-        nightModeBtn.classList.add('active');
-        dayModeBtn.classList.remove('active');
-        // If dark mode is active, attempt to play night sound
-        if (nightSound.readyState >= 2) {
-            nightSound.play();
-            playNightBtn.classList.add('active');
-        } else {
-            nightSound.addEventListener('canplaythrough', function handler() {
-                nightSound.play();
-                playNightBtn.classList.add('active');
-                nightSound.removeEventListener('canplaythrough', handler);
-            });
         }
-    } else {
-        document.body.classList.remove('dark-mode');
-        dayModeBtn.classList.add('active');
-        nightModeBtn.classList.remove('active');
-        // If light mode is active, attempt to play wind sound
-        if (windSound.readyState >= 2) {
-            windSound.play();
-            playWindBtn.classList.add('active');
-        } else {
-            windSound.addEventListener('canplaythrough', function handler() {
-                windSound.play();
-                playWindBtn.classList.add('active');
-                windSound.removeEventListener('canplaythrough', handler);
-            });
-        }
-    }
-}
 
-
-// --- Initial Load & Event Listeners ---
-document.addEventListener('DOMContentLoaded', () => {
-    // Set audio sources for your custom files
-    // **هام: استبدل هذه الروابط بروابط ملفاتك الصوتية الحقيقية التي رفعتها على الإنترنت.**
-    windSound.src = "رابط-صوت-الريح-هنا.mp3"; // مثال: "https://example.com/my-wind-sound.mp3"
-    nightSound.src = "رابط-صوت-الليل-هنا.mp3"; // مثال: "https://example.com/my-night-sound.mp3"
-
-    // Check if initial assessment is completed
-    const assessmentCompleted = localStorage.getItem('assessmentCompleted');
-    if (assessmentCompleted === 'true') {
-        assessmentOverlay.style.display = 'none';
-        document.querySelector('.container').style.display = 'flex'; // Show main content
-        initializeThemeAndAudio(); // Initialize theme and audio after main content is shown
-    } else {
-        assessmentOverlay.style.display = 'flex'; // Show assessment overlay
-        document.querySelector('.container').style.display = 'none'; // Hide main content
-    }
-
-    loadTasksFromLocalStorage(); // This will also load daily task status
-    loadJournalEntry();
-
-    // Setup navigation links
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
+        // --- Initial Assessment Logic ---
+        initialAssessmentForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            showSection(targetId);
+            let score = 0;
+            const formData = new FormData(initialAssessmentForm);
+            for (let [name, value] of formData.entries()) {
+                score += parseInt(value);
+            }
+            initialHealingScore = score; // Store initial score
+            localStorage.setItem('initialHealingScore', initialHealingScore);
+            localStorage.setItem('assessmentCompleted', 'true');
+
+            // Hide overlay with transition
+            assessmentOverlay.classList.add('hidden');
+            setTimeout(() => {
+                assessmentOverlay.style.display = 'none';
+                document.querySelector('.container').classList.add('visible'); // Show main content with transition
+                initializeThemeAndAudio(); // Initialize theme and audio after main content is shown
+                showSection('welcome'); // Go to welcome page after assessment
+            }, 600); // Match CSS transition duration
         });
-    });
 
-    // Initial load for daily task and nature image
-    renderDailyTask();
-    renderNatureImage(); // Ensure nature image is rendered correctly on initial load
-    updateProgressDisplay(); // Update progress bar on initial load
-});
-</script>
+        // --- Daily Task Logic ---
+        function getDailyTask() {
+            const dayIndex = (getDayOfYear() - 1) % dailyTasks.length; // Ensure it loops every 30 days
+            return dailyTasks[dayIndex];
+        }
 
-</body>
-</html>
+        function renderDailyTask() {
+            const task = getDailyTask();
+            dailyTaskTitle.textContent = task.title;
+            dailyTaskDescription.textContent = task.description;
+
+            const today = new Date().toDateString();
+            const savedDailyTask = JSON.parse(localStorage.getItem('dailyTaskStatus') || '{}');
+
+            // If it's a new day or the task ID has changed, reset the checkbox
+            if (savedDailyTask.date !== today || savedDailyTask.taskId !== task.id) {
+                dailyTaskCheckbox.checked = false;
+                localStorage.setItem('dailyTaskStatus', JSON.stringify({ date: today, completed: false, taskId: task.id }));
+            } else {
+                dailyTaskCheckbox.checked = savedDailyTask.completed;
+            }
+            updateDailyTaskCardStyle();
+        }
+
+        function updateDailyTaskCardStyle() {
+            if (dailyTaskCheckbox.checked) {
+                currentDailyTaskCard.classList.add('completed');
+            } else {
+                currentDailyTaskCard.classList.remove('completed');
+            }
+        }
+
+        dailyTaskCheckbox.addEventListener('change', function() {
+            const today = new Date().toDateString();
+            const currentTask = getDailyTask(); // Get the current task to save its ID
+            localStorage.setItem('dailyTaskStatus', JSON.stringify({
+                date: today,
+                completed: this.checked,
+                taskId: currentTask.id
+            }));
+            updateDailyTaskCardStyle();
+            updateProgressDisplay();
+        });
+
+
+        // --- Comprehensive Quiz Logic (healingQuizForm) ---
+        healingQuizForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            let quizScore = 0;
+            const formData = new FormData(healingQuizForm);
+            for (let [name, value] of formData.entries()) {
+                quizScore += parseInt(value);
+            }
+            currentQuizScore = quizScore;
+            localStorage.setItem('currentQuizScore', currentQuizScore); // Save quiz score
+
+            // For this version, the quiz score directly impacts progress.
+            // If you later want to assign specific tasks based on quiz score, you'd do it here.
+            updateProgressDisplay();
+            alert(`تم تسجيل نقاط اختبار التشافي الخاص بك: ${currentQuizScore}. راجع قسم تتبع التقدم!`);
+            showSection('progress'); // Go to progress section after quiz
+        });
+
+
+        // --- Progress Tracking ---
+        function updateProgressDisplay() {
+            let totalPossiblePoints = 0;
+            let completedPoints = 0;
+
+            // 1. Initial Assessment Score (max 9 points for 3 questions * 3 max value)
+            const initialScore = parseInt(localStorage.getItem('initialHealingScore') || '0');
+            const maxInitialScore = 9; // (3 questions * max value 3)
+            completedPoints += initialScore;
+            totalPossiblePoints += maxInitialScore;
+
+
+            // 2. Daily Task Contribution (1 point if completed for the day)
+            const savedDailyTask = JSON.parse(localStorage.getItem('dailyTaskStatus') || '{}');
+            if (savedDailyTask.completed && savedDailyTask.date === new Date().toDateString()) {
+                completedPoints += 1;
+            }
+            totalPossiblePoints += 1; // Daily task always contributes 1 potential
