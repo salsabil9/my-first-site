@@ -55,7 +55,74 @@
             direction: rtl; /* Right-to-left for Arabic */
             text-align: right;
             transition: background-color 0.5s ease, color 0.5s ease; /* Smooth mode transition */
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
+
+        /* Initial Assessment Overlay */
+        #assessment-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Dark overlay */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000; /* Above everything else */
+            backdrop-filter: blur(5px); /* Blurred background */
+            transition: opacity 0.5s ease;
+        }
+
+        .assessment-card {
+            background-color: var(--light-card-bg); /* Always light for assessment */
+            color: var(--light-text-color);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            text-align: center;
+            animation: fadeInScale 0.6s ease-out; /* Animation on load */
+        }
+
+        .assessment-card h2 {
+            font-family: var(--heading-font);
+            color: var(--light-primary-color);
+            margin-bottom: 25px;
+            font-size: 2.2em;
+            border-bottom: 2px solid var(--light-primary-color);
+            padding-bottom: 10px;
+        }
+
+        .assessment-card p {
+            font-size: 1.1em;
+            margin-bottom: 25px;
+        }
+
+        .assessment-card .quiz-question {
+            background-color: var(--light-border-color);
+            border: 1px solid var(--light-border-color);
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+        }
+        .assessment-card .quiz-question label:hover {
+            background-color: var(--light-bg);
+        }
+        .assessment-card .quiz-question input[type="radio"]:checked + label {
+            background-color: var(--light-secondary-color);
+            color: white;
+            border-color: var(--light-secondary-color);
+        }
+
+        .assessment-card .btn {
+            background-color: var(--light-accent-color);
+            color: var(--light-text-color);
+            margin-top: 20px;
+        }
+        .assessment-card .btn:hover {
+            background-color: var(--light-primary-color);
+            color: white;
+        }
+
 
         /* Main container layout using Flexbox */
         .container {
@@ -221,7 +288,6 @@
             background-color: var(--current-primary-color);
         }
 
-
         /* Quiz Section Styling */
         .quiz-question {
             background-color: var(--current-border-color); /* Uses border color for subtle background */
@@ -273,6 +339,7 @@
             border-radius: 10px;
             box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
             transition: background-color 0.3s ease, color 0.3s ease, opacity 0.3s ease;
+            position: relative; /* For badge positioning */
         }
         .task-card h4 {
             color: var(--current-secondary-color);
@@ -309,6 +376,25 @@
             color: rgba(255, 255, 255, 0.9); /* Lighter text for completed tasks */
         }
 
+        /* Completed Task Badge */
+        .task-card.completed::after {
+            content: "\f00c"; /* Font Awesome check icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--current-accent-color);
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
 
         /* Score & Progress Styling */
         .progress-container {
@@ -379,6 +465,24 @@
             margin-top: 15px;
         }
 
+        /* Nature Connection Section */
+        .nature-image-container {
+            width: 100%;
+            height: 300px; /* Fixed height for consistency */
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            box-shadow: var(--current-shadow);
+            margin-bottom: 20px;
+            transition: background-image 1s ease-in-out; /* Smooth image transition */
+        }
+        .nature-image-caption {
+            text-align: center;
+            font-style: italic;
+            color: var(--current-text-color);
+            margin-top: 10px;
+        }
+
         /* Day/Night Mode Toggle */
         .mode-toggle {
             display: flex;
@@ -442,14 +546,9 @@
             box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2); /* Inset shadow for active state */
         }
 
-        /* Hide YouTube iframes visually */
-        .youtube-player {
-            display: none; /* Hide the video player itself */
-            width: 0;
-            height: 0;
-            opacity: 0;
-            pointer-events: none; /* Make it non-interactive */
-            position: absolute; /* Take it out of flow */
+        /* Hide audio elements visually */
+        audio {
+            display: none;
         }
 
 
@@ -463,6 +562,22 @@
             --current-card-bg: var(--dark-card-bg);
             --current-border-color: var(--dark-border-color);
             --current-shadow: var(--dark-shadow);
+        }
+
+        /* Animations */
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         /* Responsive Adjustments */
@@ -482,6 +597,9 @@
             }
             section {
                 padding: 20px;
+            }
+            .assessment-card {
+                padding: 30px;
             }
         }
 
@@ -503,22 +621,74 @@
                 font-size: 0.9em;
                 padding: 8px 12px;
             }
+            .assessment-card {
+                padding: 20px;
+                max-width: 90%;
+            }
+            .assessment-card h2 {
+                font-size: 1.8em;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div id="windPlayer" class="youtube-player"></div>
-    <div id="nightPlayer" class="youtube-player"></div>
+    <div id="assessment-overlay">
+        <div class="assessment-card">
+            <h2><i class="fas fa-brain"></i> تقييمك النفسي الأولي</h2>
+            <p>قبل الدخول إلى منزلك الآمن، يرجى الإجابة عن هذه الأسئلة لمساعدتنا في فهم احتياجاتك وتخصيص تجربتك.</p>
+            <form id="initialAssessmentForm">
+                <div class="quiz-question">
+                    <p>1. في الأسبوع الماضي، كم مرة شعرت بالتوتر أو القلق الشديد؟</p>
+                    <label><input type="radio" name="initialQ1" value="3"> معظم الوقت</label>
+                    <label><input type="radio" name="initialQ1" value="2"> أحيانًا</label>
+                    <label><input type="radio" name="initialQ1" value="1"> نادرًا</label>
+                    <label><input type="radio" name="initialQ1" value="0"> أبدًا</label>
+                </div>
+                <div class="quiz-question">
+                    <p>2. هل واجهت صعوبة في النوم أو البقاء نائمًا؟</p>
+                    <label><input type="radio" name="initialQ2" value="3"> كل ليلة تقريبًا</label>
+                    <label><input type="radio" name="initialQ2" value="2"> عدة ليالٍ في الأسبوع</label>
+                    <label><input type="radio" name="initialQ2" value="1"> ليلة أو ليلتين في الأسبوع</label>
+                    <label><input type="radio" name="initialQ2" value="0"> لا أواجه صعوبة</label>
+                </div>
+                <div class="quiz-question">
+                    <p>3. هل تشعر بالإرهاق أو نقص الطاقة بشكل متكرر؟</p>
+                    <label><input type="radio" name="initialQ3" value="3"> نعم، غالبًا</label>
+                    <label><input type="radio" name="initialQ3" value="2"> أحيانًا</label>
+                    <label><input type="radio" name="initialQ3" value="1"> نادرًا</label>
+                    <label><input type="radio" name="initialQ3" value="0"> أبدًا</label>
+                </div>
+                <div class="quiz-question">
+                    <p>4. هل تجد صعوبة في الاستمتاع بالأنشطة التي كنت تستمتع بها سابقًا؟</p>
+                    <label><input type="radio" name="initialQ4" value="3"> نعم، بشكل كبير</label>
+                    <label><input type="radio" name="initialQ4" value="2"> أحيانًا</label>
+                    <label><input type="radio" name="initialQ4" value="1"> نادرًا</label>
+                    <label><input type="radio" name="initialQ4" value="0"> لا أواجه صعوبة</label>
+                </div>
+                <div class="quiz-question">
+                    <p>5. هل شعرت بالوحدة أو العزلة الاجتماعية؟</p>
+                    <label><input type="radio" name="initialQ5" value="3"> معظم الوقت</label>
+                    <label><input type="radio" name="initialQ5" value="2"> أحيانًا</label>
+                    <label><input type="radio" name="initialQ5" value="1"> نادرًا</label>
+                    <label><input type="radio" name="initialQ5" value="0"> أبدًا</label>
+                </div>
+                <button type="submit" class="btn">ابدأ رحلتي</button>
+            </form>
+        </div>
+    </div>
 
-    <div class="container">
-        <aside class="sidebar">
+    <audio id="windSound" loop></audio>
+    <audio id="nightSound" loop></audio>
+
+    <div class="container" style="display: none;"> <aside class="sidebar">
             <h2><i class="fas fa-home"></i> المنزل الآمن</h2>
             <nav>
                 <ul>
                     <li><a href="#welcome" class="nav-link active"><i class="fas fa-hand-sparkles"></i> مرحبًا بك</a></li>
-                    <li><a href="#quiz" class="nav-link"><i class="fas fa-question-circle"></i> ابدأ الاختبار</a></li>
-                    <li><a href="#tasks" class="nav-link"><i class="fas fa-clipboard-check"></i> مهام التشافي</a></li>
+                    <li><a href="#daily-task" class="nav-link"><i class="fas fa-calendar-day"></i> مهمة اليوم</a></li>
+                    <li><a href="#nature" class="nav-link"><i class="fas fa-leaf"></i> التواصل مع الطبيعة</a></li>
+                    <li><a href="#quiz" class="nav-link"><i class="fas fa-question-circle"></i> اختبار التشافي</a></li>
                     <li><a href="#progress" class="nav-link"><i class="fas fa-chart-line"></i> تتبع التقدم</a></li>
                     <li><a href="#journal" class="nav-link"><i class="fas fa-book"></i> مذكرة التدوين</a></li>
                     <li><a href="#resources" class="nav-link"><i class="fas fa-hand-holding-heart"></i> مصادر الدعم</a></li>
@@ -544,12 +714,34 @@
             <section id="welcome" class="active">
                 <h2>أهلاً بك في منزلك الآمن</h2>
                 <p>هنا تبدأ رحلة التعافي من صدمات الطفولة. نحن نؤمن بأن كل شخص يستحق الشفاء والعيش بحرية من آثار الماضي. هذا الدليل ليس بديلاً عن الدعم المهني، ولكنه أداة لمساعدتك على فهم نفسك بشكل أفضل، وتحديد مسار للشفاء يناسبك.</p>
-                <p>ابدأ بـ **"اختبار احتياجات التشافي"** لتحديد المهام المناسبة لك.</p>
-                <button class="btn btn-secondary" onclick="showSection('quiz')">ابدأ رحلة التشافي</button>
+                <p>ابدأ بمهمة **"مهمة اليوم"** لتحديد المهام المناسبة لك.</p>
+                <button class="btn btn-secondary" onclick="showSection('daily-task')">انتقل إلى مهمة اليوم</button>
+            </section>
+
+            <section id="daily-task">
+                <h2><i class="fas fa-calendar-day"></i> مهمة اليوم</h2>
+                <p>كل يوم يقربك خطوة من التشافي. إليك مهمتك لهذا اليوم:</p>
+                <div class="task-card" id="currentDailyTaskCard">
+                    <h4 id="dailyTaskTitle">جاري تحميل المهمة...</h4>
+                    <p id="dailyTaskDescription">مهمتك اليومية هنا.</p>
+                    <div class="task-completion">
+                        <span>أنجزت هذه المهمة؟</span>
+                        <input type="checkbox" id="dailyTaskCheckbox">
+                    </div>
+                </div>
+                <p style="margin-top: 20px;">**ملاحظة:** تظهر مهمة جديدة كل يوم. عد غداً لمهمة جديدة!</p>
+            </section>
+
+            <section id="nature">
+                <h2><i class="fas fa-leaf"></i> التواصل مع الطبيعة</h2>
+                <p>انغمس في جمال الطبيعة لتهدئة روحك. هذه الصور تذكرك بجمال العالم من حولك.</p>
+                <div class="nature-image-container" id="natureImageContainer"></div>
+                <p class="nature-image-caption" id="natureImageCaption"></p>
+                <button class="btn" id="nextNatureImageBtn">صورة طبيعة أخرى <i class="fas fa-arrow-left"></i></button>
             </section>
 
             <section id="quiz">
-                <h2>اختبار احتياجات التشافي</h2>
+                <h2><i class="fas fa-question-circle"></i> اختبار احتياجات التشافي</h2>
                 <p>أجب عن الأسئلة التالية بصدق لمساعدتنا في تخصيص المهام العلاجية لك. لا توجد إجابات صحيحة أو خاطئة، وهذا الاختبار للإرشاد فقط.</p>
                 <form id="healingQuiz">
                     <div class="quiz-question">
@@ -646,15 +838,8 @@
         </form>
     </section>
 
-    <section id="tasks">
-        <h2>مهام التشافي المخصصة</h2>
-        <p>بناءً على إجاباتك، إليك مجموعة من المهام المقترحة لمساعدتك في رحلة التشافي. تذكر أن هذه المهام هي دليل إرشادي، والالتزام بها سيساهم في تقدمك.</p>
-        <div class="tasks-grid" id="assignedTasks">
-            </div>
-    </section>
-
     <section id="progress">
-        <h2>تتبع التقدم الأسبوعي</h2>
+        <h2><i class="fas fa-chart-line"></i> تتبع التقدم الأسبوعي</h2>
         <p>تابع تقدمك في مهام التشافي. كل مهمة تنجزها تساهم في نقطة تشافي. تذكر أن التشافي عملية مستمرة.</p>
         <div class="progress-container">
             <h3>نقاط التشافي الكلية: <span id="totalHealingPoints">0</span></h3>
@@ -670,7 +855,7 @@
     </section>
 
     <section id="journal">
-        <h2>مذكرة التدوين</h2>
+        <h2><i class="fas fa-book"></i> مذكرة التدوين</h2>
         <p>هنا يمكنك تدوين أفكارك ومشاعرك وتجاربك. الكتابة تساعد على معالجة المشاعر واكتشاف الذات. سيتم حفظ ما تكتبه تلقائيًا في متصفحك.</p>
         <div class="notebook-container">
             <textarea id="journalEntry" placeholder="ابدأ بالكتابة هنا..."></textarea>
@@ -680,7 +865,7 @@
     </section>
 
     <section id="resources">
-        <h2>مصادر الدعم والتعافي</h2>
+        <h2><i class="fas fa-hand-holding-heart"></i> مصادر الدعم والتعافي</h2>
         <p>لا تتردد في طلب المساعدة. هناك العديد من الموارد المتاحة لمساعدتك في رحلة التعافي.</p>
         <div class="tasks-grid">
             <div class="task-card">
@@ -708,7 +893,7 @@
 const sections = document.querySelectorAll('main section');
 const navLinks = document.querySelectorAll('.nav-link');
 const healingQuizForm = document.getElementById('healingQuiz');
-const assignedTasksDiv = document.getElementById('assignedTasks');
+const assignedTasksDiv = document.getElementById('assignedTasks'); // This element is no longer used for daily tasks, but still for initial quiz tasks.
 const totalHealingPointsSpan = document.getElementById('totalHealingPoints');
 const healingPercentageSpan = document.getElementById('healingPercentage');
 const healingProgressBar = document.getElementById('healingProgressBar');
@@ -719,84 +904,108 @@ const saveJournalBtn = document.getElementById('saveJournalBtn');
 const dayModeBtn = document.getElementById('dayModeBtn');
 const nightModeBtn = document.getElementById('nightModeBtn');
 
+// Define audio elements
+const windSound = document.getElementById('windSound');
+const nightSound = document.getElementById('nightSound');
+
 const playWindBtn = document.getElementById('playWindBtn');
 const playNightBtn = document.getElementById('playNightBtn');
 const stopAllAudioBtn = document.getElementById('stopAllAudioBtn');
 
-let windPlayer; // YouTube player object for wind sound
-let nightPlayer; // YouTube player object for night sound
+// Nature Section elements
+const natureImageContainer = document.getElementById('natureImageContainer');
+const natureImageCaption = document.getElementById('natureImageCaption');
+const nextNatureImageBtn = document.getElementById('nextNatureImageBtn');
 
-// Load the YouTube IFrame Player API asynchronously
-var tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api"; // Correct YouTube API URL
-var firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+// Initial Assessment elements
+const assessmentOverlay = document.getElementById('assessment-overlay');
+const initialAssessmentForm = document.getElementById('initialAssessmentForm');
+let initialHealingScore = 0; // User's initial healing score from assessment
 
-// This function creates YouTube players when the API is ready
-function onYouTubeIframeAPIReady() {
-    windPlayer = new YT.Player('windPlayer', {
-        height: '0', // Hide the player visually
-        width: '0',  // Hide the player visually
-        videoId: 'sJ0w02wA10M', // ID for "Winter Storm Ambience with Icy Howling Wind Sounds"
-        playerVars: {
-            'autoplay': 0,
-            'controls': 0,
-            'loop': 1, // Loop the video
-            'playlist': 'sJ0w02wA10M' // Required for looping a single video
-        },
-        events: {
-            'onReady': onPlayerReady
-        }
-    });
+// Daily Task elements
+const currentDailyTaskCard = document.getElementById('currentDailyTaskCard');
+const dailyTaskTitle = document.getElementById('dailyTaskTitle');
+const dailyTaskDescription = document.getElementById('dailyTaskDescription');
+const dailyTaskCheckbox = document.getElementById('dailyTaskCheckbox');
 
-    nightPlayer = new YT.Player('nightPlayer', {
-        height: '0', // Hide the player visually
-        width: '0',  // Hide the player visually
-        videoId: 'n_X1110q1j0', // ID for "Night Ambient Sounds, Cricket, Swamp Sounds at Night"
-        playerVars: {
-            'autoplay': 0,
-            'controls': 0,
-            'loop': 1, // Loop the video
-            'playlist': 'n_X1110q1j0' // Required for looping a single video
-        },
-        events: {
-            'onReady': onPlayerReady
-        }
-    });
-}
-
-function onPlayerReady(event) {
-    // Player is ready, but we won't autoplay until user clicks a button
-    // event.target.playVideo(); // Don't autoplay
-}
-
-// Task definitions for both genders
-const tasks = {
+// Task definitions (can be expanded)
+const initialQuizTasks = { // These are tasks based on the initial comprehensive quiz
     general: [
-        { id: 'task1', text: 'مارس التنفس الواعي لمدة 5 دقائق يوميًا.' },
-        { id: 'task2', text: 'اكتب في المذكرة عن مشاعرك مرة واحدة على الأقل هذا الأسبوع.' },
-        { id: 'task3', text: 'تواصل مع صديق مقرب أو فرد من العائلة واقضِ وقتًا ممتعًا.' },
-        { id: 'task4', text: 'خصص 30 دقيقة لنشاط تستمتع به ويجلب لك الهدوء.' },
-        { id: 'task5', text: 'تعلم معلومة جديدة عن صدمات الطفولة أو آليات التأقلم الصحية.' },
+        { id: 'task_quiz_1', text: 'مارس التنفس الواعي لمدة 5 دقائق يوميًا.' },
+        { id: 'task_quiz_2', text: 'اكتب في المذكرة عن مشاعرك مرة واحدة على الأقل هذا الأسبوع.' },
+        { id: 'task_quiz_3', text: 'تواصل مع صديق مقرب أو فرد من العائلة واقضِ وقتًا ممتعًا.' },
+        { id: 'task_quiz_4', text: 'خصص 30 دقيقة لنشاط تستمتع به ويجلب لك الهدوء.' },
+        { id: 'task_quiz_5', text: 'تعلم معلومة جديدة عن صدمات الطفولة أو آليات التأقلم الصحية.' },
     ],
     females: [
-        { id: 'taskF1', text: 'تدربي على قول "لا" لطلب لا تشعرين بالراحة تجاهه.' },
-        { id: 'taskF2', text: 'مارسي التأمل الموجه لتعزيز تقدير الذات.' },
-        { id: 'taskF3', text: 'شاركي مشاعر الخجل أو الذنب مع شخص تثقين به أو معالج.' },
-        { id: 'taskF4', text: 'دللي نفسك بنشاط بسيط (مثل حمام دافئ، قراءة كتاب، مشاهدة فيلم).' },
-        { id: 'taskF5', text: 'ابحثي عن مجموعة دعم نسائية عبر الإنترنت أو في مجتمعك.' },
+        { id: 'task_quiz_F1', text: 'تدربي على قول "لا" لطلب لا تشعرين بالراحة تجاهه.' },
+        { id: 'task_quiz_F2', text: 'مارسي التأمل الموجه لتعزيز تقدير الذات.' },
+        { id: 'task_quiz_F3', text: 'شاركي مشاعر الخجل أو الذنب مع شخص تثقين به أو معالج.' },
+        { id: 'task_quiz_F4', text: 'دللي نفسك بنشاط بسيط (مثل حمام دافئ، قراءة كتاب، مشاهدة فيلم).' },
+        { id: 'task_quiz_F5', text: 'ابحثي عن مجموعة دعم نسائية عبر الإنترنت أو في مجتمعك.' },
     ],
     males: [
-        { id: 'taskM1', text: 'اسمح لنفسك بالشعور بالحزن أو الغضب دون الحكم عليه.' },
-        { id: 'taskM2', text: 'مارس نشاطًا بدنيًا قويًا لتفريغ الطاقة السلبية.' },
-        { id: 'taskM3', text: 'تحدث مع مرشد أو ذكر موثوق به عن تحدياتك.' },
-        { id: 'taskM4', text: 'حدد هدفًا صغيرًا وحققه لتعزيز إحساسك بالإنجاز والقوة.' },
-        { id: 'taskM5', text: 'تحدّى فكرة "الرجل القوي الذي لا يبكي" بداخلك.' },
+        { id: 'task_quiz_M1', text: 'اسمح لنفسك بالشعور بالحزن أو الغضب دون الحكم عليه.' },
+        { id: 'task_quiz_M2', text: 'مارس نشاطًا بدنيًا قويًا لتفريغ الطاقة السلبية.' },
+        { id: 'task_quiz_M3', text: 'تحدث مع مرشد أو ذكر موثوق به عن تحدياتك.' },
+        { id: 'task_quiz_M4', text: 'حدد هدفًا صغيرًا وحققه لتعزيز إحساسك بالإنجاز والقوة.' },
+        { id: 'task_quiz_M5', text: 'تحدّى فكرة "الرجل القوي الذي لا يبكي" بداخلك.' },
     ]
 };
 
-let currentAssignedTasks = []; // To store tasks assigned to the user
-let completedTasks = {}; // To store completion status for each task { taskId: true/false }
+const dailyTasks = [
+    { title: "مهمة اليوم 1", description: "اكتب 3 أشياء أنت ممتن لها اليوم." },
+    { title: "مهمة اليوم 2", description: "خصص 10 دقائق للتأمل في مكان هادئ." },
+    { title: "مهمة اليوم 3", description: "تواصل مع شخص قريب لم تتحدث إليه منذ فترة." },
+    { title: "مهمة اليوم 4", description: "اقرأ فصلاً من كتاب ملهم." },
+    { title: "مهمة اليوم 5", description: "مارس تمرينًا خفيفًا مثل المشي لمدة 20 دقيقة." },
+    { title: "مهمة اليوم 6", description: "اكتب رسالة اعتذار (لنفسك أو لشخص آخر)." },
+    { title: "مهمة اليوم 7", description: "حدد هدفًا صغيرًا قابل للتحقيق لهذا الأسبوع." },
+    { title: "مهمة اليوم 8", description: "شاهد فيلمًا أو مسلسلًا كوميديًا يجعلك تضحك." },
+    { title: "مهمة اليوم 9", description: "جرب وصفة طعام جديدة ومختلفة." },
+    { title: "مهمة اليوم 10", description: "استمع إلى بودكاست عن التنمية الذاتية." },
+    { title: "مهمة اليوم 11", description: "ارسم شيئًا بسيطًا أو لون صفحة." },
+    { title: "مهمة اليوم 12", description: "رتّب جزءًا صغيرًا من منزلك (درج، خزانة)." },
+    { title: "مهمة اليوم 13", description: "اسمح لنفسك بأخذ قسط من الراحة دون الشعور بالذنب." },
+    { title: "مهمة اليوم 14", description: "اكتب قائمة بالأشياء التي تود تحقيقها في الشهر القادم." },
+    { title: "مهمة اليوم 15", description: "مارس اليوجا أو تمارين الإطالة لمدة 15 دقيقة." },
+    { title: "مهمة اليوم 16", description: "اكتشف أغنية جديدة أو نوع موسيقي جديد." },
+    { title: "مهمة اليوم 17", description: "تحدث مع شخص غريب بطريقة ودودة (في متجر، مقهى)." },
+    { title: "مهمة اليوم 18", description: "اكتب عن أحد أحلامك أو طموحاتك." },
+    { title: "مهمة اليوم 19", description: "تذكر 3 إنجازات صغيرة قمت بها في حياتك." },
+    { title: "مهمة اليوم 20", description: "تطوع بوقتك أو ساعد شخصًا محتاجًا." },
+    { title: "مهمة اليوم 21", description: "شاهد وثائقيًا عن الطبيعة أو الحيوانات." },
+    { title: "مهمة اليوم 22", description: "أرسل رسالة شكر لشخص أثر في حياتك." },
+    { title: "مهمة اليوم 23", description: "جرب أن تكون حاضرًا بشكل كامل في لحظة واحدة (مثال: أثناء تناول الطعام)." },
+    { title: "مهمة اليوم 24", description: "تخلص من شيء قديم لا تحتاجه في منزلك." },
+    { title: "مهمة اليوم 25", description: "اذهب في نزهة قصيرة في الهواء الطلق." },
+    { title: "مهمة اليوم 26", description: "دون 3 صفات إيجابية تحبها في نفسك." },
+    { title: "مهمة اليوم 27", description: "شاهد شروق الشمس أو غروبها." },
+    { title: "مهمة اليوم 28", description: "جرب تمرينًا رياضيًا جديدًا أو نشاطًا بدنيًا." },
+    { title: "مهمة اليوم 29", description: "أعد تواصلًا مع هواية قديمة كنت تستمتع بها." },
+    { title: "مهمة اليوم 30", description: "راجع تقدمك خلال الشهر واحتفل بإنجازاتك." }
+];
+
+const natureImagesLightMode = [
+    { src: 'https://images.unsplash.com/photo-1500964757637-acf1c26dfcd3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwxfHxzdW5zZXQlMjBsYWtlfGVufDB8fHx8MTcwMTU1NDg0MXww&ixlib=rb-4.0.3&q=80&w=1080', caption: 'بحيرة عند غروب الشمس' },
+    { src: 'https://images.unsplash.com/photo-1470770903676-69d8529db1c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwzMXx8Zm9yZXN0JTIwZGF5bGlnaHR8ZW58MHx8fHwxNzAxNTU0ODQ0fDA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'غابة خضراء مشمسة' },
+    { src: 'https://images.unsplash.com/photo-1470240237020-f5a045995584?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHw0OXx8bW91bnRhaW4lMjBzY2VuZXJ5fGVufDB8fHx8MTcwMTU1NDg0N3ww&ixlib=rb-4.0.3&q=80&w=1080', caption: 'جبال خلابة في وضح النهار' },
+    { src: 'https://images.unsplash.com/photo-1502652610530-5ff681a941a5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwxMjJ8fGJlYWNoJTIwZGF5bGlnaHR8ZW58MHx8fHwxNzA1NTQzNzQ4fDA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'شاطئ مشمس وهادئ' },
+    { src: 'https://images.unsplash.com/photo-1472214343130-9b6348ef11c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwyMDF8fGZpZWxkJTIwb2YlMjBmbG93ZXJzfGVufDB8fHx8MTcwNTU0Mzg2N3ww&ixlib=rb-4.0.3&q=80&w=1080', caption: 'حقل من الزهور' }
+];
+
+const natureImagesDarkMode = [
+    { src: 'https://images.unsplash.com/photo-1447012985160-c3d317058a5e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwyMHx8bmlnaHQlMjBmb3Jlc3R8ZW58MHx8fHwxNzAxNTU0OTE0fDA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'غابة ليلية تحت النجوم' },
+    { src: 'https://images.unsplash.com/photo-1464802686167-b933a6ce870b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwyOXx8bmlnaHQlMjBsYWtlfGVufDB8fHx8MTcwMTU1NDkxN3ww&ixlib=rb-4.0.3&q=80&w=1080', caption: 'بحيرة هادئة في الليل' },
+    { src: 'https://images.unsplash.com/photo-1475274474936-ce476318e807?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwyN3x8c3RhcnJ5JTIwbmlnaHR8ZW58MHx8fHwxNzA1NTQ0MDEyfDA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'سماء مرصعة بالنجوم' },
+    { src: 'https://images.unsplash.com/photo-1465101162482-6a4a6e38b0e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwxMzJ8fGZpcmVmbHklMjBuaWdodHxlbnwwfHx8fDE3MDU1NDQxMTJ8MA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'اليراعات في الليل' },
+    { src: 'https://images.unsplash.com/photo-1502652610530-5ff681a941a5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwyMDF8fG1vb25saWdodCUyMG9uJTIwb3JjZWFuJTIwYXIlMjBub29ufGVufDB8fHx8MTcwNTU0NDI2MXww&ixlib=rb-4.0.3&q=80&w=1080', caption: 'ضوء القمر على المحيط' }
+];
+
+
+let currentNatureImageIndex = 0;
+let currentAssignedQuizTasks = []; // To store tasks assigned from the comprehensive quiz
+let completedQuizTasks = {}; // To store completion status for each quiz task { taskId: true/false }
 let currentWeeklyScore = 0;
 const MAX_WEEKLY_SCORE = 100; // Example max score for calculating percentage
 
@@ -815,12 +1024,38 @@ function showSection(id) {
             link.classList.add('active');
         }
     });
+
+    if (id === 'nature') {
+        renderNatureImage();
+    }
 }
 
-// Function to calculate quiz score and assign tasks
+// --- Initial Assessment Logic ---
+initialAssessmentForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    let score = 0;
+    const formData = new FormData(initialAssessmentForm);
+    for (let [name, value] of formData.entries()) {
+        score += parseInt(value);
+    }
+    initialHealingScore = score; // Store initial score
+    localStorage.setItem('initialHealingScore', initialHealingScore); // Save to local storage
+    localStorage.setItem('assessmentCompleted', 'true'); // Mark assessment as completed
+
+    assessmentOverlay.style.opacity = '0';
+    setTimeout(() => {
+        assessmentOverlay.style.display = 'none';
+        document.querySelector('.container').style.display = 'flex'; // Show main content
+        // Optionally, assign initial quiz tasks based on this score here
+        // assignHealingTasks(initialHealingScore); // Uncomment if you want to assign tasks based on initial assessment
+        showSection('welcome'); // Go to welcome page after assessment
+    }, 500);
+});
+
+// --- Quiz (Comprehensive) Section Logic ---
 healingQuizForm.addEventListener('submit', function(e) {
     e.preventDefault();
-    let userHealingScore = 0; // Moved to local scope
+    let userHealingScore = 0;
     const formData = new FormData(healingQuizForm);
     const answers = {};
     for (let [name, value] of formData.entries()) {
@@ -830,131 +1065,179 @@ healingQuizForm.addEventListener('submit', function(e) {
 
     console.log("Quiz Score:", userHealingScore); // Debugging
 
-    assignHealingTasks(userHealingScore);
-    showSection('tasks'); // Show tasks section after quiz
+    assignHealingQuizTasks(userHealingScore); // Assign tasks based on this quiz
+    showSection('progress'); // Show progress section after quiz, where these tasks are tracked
 });
 
-function assignHealingTasks(score) {
-    let tasksToAssign = [...tasks.general]; // Start with general tasks
+function assignHealingQuizTasks(score) {
+    let tasksToAssign = [...initialQuizTasks.general]; // Start with general tasks
 
-    // Adjust based on score (example logic, refine as needed)
-    // Higher positive score means more impact from trauma, need more specialized tasks
-    if (score >= 5) { // Significant impact
-        // Ask user for gender, this is a simplified example
-        // In a real app, you'd have a gender selection in the quiz or profile
-        const userGender = prompt("الرجاء إدخال جنسك (ذكر/أنثى) لتخصيص المهام:", "ذكر").trim();
-        if (userGender === "أنثى") {
-            tasksToAssign = tasksToAssign.concat(tasks.females);
-        } else if (userGender === "ذكر") {
-            tasksToAssign = tasksToAssign.concat(tasks.males);
-        } else {
-            alert("لم يتم تحديد الجنس، سيتم عرض المهام العامة فقط.");
-        }
-    } else if (score > -5 && score < 5) { // Moderate impact
-        tasksToAssign = tasksToAssign.concat(tasks.general.slice(0, 3)); // Add few general tasks
+    // Example: Assign gender-specific tasks based on a prompt (or an actual selection in a real app)
+    const userGender = prompt("الرجاء إدخال جنسك (ذكر/أنثى) لتخصيص المهام في الاختبار الشامل:", "ذكر").trim();
+    if (userGender === "أنثى") {
+        tasksToAssign = tasksToAssign.concat(initialQuizTasks.females);
+    } else if (userGender === "ذكر") {
+        tasksToAssign = tasksToAssign.concat(initialQuizTasks.males);
     }
-    // If score is very low (less impact), maybe just offer general awareness.
 
-    currentAssignedTasks = tasksToAssign;
-    totalTasksCountSpan.textContent = currentAssignedTasks.length; // Update total tasks count
-    renderTasks();
-    saveTasksToLocalStorage();
-}
+    currentAssignedQuizTasks = tasksToAssign;
+    saveQuizTasksToLocalStorage(); // Save these tasks
 
-function renderTasks() {
-    assignedTasksDiv.innerHTML = ''; // Clear previous tasks
-    currentAssignedTasks.forEach(task => {
-        const isCompleted = completedTasks[task.id] || false;
-        const taskCard = document.createElement('div');
-        taskCard.classList.add('task-card');
-        if (isCompleted) {
-            taskCard.classList.add('completed');
-        }
-        taskCard.innerHTML = `
-            <h4>${task.text}</h4>
-            <p>أنجز هذه المهمة لتسجيل نقطة تشافي.</p>
-            <div class="task-completion">
-                <span>أنجزت؟</span>
-                <input type="checkbox" data-task-id="${task.id}" ${isCompleted ? 'checked' : ''}>
-            </div>
-        `;
-        assignedTasksDiv.appendChild(taskCard);
-    });
-    addCheckboxListeners();
-    updateProgressDisplay(); // Update progress after rendering tasks
-}
-
-function addCheckboxListeners() {
-    document.querySelectorAll('.task-completion input[type="checkbox"]').forEach(checkbox => {
-        checkbox.removeEventListener('change', handleTaskCompletion); // Prevent duplicate listeners
-        checkbox.addEventListener('change', handleTaskCompletion);
-    });
-}
-
-function handleTaskCompletion(event) {
-    const taskId = event.target.dataset.taskId;
-    const isChecked = event.target.checked;
-    completedTasks[taskId] = isChecked;
-
-    const taskCard = event.target.closest('.task-card');
-    if (isChecked) {
-        taskCard.classList.add('completed');
-    } else {
-        taskCard.classList.remove('completed');
-    }
+    // Render the assigned tasks (for the comprehensive quiz) in the progress section (or a dedicated tasks section if you add one)
+    renderQuizTasksForProgress();
     updateProgressDisplay();
-    saveTasksToLocalStorage();
 }
 
-function updateProgressDisplay() {
-    let completedCount = 0;
-    currentAssignedTasks.forEach(task => {
-        if (completedTasks[task.id]) {
-            completedCount++;
-        }
-    });
-    currentWeeklyScore = completedCount * (MAX_WEEKLY_SCORE / currentAssignedTasks.length || 0);
-    if (currentAssignedTasks.length === 0) { // Handle division by zero if no tasks
-        currentWeeklyScore = 0;
+function renderQuizTasksForProgress() {
+    // This function will render tasks from the comprehensive quiz
+    // For now, these are not directly displayed in a 'tasks' section but impact progress.
+    // If you want a dedicated section for these, you'd create a new section for 'المهام الشاملة'
+    // and render them there, similar to how daily tasks are rendered.
+    // For simplicity, we are just managing their state for the progress bar.
+    console.log("Comprehensive Quiz Tasks assigned:", currentAssignedQuizTasks);
+}
+
+function updateQuizTaskCompletion(taskId, isChecked) {
+    completedQuizTasks[taskId] = isChecked;
+    updateProgressDisplay();
+    saveQuizTasksToLocalStorage();
+}
+
+function saveQuizTasksToLocalStorage() {
+    localStorage.setItem('assignedQuizTasks', JSON.stringify(currentAssignedQuizTasks));
+    localStorage.setItem('completedQuizTasks', JSON.stringify(completedQuizTasks));
+}
+
+function loadQuizTasksFromLocalStorage() {
+    const savedAssignedQuizTasks = localStorage.getItem('assignedQuizTasks');
+    const savedCompletedQuizTasks = localStorage.getItem('completedQuizTasks');
+
+    if (savedAssignedQuizTasks) {
+        currentAssignedQuizTasks = JSON.parse(savedAssignedQuizTasks);
+    } else {
+        // Default to general tasks if no quiz tasks were assigned yet
+        currentAssignedQuizTasks = [...initialQuizTasks.general];
     }
 
-    totalHealingPointsSpan.textContent = completedCount;
+    if (savedCompletedQuizTasks) {
+        completedQuizTasks = JSON.parse(savedCompletedTasks);
+    }
+}
+
+
+// --- Daily Task Logic ---
+function getDayOfYear() {
+    const now = new Date();
+    const start = new Date(now.getFullYear(), 0, 0);
+    const diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
+    const oneDay = 1000 * 60 * 60 * 24;
+    return Math.floor(diff / oneDay);
+}
+
+function getDailyTask() {
+    const dayIndex = (getDayOfYear() - 1) % dailyTasks.length; // -1 because array is 0-indexed
+    return dailyTasks[dayIndex];
+}
+
+function renderDailyTask() {
+    const task = getDailyTask();
+    dailyTaskTitle.textContent = task.title;
+    dailyTaskDescription.textContent = task.description;
+
+    const today = new Date().toDateString();
+    const savedDailyTask = JSON.parse(localStorage.getItem('dailyTaskStatus') || '{}');
+
+    if (savedDailyTask.date === today) {
+        dailyTaskCheckbox.checked = savedDailyTask.completed;
+    } else {
+        dailyTaskCheckbox.checked = false; // New day, uncheck
+        localStorage.setItem('dailyTaskStatus', JSON.stringify({ date: today, completed: false }));
+    }
+    updateDailyTaskCardStyle(); // Apply completed style if already checked
+}
+
+function updateDailyTaskCardStyle() {
+    if (dailyTaskCheckbox.checked) {
+        currentDailyTaskCard.classList.add('completed');
+    } else {
+        currentDailyTaskCard.classList.remove('completed');
+    }
+}
+
+dailyTaskCheckbox.addEventListener('change', function() {
+    const today = new Date().toDateString();
+    localStorage.setItem('dailyTaskStatus', JSON.stringify({
+        date: today,
+        completed: this.checked
+    }));
+    updateDailyTaskCardStyle();
+    updateProgressDisplay(); // Update progress when daily task changes
+});
+
+
+// --- Progress Tracking (Combines all tasks now) ---
+function updateProgressDisplay() {
+    let totalPossiblePoints = 0;
+    let completedPoints = 0;
+
+    // Points from Initial Quiz Tasks (if assigned/tracked here)
+    if (currentAssignedQuizTasks && currentAssignedQuizTasks.length > 0) {
+        totalPossiblePoints += currentAssignedQuizTasks.length;
+        currentAssignedQuizTasks.forEach(task => {
+            if (completedQuizTasks[task.id]) {
+                completedPoints++;
+            }
+        });
+    }
+
+    // Points from Daily Task
+    const savedDailyTask = JSON.parse(localStorage.getItem('dailyTaskStatus') || '{}');
+    if (savedDailyTask.completed) {
+        completedPoints++;
+    }
+    totalPossiblePoints++; // Daily task always counts as one possible point
+
+    // You can adjust how each type of task contributes to total score if needed.
+    // For simplicity, each task (daily or quiz-based) counts as 1 point.
+
+    currentWeeklyScore = (completedPoints / totalPossiblePoints) * MAX_WEEKLY_SCORE || 0;
+    currentWeeklyScore = Math.min(currentWeeklyScore, MAX_WEEKLY_SCORE); // Cap at 100%
+
+    totalHealingPointsSpan.textContent = completedPoints;
     healingPercentageSpan.textContent = `${Math.round(currentWeeklyScore)}%`;
     healingProgressBar.style.width = `${Math.round(currentWeeklyScore)}%`;
-    completedTasksCountSpan.textContent = completedCount;
+    completedTasksCountSpan.textContent = completedPoints;
+    totalTasksCountSpan.textContent = totalPossiblePoints; // Show total current possible tasks
 }
 
 function resetWeeklyProgress() {
-    if (confirm("هل أنت متأكد أنك تريد إعادة تعيين تقدم المهام الأسبوعي؟")) {
-        completedTasks = {};
+    if (confirm("هل أنت متأكد أنك تريد إعادة تعيين تقدم المهام الأسبوعي؟ سيتم إعادة تعيين جميع المهام.")) {
+        completedQuizTasks = {}; // Reset comprehensive quiz tasks
+        localStorage.removeItem('completedQuizTasks');
+
+        const today = new Date().toDateString();
+        localStorage.setItem('dailyTaskStatus', JSON.stringify({ date: today, completed: false })); // Reset daily task
+        
         currentWeeklyScore = 0;
-        saveTasksToLocalStorage();
-        renderTasks(); // Re-render tasks to reflect reset
-        alert("تم إعادة تعيين تقدم المهام الأسبوعي.");
+        
+        renderQuizTasksForProgress(); // Re-render if necessary (mostly for internal state)
+        renderDailyTask(); // Reset daily task display
+        updateProgressDisplay();
+        alert("تم إعادة تعيين تقدم المهام الأسبوعي بنجاح.");
     }
 }
+
 
 // --- Local Storage Management ---
 function saveTasksToLocalStorage() {
-    localStorage.setItem('assignedTasks', JSON.stringify(currentAssignedTasks));
-    localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+    // This function is still generic, might be replaced by specific saves
+    // For daily tasks, we use 'dailyTaskStatus'
+    // For comprehensive quiz tasks, we use 'assignedQuizTasks' and 'completedQuizTasks'
 }
 
 function loadTasksFromLocalStorage() {
-    const savedAssignedTasks = localStorage.getItem('assignedTasks');
-    const savedCompletedTasks = localStorage.getItem('completedTasks');
-
-    if (savedAssignedTasks) {
-        currentAssignedTasks = JSON.parse(savedAssignedTasks);
-    } else {
-        // If no tasks saved, assign general tasks by default
-        currentAssignedTasks = [...tasks.general];
-    }
-
-    if (savedCompletedTasks) {
-        completedTasks = JSON.parse(savedCompletedTasks);
-    }
-    totalTasksCountSpan.textContent = currentAssignedTasks.length; // Update total tasks count on load
+    loadQuizTasksFromLocalStorage();
+    renderDailyTask(); // Load and display daily task
 }
 
 // --- Journal Functionality ---
@@ -981,15 +1264,35 @@ journalEntry.addEventListener('input', () => {
 });
 saveJournalBtn.addEventListener('click', saveJournalEntry);
 
+// --- Nature Connection Section Logic ---
+function renderNatureImage() {
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    const imagesArray = isDarkMode ? natureImagesDarkMode : natureImagesLightMode;
+
+    // Ensure index loops around
+    currentNatureImageIndex = currentNatureImageIndex % imagesArray.length;
+    if (currentNatureImageIndex < 0) { // Handle negative if array length is 0 (shouldn't happen with fixed arrays)
+        currentNatureImageIndex = imagesArray.length - 1;
+    }
+
+    const image = imagesArray[currentNatureImageIndex];
+    natureImageContainer.style.backgroundImage = `url('${image.src}')`;
+    natureImageCaption.textContent = image.caption;
+}
+
+nextNatureImageBtn.addEventListener('click', () => {
+    currentNatureImageIndex++;
+    renderNatureImage();
+});
+
 
 // --- Day/Night Mode & Sound ---
 function stopAllAudio() {
-    if (windPlayer && typeof windPlayer.stopVideo === 'function') {
-        windPlayer.stopVideo();
-    }
-    if (nightPlayer && typeof nightPlayer.stopVideo === 'function') {
-        nightPlayer.stopVideo();
-    }
+    windSound.pause();
+    windSound.currentTime = 0; // Reset audio to start
+    nightSound.pause();
+    nightSound.currentTime = 0; // Reset audio to start
+
     // Remove active class from audio buttons if any
     playWindBtn.classList.remove('active');
     playNightBtn.classList.remove('active');
@@ -1001,11 +1304,18 @@ function setLightMode() {
     nightModeBtn.classList.remove('active');
     localStorage.setItem('theme', 'light');
     stopAllAudio();
-    // Attempt to play only if the player is ready
-    if (windPlayer && typeof windPlayer.playVideo === 'function') {
-        windPlayer.playVideo();
+    // Play wind sound automatically when switching to light mode
+    if (windSound.readyState >= 2) { // Check if audio is ready to play
+        windSound.play();
         playWindBtn.classList.add('active');
+    } else {
+        windSound.addEventListener('canplaythrough', function handler() {
+            windSound.play();
+            playWindBtn.classList.add('active');
+            windSound.removeEventListener('canplaythrough', handler);
+        });
     }
+    renderNatureImage(); // Update nature image for light mode
 }
 
 function setDarkMode() {
@@ -1014,11 +1324,18 @@ function setDarkMode() {
     dayModeBtn.classList.remove('active');
     localStorage.setItem('theme', 'dark');
     stopAllAudio();
-    // Attempt to play only if the player is ready
-    if (nightPlayer && typeof nightPlayer.playVideo === 'function') {
-        nightPlayer.playVideo();
+    // Play night sound automatically when switching to dark mode
+    if (nightSound.readyState >= 2) { // Check if audio is ready to play
+        nightSound.play();
         playNightBtn.classList.add('active');
+    } else {
+        nightSound.addEventListener('canplaythrough', function handler() {
+            nightSound.play();
+            playNightBtn.classList.add('active');
+            nightSound.removeEventListener('canplaythrough', handler);
+        });
     }
+    renderNatureImage(); // Update nature image for dark mode
 }
 
 dayModeBtn.addEventListener('click', setLightMode);
@@ -1026,21 +1343,21 @@ nightModeBtn.addEventListener('click', setDarkMode);
 
 playWindBtn.addEventListener('click', () => {
     stopAllAudio(); // Stop other sounds first
-    if (windPlayer && typeof windPlayer.playVideo === 'function') {
-        windPlayer.playVideo();
+    if (windSound.readyState >= 2) { // Check if audio is ready to play
+        windSound.play();
         playWindBtn.classList.add('active');
     } else {
-        alert("مشغل الريح غير جاهز بعد. يرجى المحاولة مرة أخرى.");
+        alert("صوت الريح غير جاهز للتشغيل بعد. يرجى الانتظار قليلاً أو التأكد من الرابط.");
     }
 });
 
 playNightBtn.addEventListener('click', () => {
     stopAllAudio(); // Stop other sounds first
-    if (nightPlayer && typeof nightPlayer.playVideo === 'function') {
-        nightPlayer.playVideo();
+    if (nightSound.readyState >= 2) { // Check if audio is ready to play
+        nightSound.play();
         playNightBtn.classList.add('active');
     } else {
-        alert("مشغل الليل غير جاهز بعد. يرجى المحاولة مرة أخرى.");
+        alert("صوت الليل غير جاهز للتشغيل بعد. يرجى الانتظار قليلاً أو التأكد من الرابط.");
     }
 });
 
@@ -1048,24 +1365,61 @@ stopAllAudioBtn.addEventListener('click', stopAllAudio);
 
 
 // Initialize theme and sound on page load
-function initializeTheme() {
+function initializeThemeAndAudio() {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
         document.body.classList.add('dark-mode');
         nightModeBtn.classList.add('active');
         dayModeBtn.classList.remove('active');
+        // If dark mode is active, attempt to play night sound
+        if (nightSound.readyState >= 2) {
+            nightSound.play();
+            playNightBtn.classList.add('active');
+        } else {
+            nightSound.addEventListener('canplaythrough', function handler() {
+                nightSound.play();
+                playNightBtn.classList.add('active');
+                nightSound.removeEventListener('canplaythrough', handler);
+            });
+        }
     } else {
         document.body.classList.remove('dark-mode');
         dayModeBtn.classList.add('active');
         nightModeBtn.classList.remove('active');
+        // If light mode is active, attempt to play wind sound
+        if (windSound.readyState >= 2) {
+            windSound.play();
+            playWindBtn.classList.add('active');
+        } else {
+            windSound.addEventListener('canplaythrough', function handler() {
+                windSound.play();
+                playWindBtn.classList.add('active');
+                windSound.removeEventListener('canplaythrough', handler);
+            });
+        }
     }
 }
 
+
 // --- Initial Load & Event Listeners ---
 document.addEventListener('DOMContentLoaded', () => {
-    initializeTheme();
-    loadTasksFromLocalStorage();
-    renderTasks();
+    // Set audio sources for your custom files
+    // **هام: استبدل هذه الروابط بروابط ملفاتك الصوتية الحقيقية التي رفعتها على الإنترنت.**
+    windSound.src = "رابط-صوت-الريح-هنا.mp3"; // مثال: "https://example.com/my-wind-sound.mp3"
+    nightSound.src = "رابط-صوت-الليل-هنا.mp3"; // مثال: "https://example.com/my-night-sound.mp3"
+
+    // Check if initial assessment is completed
+    const assessmentCompleted = localStorage.getItem('assessmentCompleted');
+    if (assessmentCompleted === 'true') {
+        assessmentOverlay.style.display = 'none';
+        document.querySelector('.container').style.display = 'flex'; // Show main content
+        initializeThemeAndAudio(); // Initialize theme and audio after main content is shown
+    } else {
+        assessmentOverlay.style.display = 'flex'; // Show assessment overlay
+        document.querySelector('.container').style.display = 'none'; // Hide main content
+    }
+
+    loadTasksFromLocalStorage(); // This will also load daily task status
     loadJournalEntry();
 
     // Setup navigation links
@@ -1077,8 +1431,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Show welcome section by default
-    showSection('welcome');
+    // Initial load for daily task and nature image
+    renderDailyTask();
+    renderNatureImage(); // Ensure nature image is rendered correctly on initial load
+    updateProgressDisplay(); // Update progress bar on initial load
 });
 </script>
 
