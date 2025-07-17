@@ -300,3 +300,22 @@ def save_note():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المنزل الآمن - Safe Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-title">المنزل الآمن</h1>
+            <ul class="nav-menu">
+                <li><a href="{{ url_for('home') }}">الرئيسية</a></li>
+                <li><a href="{{ url_for('trauma_test') }}">اختبار الصدمات</a></li>
+                <li><a href="{{ url_for('tasks') }}">المهام</a></li>
+                <li><a href="{{ url_for('progress') }}">التقدم</a></li>
+                <li><a href="{{ url_for('notes') }}">المذكرات</a></li>
