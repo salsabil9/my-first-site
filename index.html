@@ -1,145 +1,302 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تشافي صدمات الطفولة</title>
-    <style>
-        body {
-            font-family: 'Cairo', Arial, sans-serif;
-            background: #f6fafd;
-            color: #222;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background: #6ec6ca;
-            color: #fff;
-            padding: 30px 0 20px 0;
-            text-align: center;
-        }
-        nav {
-            margin: 10px 0;
-            text-align: center;
-        }
-        nav a {
-            color: #fff;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        section {
-            max-width: 800px;
-            margin: 30px auto;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px #e0e0e0;
-            padding: 30px;
-        }
-        h1, h2 {
-            color: #3b7c7e;
-        }
-        .articles {
-            margin-top: 20px;
-        }
-        .article {
-            background: #eaf7f8;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-        }
-        form {
-            margin-top: 20px;
-        }
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0;
-            border: 1px solid #b2dfdb;
-            border-radius: 6px;
-            font-size: 1em;
-        }
-        button {
-            background: #3b7c7e;
-            color: #fff;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 6px;
-            font-size: 1em;
-            cursor: pointer;
-        }
-        footer {
-            background: #6ec6ca;
-            color: #fff;
-            text-align: center;
-            padding: 15px 0;
-            margin-top: 30px;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>تشافي صدمات الطفولة</h1>
-        <nav>
-            <a href="#about">عن الموقع</a>
-            <a href="#articles">مقالات</a>
-            <a href="#contact">تواصل معنا</a>
-        </nav>
-    </header>
 
-    <section id="about">
-        <h2>عن الموقع</h2>
-        <p>
-            هذا الموقع يهدف إلى نشر الوعي حول صدمات الطفولة وتقديم الدعم والأدوات اللازمة للتشافي النفسي. هنا ستجد مقالات، قصص ملهمة، ونصائح عملية تساعدك في رحلة التعافي.
-        </p>
-    </section>
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
+import json
+import os
+from datetime import datetime, timedelta
+import uuid
 
-    <section id="articles">
-        <h2>مقالات وموارد</h2>
-        <div class="articles">
-            <div class="article">
-                <h3>ما هي صدمات الطفولة؟</h3>
-                <p>
-                    صدمات الطفولة هي تجارب مؤلمة أو أحداث سلبية تؤثر على الطفل وتترك أثراً طويل الأمد على الصحة النفسية والعاطفية.
-                </p>
-            </div>
-            <div class="article">
-                <h3>خطوات عملية للتشافي</h3>
-                <p>
-                    - الاعتراف بالمشاعر  
-                    - طلب الدعم النفسي  
-                    - ممارسة التأمل وتمارين التنفس  
-                    - كتابة اليوميات  
-                    - المشاركة في مجموعات دعم
-                </p>
-            </div>
-            <div class="article">
-                <h3>قصص ملهمة</h3>
-                <p>
-                    اقرأ قصص أشخاص تغلبوا على صدمات الطفولة وحققوا التوازن النفسي.
-                </p>
-            </div>
-        </div>
-    </section>
+app = Flask(__name__)
+app.secret_key = 'safe_home_secret_key_2024'
 
-    <section id="contact">
-        <h2>تواصل معنا</h2>
-        <form>
-            <label for="name">الاسم:</label>
-            <input type="text" id="name" name="name" required>
+# ملف لحفظ بيانات المستخدمين
+USERS_FILE = 'users_data.json'
+NOTES_FILE = 'notes_data.json'
 
-            <label for="email">البريد الإلكتروني:</label>
-            <input type="email" id="email" name="email" required>
+def load_data(filename):
+    if os.path.exists(filename):
+        with open(filename, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    return {}
 
-            <label for="message">رسالتك:</label>
-            <textarea id="message" name="message" rows="4" required></textarea>
+def save_data(filename, data):
+    with open(filename, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
 
-            <button type="submit">إرسال</button>
-        </form>
-    </section>
+# اختبار تحديد نوع الصدمة
+TRAUMA_QUESTIONS = [
+    {
+        'question': 'هل تعرضت لإهمال جسدي أو عاطفي في الطفولة؟',
+        'type': 'neglect'
+    },
+    {
+        'question': 'هل تعرضت لعنف جسدي من أحد الوالدين أو مقدمي الرعاية؟',
+        'type': 'physical_abuse'
+    },
+    {
+        'question': 'هل تعرضت لإساءة عاطفية أو نفسية؟',
+        'type': 'emotional_abuse'
+    },
+    {
+        'question': 'هل شهدت عنفًا منزليًا بين الوالدين؟',
+        'type': 'domestic_violence'
+    },
+    {
+        'question': 'هل فقدت أحد الوالدين أو مقدمي الرعاية في سن مبكرة؟',
+        'type': 'loss'
+    },
+    {
+        'question': 'هل تعرضت لتجارب مؤلمة في المدرسة (تنمر، رفض)؟',
+        'type': 'school_trauma'
+    }
+]
 
-    <footer>
-        &copy; 2025 تشافي صدمات الطفولة. جميع الحقوق محفوظة.
-    </footer>
-</body>
-</html>
+# المهام العلاجية
+TASKS = {
+    'male': [
+        {
+            'id': 1,
+            'title': 'تمرين التنفس العميق',
+            'description': 'مارس التنفس العميق لمدة 10 دقائق يوميًا',
+            'points': 10,
+            'category': 'تهدئة'
+        },
+        {
+            'id': 2,
+            'title': 'كتابة اليوميات',
+            'description': 'اكتب مشاعرك وأفكارك لمدة 15 دقيقة',
+            'points': 15,
+            'category': 'تعبير'
+        },
+        {
+            'id': 3,
+            'title': 'التمرين البدني',
+            'description': 'مارس الرياضة لمدة 30 دقيقة',
+            'points': 20,
+            'category': 'جسدي'
+        },
+        {
+            'id': 4,
+            'title': 'التأمل الواعي',
+            'description': 'مارس التأمل لمدة 15 دقيقة',
+            'points': 15,
+            'category': 'ذهني'
+        },
+        {
+            'id': 5,
+            'title': 'التواصل الاجتماعي',
+            'description': 'تحدث مع صديق أو أحد أفراد العائلة',
+            'points': 10,
+            'category': 'اجتماعي'
+        }
+    ],
+    'female': [
+        {
+            'id': 1,
+            'title': 'تمرين التنفس والاسترخاء',
+            'description': 'مارسي تقنيات الاسترخاء لمدة 15 دقيقة',
+            'points': 12,
+            'category': 'تهدئة'
+        },
+        {
+            'id': 2,
+            'title': 'الكتابة التعبيرية',
+            'description': 'اكتبي رسالة لطفلتك الداخلية',
+            'points': 18,
+            'category': 'تعبير'
+        },
+        {
+            'id': 3,
+            'title': 'الفن العلاجي',
+            'description': 'ارسمي أو اصنعي شيئًا يعبر عن مشاعرك',
+            'points': 20,
+            'category': 'إبداع'
+        },
+        {
+            'id': 4,
+            'title': 'اليوغا أو التمدد',
+            'description': 'مارسي اليوغا أو تمارين التمدد لمدة 20 دقيقة',
+            'points': 15,
+            'category': 'جسدي'
+        },
+        {
+            'id': 5,
+            'title': 'تأكيدات إيجابية',
+            'description': 'اقرئي التأكيدات الإيجابية أمام المرآة',
+            'points': 10,
+            'category': 'نفسي'
+        }
+    ]
+}
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/trauma_test')
+def trauma_test():
+    return render_template('trauma_test.html', questions=TRAUMA_QUESTIONS)
+
+@app.route('/process_test', methods=['POST'])
+def process_test():
+    answers = request.form.to_dict()
+    
+    # تحليل النتائج
+    trauma_types = []
+    for key, value in answers.items():
+        if value == 'yes':
+            question_index = int(key.split('_')[1])
+            trauma_types.append(TRAUMA_QUESTIONS[question_index]['type'])
+    
+    # إنشاء معرف مستخدم
+    user_id = str(uuid.uuid4())
+    session['user_id'] = user_id
+    session['gender'] = request.form.get('gender', 'male')
+    
+    # حفظ نتائج الاختبار
+    users_data = load_data(USERS_FILE)
+    users_data[user_id] = {
+        'trauma_types': trauma_types,
+        'gender': session['gender'],
+        'start_date': datetime.now().isoformat(),
+        'completed_tasks': [],
+        'total_points': 0
+    }
+    save_data(USERS_FILE, users_data)
+    
+    return redirect(url_for('treatment_plan'))
+
+@app.route('/treatment_plan')
+def treatment_plan():
+    if 'user_id' not in session:
+        return redirect(url_for('trauma_test'))
+    
+    user_id = session['user_id']
+    users_data = load_data(USERS_FILE)
+    user_data = users_data.get(user_id, {})
+    
+    # خطة العلاج بناءً على نوع الصدمة
+    treatment_plans = {
+        'neglect': 'التركيز على بناء الثقة بالنفس والعناية الذاتية',
+        'physical_abuse': 'تقنيات إدارة الغضب والتنظيم العاطفي',
+        'emotional_abuse': 'إعادة بناء احترام الذات والحدود الصحية',
+        'domestic_violence': 'تقنيات الأمان العاطفي وإدارة القلق',
+        'loss': 'العمل على مراحل الحزن والتقبل',
+        'school_trauma': 'بناء الثقة الاجتماعية ومهارات التواصل'
+    }
+    
+    plan = []
+    for trauma_type in user_data.get('trauma_types', []):
+        if trauma_type in treatment_plans:
+            plan.append(treatment_plans[trauma_type])
+    
+    return render_template('treatment_plan.html', plan=plan, trauma_types=user_data.get('trauma_types', []))
+
+@app.route('/tasks')
+def tasks():
+    if 'user_id' not in session:
+        return redirect(url_for('trauma_test'))
+    
+    gender = session.get('gender', 'male')
+    user_tasks = TASKS[gender]
+    
+    return render_template('tasks.html', tasks=user_tasks, gender=gender)
+
+@app.route('/complete_task', methods=['POST'])
+def complete_task():
+    if 'user_id' not in session:
+        return redirect(url_for('trauma_test'))
+    
+    user_id = session['user_id']
+    task_id = int(request.form.get('task_id'))
+    
+    users_data = load_data(USERS_FILE)
+    user_data = users_data.get(user_id, {})
+    
+    # إضافة المهمة المكتملة
+    completion = {
+        'task_id': task_id,
+        'date': datetime.now().isoformat(),
+        'points': request.form.get('points', 0)
+    }
+    
+    if 'completed_tasks' not in user_data:
+        user_data['completed_tasks'] = []
+    
+    user_data['completed_tasks'].append(completion)
+    user_data['total_points'] = user_data.get('total_points', 0) + int(completion['points'])
+    
+    users_data[user_id] = user_data
+    save_data(USERS_FILE, users_data)
+    
+    return jsonify({'success': True, 'total_points': user_data['total_points']})
+
+@app.route('/progress')
+def progress():
+    if 'user_id' not in session:
+        return redirect(url_for('trauma_test'))
+    
+    user_id = session['user_id']
+    users_data = load_data(USERS_FILE)
+    user_data = users_data.get(user_id, {})
+    
+    # حساب الإحصائيات
+    total_points = user_data.get('total_points', 0)
+    completed_tasks = user_data.get('completed_tasks', [])
+    
+    # التقدم الأسبوعي
+    now = datetime.now()
+    week_ago = now - timedelta(days=7)
+    weekly_tasks = [task for task in completed_tasks if datetime.fromisoformat(task['date']) > week_ago]
+    
+    # التقدم السنوي
+    year_ago = now - timedelta(days=365)
+    yearly_tasks = [task for task in completed_tasks if datetime.fromisoformat(task['date']) > year_ago]
+    
+    # تقدير التحسن
+    improvement_estimate = min(100, (total_points / 10))  # كل 10 نقاط = 1% تحسن
+    
+    stats = {
+        'total_points': total_points,
+        'total_tasks': len(completed_tasks),
+        'weekly_tasks': len(weekly_tasks),
+        'yearly_tasks': len(yearly_tasks),
+        'improvement_estimate': improvement_estimate
+    }
+    
+    return render_template('progress.html', stats=stats)
+
+@app.route('/notes')
+def notes():
+    if 'user_id' not in session:
+        return redirect(url_for('trauma_test'))
+    
+    user_id = session['user_id']
+    notes_data = load_data(NOTES_FILE)
+    user_notes = notes_data.get(user_id, [])
+    
+    return render_template('notes.html', notes=user_notes)
+
+@app.route('/save_note', methods=['POST'])
+def save_note():
+    if 'user_id' not in session:
+        return redirect(url_for('trauma_test'))
+    
+    user_id = session['user_id']
+    note_content = request.form.get('note')
+    
+    notes_data = load_data(NOTES_FILE)
+    if user_id not in notes_data:
+        notes_data[user_id] = []
+    
+    note = {
+        'content': note_content,
+        'date': datetime.now().isoformat()
+    }
+    
+    notes_data[user_id].append(note)
+    save_data(NOTES_FILE, notes_data)
+    
+    return redirect(url_for('notes'))
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
