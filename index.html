@@ -369,6 +369,36 @@
             color: white;
         }
 
+        /* Audio Controls */
+        .audio-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--current-border-color);
+        }
+        .audio-controls button {
+            background-color: var(--current-secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s ease;
+        }
+        .audio-controls button:hover {
+            background-color: var(--current-primary-color);
+        }
+        .audio-controls button.active {
+            background-color: var(--current-primary-color);
+        }
+
+
         /* Dark Mode Styles */
         body.dark-mode {
             --current-bg: var(--dark-bg);
@@ -445,6 +475,11 @@
             <div class="mode-toggle">
                 <button id="dayModeBtn" class="active"><i class="fas fa-sun"></i></button>
                 <button id="nightModeBtn"><i class="fas fa-moon"></i></button>
+            </div>
+            <div class="audio-controls">
+                <button id="playWindBtn"><i class="fas fa-wind"></i> تشغيل الريح</button>
+                <button id="playNightBtn"><i class="fas fa-moon"></i> تشغيل الليل</button>
+                <button id="stopAllAudioBtn"><i class="fas fa-stop"></i> إيقاف الصوت</button>
             </div>
         </aside>
 
@@ -633,6 +668,10 @@
         const nightModeBtn = document.getElementById('nightModeBtn');
         const windSound = document.getElementById('windSound');
         const nightSound = document.getElementById('nightSound');
+        const playWindBtn = document.getElementById('playWindBtn');
+        const playNightBtn = document.getElementById('playNightBtn');
+        const stopAllAudioBtn = document.getElementById('stopAllAudioBtn');
+
 
         let userHealingScore = 0; // Total score from the quiz
 
@@ -849,39 +888,76 @@
 
 
         // --- Day/Night Mode & Sound ---
+        function stopAllAudio() {
+            windSound.pause();
+            windSound.currentTime = 0; // Reset to start
+            nightSound.pause();
+            nightSound.currentTime = 0; // Reset to start
+            // Remove active class from audio buttons if any
+            playWindBtn.classList.remove('active');
+            playNightBtn.classList.remove('active');
+        }
+
         function setLightMode() {
             document.body.classList.remove('dark-mode');
             dayModeBtn.classList.add('active');
             nightModeBtn.classList.remove('active');
-            // Play wind sound, pause night sound
-            windSound.play().catch(e => console.log("Wind sound play failed:", e)); // Add catch for Promise rejection
-            nightSound.pause();
             localStorage.setItem('theme', 'light');
+            // When changing mode, stop current sounds and try to play wind
+            stopAllAudio();
+            playWindBtn.click(); // Simulate click to trigger play
         }
 
         function setDarkMode() {
             document.body.classList.add('dark-mode');
             nightModeBtn.classList.add('active');
             dayModeBtn.classList.remove('active');
-            // Play night sound, pause wind sound
-            nightSound.play().catch(e => console.log("Night sound play failed:", e)); // Add catch for Promise rejection
-            windSound.pause();
             localStorage.setItem('theme', 'dark');
+            // When changing mode, stop current sounds and try to play night
+            stopAllAudio();
+            playNightBtn.click(); // Simulate click to trigger play
         }
 
         dayModeBtn.addEventListener('click', setLightMode);
         nightModeBtn.addEventListener('click', setDarkMode);
 
+        playWindBtn.addEventListener('click', () => {
+            stopAllAudio(); // Stop other sounds first
+            windSound.play().then(() => {
+                playWindBtn.classList.add('active');
+            }).catch(e => {
+                console.log("Wind sound play failed:", e);
+                alert("تعذر تشغيل صوت الريح. قد تحتاج إلى التفاعل مع الصفحة أولاً أو قد تكون هناك مشكلة في رابط الصوت.");
+            });
+        });
+
+        playNightBtn.addEventListener('click', () => {
+            stopAllAudio(); // Stop other sounds first
+            nightSound.play().then(() => {
+                playNightBtn.classList.add('active');
+            }).catch(e => {
+                console.log("Night sound play failed:", e);
+                alert("تعذر تشغيل صوت الليل. قد تحتاج إلى التفاعل مع الصفحة أولاً أو قد تكون هناك مشكلة في رابط الصوت.");
+            });
+        });
+
+        stopAllAudioBtn.addEventListener('click', stopAllAudio);
+
+
         // Initialize theme and sound on page load
         function initializeTheme() {
             const savedTheme = localStorage.getItem('theme');
-            // Autoplay policies: Browsers often prevent autoplay until user interaction.
-            // We'll try to play, but it might require a click first.
             if (savedTheme === 'dark') {
-                setDarkMode();
+                document.body.classList.add('dark-mode');
+                nightModeBtn.classList.add('active');
+                dayModeBtn.classList.remove('active');
             } else {
-                setLightMode();
+                document.body.classList.remove('dark-mode');
+                dayModeBtn.classList.add('active');
+                nightModeBtn.classList.remove('active');
             }
+            // Do NOT attempt to play audio here directly on load, as it will likely be blocked.
+            // Rely on user interaction (mode change or explicit play buttons).
         }
 
         // --- Initial Load & Event Listeners ---
