@@ -1,11 +1,204 @@
-<!DOCTYPE html>
-<html lang="ar">
+<!DOCTYPE html><html lang="ar">
 <head>
   <meta charset="UTF-8">
   <title>المنزل الآمن لتشافي صدمات الطفولة</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      direction: rtl;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.5s, color 0.5s;
+    }
+    header, nav, main, section {
+      padding: 20px;
+    }
+    header {
+      background-color: #f4c6a1;
+      color: white;
+      text-align: center;
+    }
+    nav {
+      background-color: #fde6d0;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: #7a4d3b;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 5px;
+    }
+    section {
+      background-color: #fff;
+      margin: 10px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    button {
+      padding: 10px;
+      background-color: #7a4d3b;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #5c392c;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      margin-top: 10px;
+    }
+    #night {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+    #login-screen {
+      background-color: #fef2e6;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    #login-screen input {
+      padding: 8px;
+      margin: 5px;
+    }
+    .article {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      background-color: #fff9f4;
+    }
+  </style>
 </head>
 <body>
-  <h1>مرحبا بك في المنزل الآمن 💛</h1>
-  <p>هنا تبدأ رحلة تشافيك العميق من صدمات الطفولة.</p>
-</body>
+  <audio id="bg-sound" autoplay loop></audio>  <div id="login-screen">
+    <h2>تسجيل الدخول</h2>
+    <input type="text" id="username" placeholder="الاسم الكامل" />
+    <input type="password" id="password" placeholder="كلمة السر" />
+    <button onclick="login()">دخول</button>
+    <p id="login-error" style="color:red;"></p>
+  </div>  <div id="main-content" style="display:none;">
+    <header>
+      <h1>المنزل الآمن لتشافي صدمات الطفولة</h1>
+      <button onclick="logout()">🔒 تسجيل الخروج</button>
+    </header><nav>
+  <a href="#home">المنزل الآمن</a>
+  <a href="#female-tasks">مهمات الإناث</a>
+  <a href="#male-tasks">مهمات الذكور</a>
+  <a href="#progress">تقدم التشافي</a>
+  <a href="#articles">مقالات</a>
+</nav>
+
+<main>
+  <section id="home">
+    <h2>مقدمة الموقع</h2>
+    <p>هذا الموقع مخصص لمن يسعون إلى تشافي صدمات الطفولة. ستجدون هنا اختبارات نفسية، مهمات مصممة خصيصًا لدعم الإناث والذكور، بالإضافة إلى نظام نقاط لتتبع تقدمكم ودرجة التشافي المتوقعة.</p>
+  </section>
+
+  <section id="articles">
+    <h2>مقالاتي</h2>
+    <div id="article-editor" style="display:none;">
+      <textarea id="new-article" placeholder="اكتبي مقالك هنا..."></textarea>
+      <br>
+      <button onclick="saveArticle()">💾 حفظ المقال</button>
+    </div>
+    <div id="article-list"></div>
+  </section>
+</main>
+
+  </div>  <script>
+    const users = JSON.parse(localStorage.getItem("users") || "{}");
+    const owner = "wardasalsabil";
+    const ownerPass = "1230wardasalsabil";
+
+    function login() {
+      const name = document.getElementById("username").value.trim();
+      const pass = document.getElementById("password").value.trim();
+      const error = document.getElementById("login-error");
+
+      if (!name || !pass) {
+        error.innerText = "الرجاء إدخال الاسم وكلمة السر";
+        return;
+      }
+
+      if (users[name] && users[name] !== pass) {
+        error.innerText = "الاسم مستعمل مسبقًا بكلمة سر مختلفة.";
+        return;
+      }
+
+      users[name] = pass;
+      localStorage.setItem("users", JSON.stringify(users));
+      localStorage.setItem("loggedInUser", name);
+
+      document.getElementById("login-screen").style.display = "none";
+      document.getElementById("main-content").style.display = "block";
+      setThemeAndSound();
+
+      if (name === owner && pass === ownerPass) {
+        document.getElementById("article-editor").style.display = "block";
+      }
+
+      loadArticles();
+    }
+
+    function logout() {
+      localStorage.removeItem("loggedInUser");
+      location.reload();
+    }
+
+    function saveArticle() {
+      const content = document.getElementById("new-article").value.trim();
+      if (!content) return;
+      const articles = JSON.parse(localStorage.getItem("articles") || "[]");
+      articles.unshift({ content: content, date: new Date().toLocaleString() });
+      localStorage.setItem("articles", JSON.stringify(articles));
+      document.getElementById("new-article").value = "";
+      loadArticles();
+    }
+
+    function loadArticles() {
+      const container = document.getElementById("article-list");
+      container.innerHTML = "";
+      const articles = JSON.parse(localStorage.getItem("articles") || "[]");
+      articles.forEach(article => {
+        const div = document.createElement("div");
+        div.className = "article";
+        div.innerHTML = `<strong>${article.date}</strong><br>${article.content}`;
+        container.appendChild(div);
+      });
+    }
+
+    function setThemeAndSound() {
+      const hour = new Date().getHours();
+      const audio = document.getElementById("bg-sound");
+      if (hour >= 18 || hour < 6) {
+        document.body.id = "night";
+        audio.src = "https://cdn.pixabay.com/audio/2022/03/24/audio_3d5c929d8f.mp3";
+      } else {
+        document.body.id = "";
+        audio.src = "https://cdn.pixabay.com/audio/2023/03/01/audio_a4ebf6c68e.mp3";
+      }
+    }
+
+    window.onload = function () {
+      if (localStorage.getItem("loggedInUser")) {
+        const name = localStorage.getItem("loggedInUser");
+        document.getElementById("login-screen").style.display = "none";
+        document.getElementById("main-content").style.display = "block";
+        setThemeAndSound();
+        if (name === owner) {
+          document.getElementById("article-editor").style.display = "block";
+        }
+        loadArticles();
+      }
+    }
+  </script></body>
 </html>
