@@ -1,289 +1,145 @@
-<!DOCTYPE html><html lang="ar">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>المنزل الآمن لتشافي صدمات الطفولة</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      direction: rtl;
-      margin: 0;
-      padding: 0;
-      transition: background-color 0.5s, color 0.5s;
-    }
-    header, nav, main, section {
-      padding: 20px;
-    }
-    header {
-      background-color: #f4c6a1;
-      color: white;
-      text-align: center;
-    }
-    nav {
-      background-color: #fde6d0;
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-    }
-    nav a {
-      color: #7a4d3b;
-      text-decoration: none;
-      font-weight: bold;
-      margin: 5px;
-    }
-    section {
-      background-color: #fff;
-      margin: 10px;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    button {
-      padding: 10px;
-      background-color: #7a4d3b;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #5c392c;
-    }
-    textarea {
-      width: 100%;
-      height: 150px;
-      margin-top: 10px;
-    }
-    #night {
-      background-color: #121212;
-      color: #e0e0e0;
-    }
-    #login-screen {
-      background-color: #fef2e6;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    #login-screen input {
-      padding: 8px;
-      margin: 5px;
-    }
-    .article {
-      border: 1px solid #ccc;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 8px;
-      background-color: #fff9f4;
-    }
-    .task-list {
-      list-style: none;
-      padding: 0;
-    }
-    .task-list li {
-      margin-bottom: 10px;
-    }
-    .quiz-question {
-      margin-bottom: 10px;
-    }
-    .quiz-result {
-      font-weight: bold;
-      color: green;
-      margin-top: 10px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تشافي صدمات الطفولة</title>
+    <style>
+        body {
+            font-family: 'Cairo', Arial, sans-serif;
+            background: #f6fafd;
+            color: #222;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #6ec6ca;
+            color: #fff;
+            padding: 30px 0 20px 0;
+            text-align: center;
+        }
+        nav {
+            margin: 10px 0;
+            text-align: center;
+        }
+        nav a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        section {
+            max-width: 800px;
+            margin: 30px auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px #e0e0e0;
+            padding: 30px;
+        }
+        h1, h2 {
+            color: #3b7c7e;
+        }
+        .articles {
+            margin-top: 20px;
+        }
+        .article {
+            background: #eaf7f8;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #b2dfdb;
+            border-radius: 6px;
+            font-size: 1em;
+        }
+        button {
+            background: #3b7c7e;
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        footer {
+            background: #6ec6ca;
+            color: #fff;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 30px;
+        }
+    </style>
 </head>
 <body>
-  <audio id="bg-sound" autoplay loop></audio>  <div id="login-screen">
-    <h2>تسجيل الدخول</h2>
-    <input type="text" id="username" placeholder="الاسم الكامل" />
-    <input type="password" id="password" placeholder="كلمة السر" />
-    <button onclick="login()">دخول</button>
-    <p id="login-error" style="color:red;"></p>
-  </div>  <div id="main-content" style="display:none;">
     <header>
-      <h1>المنزل الآمن لتشافي صدمات الطفولة</h1>
-      <button onclick="logout()">تسجيل الخروج</button>
-    </header><nav>
-  <a href="#home">المنزل الآمن</a>
-  <a href="#female-tasks">مهمات الإناث</a>
-  <a href="#male-tasks">مهمات الذكور</a>
-  <a href="#progress">تقدم التشافي</a>
-  <a href="#quiz">امتحان التشافي</a>
-  <a href="#articles">مقالات</a>
-</nav>
+        <h1>تشافي صدمات الطفولة</h1>
+        <nav>
+            <a href="#about">عن الموقع</a>
+            <a href="#articles">مقالات</a>
+            <a href="#contact">تواصل معنا</a>
+        </nav>
+    </header>
 
-<main>
-  <section id="home">
-    <h2>مقدمة الموقع</h2>
-    <p>هذا الموقع مخصص لمن يسعون إلى تشافي صدمات الطفولة. ستجدون هنا اختبارات نفسية، مهمات مصممة خصيصًا لدعم الإناث والذكور، بالإضافة إلى نظام نقاط لتتبع تقدمكم ودرجة التشافي المتوقعة.</p>
-  </section>
+    <section id="about">
+        <h2>عن الموقع</h2>
+        <p>
+            هذا الموقع يهدف إلى نشر الوعي حول صدمات الطفولة وتقديم الدعم والأدوات اللازمة للتشافي النفسي. هنا ستجد مقالات، قصص ملهمة، ونصائح عملية تساعدك في رحلة التعافي.
+        </p>
+    </section>
 
-  <section id="female-tasks">
-    <h2>مهمات الإناث</h2>
-    <ul class="task-list">
-      <li>الاعتناء بالنباتات المنزلية</li>
-      <li>المشي حافية على التراب أو العشب</li>
-      <li>كتابة مشاعر الطفلة الداخلية في دفتر خاص</li>
-      <li>تأمل نفسك في المرآة بنظرة حب</li>
-    </ul>
-  </section>
+    <section id="articles">
+        <h2>مقالات وموارد</h2>
+        <div class="articles">
+            <div class="article">
+                <h3>ما هي صدمات الطفولة؟</h3>
+                <p>
+                    صدمات الطفولة هي تجارب مؤلمة أو أحداث سلبية تؤثر على الطفل وتترك أثراً طويل الأمد على الصحة النفسية والعاطفية.
+                </p>
+            </div>
+            <div class="article">
+                <h3>خطوات عملية للتشافي</h3>
+                <p>
+                    - الاعتراف بالمشاعر  
+                    - طلب الدعم النفسي  
+                    - ممارسة التأمل وتمارين التنفس  
+                    - كتابة اليوميات  
+                    - المشاركة في مجموعات دعم
+                </p>
+            </div>
+            <div class="article">
+                <h3>قصص ملهمة</h3>
+                <p>
+                    اقرأ قصص أشخاص تغلبوا على صدمات الطفولة وحققوا التوازن النفسي.
+                </p>
+            </div>
+        </div>
+    </section>
 
-  <section id="male-tasks">
-    <h2>مهمات الذكور</h2>
-    <ul class="task-list">
-      <li>ممارسة تمارين جسدية قوية</li>
-      <li>القيام بقرار صعب اليوم</li>
-      <li>المشي بخطى واثقة في الخارج</li>
-      <li>التعبير عن رأيك بوضوح في موقف</li>
-    </ul>
-  </section>
+    <section id="contact">
+        <h2>تواصل معنا</h2>
+        <form>
+            <label for="name">الاسم:</label>
+            <input type="text" id="name" name="name" required>
 
-  <section id="progress">
-    <h2>تقدم التشافي</h2>
-    <p id="points-display">النقاط الحالية: 0</p>
-    <p id="reward-message"></p>
-  </section>
+            <label for="email">البريد الإلكتروني:</label>
+            <input type="email" id="email" name="email" required>
 
-  <section id="quiz">
-    <h2>امتحان التشافي</h2>
-    <div class="quiz-question">
-      <label>1. ما هو أول خطوة لتشافي صدمة الطفولة؟</label><br>
-      <input type="radio" name="q1" value="a"> تجاهلها<br>
-      <input type="radio" name="q1" value="b"> الوعي بها والاعتراف<br>
-    </div>
-    <div class="quiz-question">
-      <label>2. ما هي الذكورة الصحية؟</label><br>
-      <input type="radio" name="q2" value="a"> السيطرة والعدوانية<br>
-      <input type="radio" name="q2" value="b"> القيادة مع تعاطف<br>
-    </div>
-    <button onclick="submitQuiz()">تحقق من النتيجة</button>
-    <p class="quiz-result" id="quiz-result"></p>
-  </section>
+            <label for="message">رسالتك:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
 
-  <section id="articles">
-    <h2>مقالاتي</h2>
-    <div id="article-editor" style="display:none;">
-      <textarea id="new-article" placeholder="اكتبي مقالك هنا..."></textarea>
-      <br>
-      <button onclick="saveArticle()">حفظ المقال</button>
-    </div>
-    <div id="article-list"></div>
-  </section>
-</main>
+            <button type="submit">إرسال</button>
+        </form>
+    </section>
 
-  </div>  <script>
-    const users = JSON.parse(localStorage.getItem("users") || "{}");
-    const owner = "wardasalsabil";
-    const ownerPass = "1230wardasalsabil";
-    let points = parseInt(localStorage.getItem("points") || "0");
-
-    function login() {
-      const name = document.getElementById("username").value.trim();
-      const pass = document.getElementById("password").value.trim();
-      const error = document.getElementById("login-error");
-
-      if (!name || !pass) {
-        error.innerText = "الرجاء إدخال الاسم وكلمة السر";
-        return;
-      }
-
-      if (users[name] && users[name] !== pass) {
-        error.innerText = "الاسم مستعمل مسبقًا بكلمة سر مختلفة.";
-        return;
-      }
-
-      users[name] = pass;
-      localStorage.setItem("users", JSON.stringify(users));
-      localStorage.setItem("loggedInUser", name);
-      document.getElementById("login-screen").style.display = "none";
-      document.getElementById("main-content").style.display = "block";
-
-      setThemeAndSound();
-      updatePointsDisplay();
-      if (name === owner && pass === ownerPass) {
-        document.getElementById("article-editor").style.display = "block";
-      }
-      loadArticles();
-    }
-
-    function logout() {
-      localStorage.removeItem("loggedInUser");
-      location.reload();
-    }
-
-    function updatePointsDisplay() {
-      document.getElementById("points-display").innerText = "النقاط الحالية: " + points;
-      if (points >= 10) {
-        document.getElementById("reward-message").innerText = "🌟 مبارك! لقد وصلتِ لمستوى تشافي يمنحك هذه الخاطرة: \"أنا أستحق السلام والأمان.\"";
-      }
-    }
-
-    function submitQuiz() {
-      const q1 = document.querySelector('input[name="q1"]:checked');
-      const q2 = document.querySelector('input[name="q2"]:checked');
-      const result = document.getElementById("quiz-result");
-      if (!q1 || !q2) {
-        result.innerText = "يرجى الإجابة على جميع الأسئلة.";
-        return;
-      }
-      if (q1.value === "b" && q2.value === "b") {
-        points += 5;
-        localStorage.setItem("points", points);
-        result.innerText = "✔️ إجابات صحيحة! لقد حصلت على 5 نقاط.";
-        updatePointsDisplay();
-      } else {
-        result.innerText = "❌ بعض الإجابات غير صحيحة، حاول مرة أخرى.";
-      }
-    }
-
-    function saveArticle() {
-      const content = document.getElementById("new-article").value.trim();
-      if (!content) return;
-      const articles = JSON.parse(localStorage.getItem("articles") || "[]");
-      articles.unshift({ content: content, date: new Date().toLocaleString() });
-      localStorage.setItem("articles", JSON.stringify(articles));
-      document.getElementById("new-article").value = "";
-      loadArticles();
-    }
-
-    function loadArticles() {
-      const container = document.getElementById("article-list");
-      container.innerHTML = "";
-      const articles = JSON.parse(localStorage.getItem("articles") || "[]");
-      articles.forEach(article => {
-        const div = document.createElement("div");
-        div.className = "article";
-        div.innerHTML = `<strong>${article.date}</strong><br>${article.content}`;
-        container.appendChild(div);
-      });
-    }
-
-    function setThemeAndSound() {
-      const hour = new Date().getHours();
-      const audio = document.getElementById("bg-sound");
-      if (hour >= 18 || hour < 6) {
-        document.body.id = "night";
-        audio.src = "https://cdn.pixabay.com/audio/2022/03/24/audio_3d5c929d8f.mp3";
-      } else {
-        document.body.id = "";
-        audio.src = "https://cdn.pixabay.com/audio/2023/03/01/audio_a4ebf6c68e.mp3";
-      }
-    }
-
-    window.onload = function () {
-      if (localStorage.getItem("loggedInUser")) {
-        const name = localStorage.getItem("loggedInUser");
-        document.getElementById("login-screen").style.display = "none";
-        document.getElementById("main-content").style.display = "block";
-        setThemeAndSound();
-        updatePointsDisplay();
-        if (name === owner) {
-          document.getElementById("article-editor").style.display = "block";
-        }
-        loadArticles();
-      }
-    }
-  </script></body>
+    <footer>
+        &copy; 2025 تشافي صدمات الطفولة. جميع الحقوق محفوظة.
+    </footer>
+</body>
 </html>
-      
