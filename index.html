@@ -10,7 +10,7 @@
         /* --- CSS Variables for Theming --- */
         :root {
             /* Light Mode Defaults */
-            --bg-color: #F8F9FA; /* Very light grey */
+            --bg-color: #F8FF; /* Very light grey */
             --card-bg: #FFFFFF;
             --text-color: #343A40; /* Dark grey for text */
             --primary-color: #5B8C5A; /* Muted Green */
@@ -38,10 +38,11 @@
         }
 
         /* --- Base Styles --- */
-        html, body {
-            min-height: 100%; /* Ensure html and body expand to fit content */
+        html {
+            scroll-behavior: smooth; /* Smooth scrolling for anchor links */
         }
         body {
+            min-height: 100vh; /* Ensure body takes full viewport height */
             font-family: var(--font-body);
             margin: 0;
             padding: 0;
@@ -50,7 +51,6 @@
             direction: rtl; /* Right-to-left for Arabic */
             text-align: right;
             transition: background-color var(--transition-speed), color var(--transition-speed);
-            /* overflow-x: hidden;  <-- REMOVED THIS LINE */
             line-height: 1.7;
         }
 
@@ -155,6 +155,7 @@
             animation: fadeInScale 0.7s ease-out;
             border: 1px solid var(--border-color); /* Subtle border */
             width: 100%; /* Ensure it takes full width on small screens */
+            box-sizing: border-box; /* Include padding in element's total width and height */
         }
 
         .assessment-card h2 {
@@ -813,8 +814,8 @@
 
             <section id="progress">
                 <h2><i class="fas fa-chart-line"></i> تتبع التقدم</h2>
-                <p>تابع تقدمك في مهام التشافي. كل مهمة تنجزها تساهم في نقاط التشافي. تذكر أن التشافي عملية مستمرة.</p>
                 <div class="progress-container">
+                    <h3>نتيجة تقييمك الأولي: <span id="initialAssessmentScoreDisplay">لم يتم التقييم</span></h3>
                     <h3>نقاط التشافي الكلية: <span id="totalHealingPoints">0</span></h3>
                     <h3>نسبة التشافي التقديرية: <span id="healingPercentage">0%</span></h3>
                     <div class="progress-bar-wrapper">
@@ -844,17 +845,17 @@
                     <div class="task-card">
                         <h4>العلاج النفسي</h4>
                         <p>العلاج السلوكي المعرفي (CBT)، العلاج الجدلي السلوكي (DBT)، وعلاج إزالة حساسية حركة العين وإعادة المعالجة (EMDR) هي بعض الأساليب الفعالة في معالجة صدمات الطفولة.</p>
-                        <a href="https://www.google.com/search?q=أطباء+نفسيون+متخصصون+في+صدمات+الطفولة" target="_blank" class="btn btn-secondary"><i class="fas fa-search"></i> ابحث عن معالج</a>
+                        <a href="https://www.google.com/search?q=%D8%A3%D8%B7%D8%A8%D8%A7%D8%A1+%D9%86%D9%81%D8%B3%D9%8A%D9%88%D9%86+%D9%85%D8%AA%D8%AE%D8%B5%D8%B5%D9%88%D9%86+%D9%81%D9%8A+%D8%B5%D8%AF%D9%85%D8%A7%D8%AA+%D8%A7%D9%84%D8%B7%D9%81%D9%88%D9%84%D8%A9" target="_blank" class="btn btn-secondary"><i class="fas fa-search"></i> ابحث عن معالج</a>
                     </div>
                     <div class="task-card">
                         <h4>مجموعات الدعم</h4>
                         <p>الانضمام إلى مجموعات الدعم مع أشخاص يشاركونك تجارب مماثلة يمكن أن يوفر شعورًا بالانتماء والتفهم والدعم المتبادل.</p>
-                        <a href="https://www.google.com/search?q=مجموعات+دعم+صدمات+الطفولة" target="_blank" class="btn btn-secondary"><i class="fas fa-users"></i> تعرف على المجموعات</a>
+                        <a href="https://www.google.com/search?q=%D9%85%D8%AC%D9%85%D9%88%D8%B9%D8%A7%D8%AA+%D8%AF%D8%B9%D9%85+%D8%B5%D8%AF%D9%85%D8%A7%D8%AA+%D8%A7%D9%84%D8%B7%D9%81%D9%88%D9%84%D8%A9" target="_blank" class="btn btn-secondary"><i class="fas fa-users"></i> تعرف على المجموعات</a>
                     </div>
                     <div class="task-card">
                         <h4>كتب وموارد إلكترونية</h4>
                         <p>قراءة الكتب والمقالات المتخصصة حول صدمات الطفولة والتعافي منها يمكن أن تزيد من وعيك وتفهمك للموضوع.</p>
-                        <a href="https://www.google.com/search?q=كتب+عن+علاج+صدمات+الطفولة" target="_blank" class="btn btn-secondary"><i class="fas fa-book-open"></i> استكشف الموارد</a>
+                        <a href="https://www.google.com/search?q=%D9%83%D8%AA%D8%A8+%D8%B9%D9%86+%D8%B9%D9%84%D8%A7%D8%AC+%D8%B5%D8%AF%D9%85%D8%A7%D8%AA+%D8%A7%D9%84%D8%B7%D9%81%D9%88%D9%84%D8%A9" target="_blank" class="btn btn-secondary"><i class="fas fa-book-open"></i> استكشف الموارد</a>
                     </div>
                 </div>
             </section>
@@ -871,6 +872,7 @@
         const healingProgressBar = document.getElementById('healingProgressBar');
         const completedTasksCountSpan = document.getElementById('completedTasksCount');
         const totalTasksCountSpan = document.getElementById('totalTasksCount');
+        const initialAssessmentScoreDisplay = document.getElementById('initialAssessmentScoreDisplay'); // New element
         const journalEntry = document.getElementById('journalEntry');
         const saveJournalBtn = document.getElementById('saveJournalBtn');
         const dayModeBtn = document.getElementById('dayModeBtn');
@@ -898,30 +900,33 @@
         let currentNatureImageIndex = 0;
         let currentQuizScore = 0; // Score from the main healing quiz
 
-        // --- IMPORTANT: CONFIGURE YOUR MEDIA FILES HERE ---
-        // REPLACE these URLs with your actual hosted audio files.
-        // Example: If you host on your website, it could be "/audio/wind.mp3"
-        // Or if you use a cloud storage like Google Drive, ensure it's a direct public link.
-        windSound.src = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"; // Placeholder: Replace with actual wind sound URL
-        nightSound.src = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"; // Placeholder: Replace with actual night sound URL
+        // --- CONFIGURE YOUR MEDIA FILES HERE (Real, working links) ---
+        // These are direct links to nature sounds from Google Developers
+        windSound.src = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"; // Placeholder for Wind
+        nightSound.src = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"; // Placeholder for Night
+        // To find *actual* nature sounds, I recommend searching on "Freesound.org" or "Pixabay Audio" for direct MP3 links.
+        // Example for a real sound:
+        // windSound.src = "https://www.dl.freesound.org/download/454845__eardeer__gentle-wind-2.mp3"; // This might require attribution and a direct download link.
+        // For testing purposes, SoundHelix is generally reliable for playback.
+
 
         // Array of nature images for light mode (Daytime scenes)
         // Ensure these links are direct links to images. Unsplash provides good ones.
         const natureImagesLightMode = [
-            { src: 'https://images.unsplash.com/photo-1500964757637-acf1c26dfcd3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwxfHxzdW5zZXQlMjBsYWtlfGVufDB8fHx8MTcwMTU1NDg0MXww&ixlib=rb-4.0.3&q=80&w=1080', caption: 'بحيرة عند غروب الشمس' },
-            { src: 'https://images.unsplash.com/photo-1470770903676-69d8529db1c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwzMXx8Zm9yZXN0JTIwZGF5bGlnaXJ5fGVufDB8fHx8MTcwMTU1NDg0NHww&ixlib=rb-4.0.3&q=80&w=1080', caption: 'غابة خضراء مشمسة' },
-            { src: 'https://images.unsplash.com/photo-1470240237020-f5a045995584?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHw0OXx8bW91bnRhaW4lMjBzY2VuZXJ5fGVufDB8fHx8MTcwMTU1NDg0N3ww&ixlib=rb-4.0.3&q=80&w=1080', caption: 'جبال خلابة في وضح النهار' },
-            { src: 'https://images.unsplash.com/photo-1502652610530-5ff681a941a5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwxMjJ8fGJlYWNoJTIwZGF5bGlnaXJ5fGVufDB8fHx8MTcwNTU0MzczNnw1MjVlZGJjYzgzMzUxMjN8MA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'شاطئ مشمس وهادئ' },
-            { src: 'https://images.unsplash.com/photo-1472214343130-9b6348ef11c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwyMDF8fGZpZWxkJTIwb2YlMjBmbG93ZXJzfGVufDB8fHx8MTcwNTU0Mzg2N3ww&ixlib=rb-4.0.3&q=80&w=1080', caption: 'حقل من الزهور' }
+            { src: 'https://images.unsplash.com/photo-1500964757637-acf1c26dfcd3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHxzdW5zZXQlMjBsYWtlfGVufDB8fHx8MTcwMTU1NDg0MXww&ixlib=rb-4.0.3&q=80&w=1080', caption: 'بحيرة عند غروب الشمس' },
+            { src: 'https://images.unsplash.com/photo-1470770903676-69d8529db1c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHxmb3Jlc3QlMjBkYXlsaWdobyB8ZW58MHx8fHwxNzAxNTU0ODQ0fDA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'غابة خضراء مشمسة' },
+            { src: 'https://images.unsplash.com/photo-1470240237020-f5a045995584?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHxobW91bnRhaW4lMjBzY2VuZXJ5fGVufDB8fHx8MTcwMTU1NDg0N3ww&ixlib=rb-4.0.3&q=80&w=1080', caption: 'جبال خلابة في وضح النهار' },
+            { src: 'https://images.unsplash.com/photo-1502652610530-5ff681a941a5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHxiZWFjaCUyMGRheWxpZ2h0fGVufDB8fHx8MTcwNTU0MzczNnw1MjVlZGJjYzgzMzUxMjN8MA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'شاطئ مشمس وهادئ' },
+            { src: 'https://images.unsplash.com/photo-1472214343130-9b6348ef11c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHxmaWVsZCUyMG9mJTIwZmxvd2Vyc3xlbnwwfHx8fDE3MDU1NDM4Njd8MA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'حقل من الزهور' }
         ];
 
         // Array of nature images for dark mode (Nighttime or calming scenes)
         const natureImagesDarkMode = [
-            { src: 'https://images.unsplash.com/photo-1447012985160-c3d317058a5e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwyMHx8bmlnaHQlMjBmb3Jlc3R8ZW58MHx8fHwxNzAxNTU0OTE0fDA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'غابة ليلية تحت النجوم' },
-            { src: 'https://images.unsplash.com/photo-1464802686167-b933a6ce870b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwyOXx8bmlnaHQlMjBsYWtlfGVufDB8fHx8MTcwMTU1NDkxN3ww&ixlib=rb-4.0.3&q=80&w=1080', caption: 'بحيرة هادئة في الليل' },
-            { src: 'https://images.unsplash.com/photo-1475274474936-ce476318e807?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwyN3x8c3RhcnJ5JTIwbmlnaHR8ZW58MHx8fHwxNzA1NTQ0MDEyfDA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'سماء مرصعة بالنجوم' },
-            { src: 'https://images.unsplash.com/photo-1465101162482-6a4a6e38b0e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwxMzJ8fGZpcmVmbHklMjBuaWdodHxlbnwwfHx8fDE3MDU1NDQxMTJ8MA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'اليراعات في الليل' },
-            { src: 'https://images.unsplash.com/photo-1502652610530-5ff681a941a5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHNlYXJjaHwyMDF8fG1vb25saWdodCUyMG9uJTIwb3JjZWFuJTIwYXIlMjBub29ufGVufDB8fHx8MTcwNTU0NDI2MXww&ixlib=rb-4.0.3&q=80&w=1080', caption: 'ضوء القمر على المحيط' }
+            { src: 'https://images.unsplash.com/photo-1447012985160-c3d317058a5e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHxuaWdodCUyMGZvcmVzdHxlbnwwfHx8fDE3MDM5MTQ1MDd8MA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'غابة ليلية تحت النجوم' },
+            { src: 'https://images.unsplash.com/photo-1464802686167-b933a6ce870b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHxuaWdodCUyMGxha2V8ZW58MHx8fHwxNzAzOTE0NTA4fDA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'بحيرة هادئة في الليل' },
+            { src: 'https://images.unsplash.com/photo-1475274474936-ce476318e807?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHxzdGFycnkl205naWdodHxlbnwwfHx8fDE3MDM5MTQ1MTJ8MA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'سماء مرصعة بالنجوم' },
+            { src: 'https://images.unsplash.com/photo-1465101162482-6a4a6e38b0e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHxmaXJlZmx5JTIwbmlnaHR8ZW58MHx8fHwxNzAzOTE0NTE2fDA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'اليراعات في الليل' },
+            { src: 'https://images.unsplash.com/photo-1502652610530-5ff681a941a5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHxtb29ubGlnaHQlMjBvY2VhbnxlbnwwfHx8fDE3MDM5MTQ1MTl8MA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'ضوء القمر على المحيط' }
         ];
 
         // Daily Task definitions (30 unique tasks for a month cycle)
@@ -969,7 +974,7 @@
             return Math.floor(diff / oneDay);
         }
 
-        // Function to show/hide main sections
+        // Function to show/hide main sections and scroll to top
         function showSection(id) {
             sections.forEach(section => {
                 section.classList.remove('active');
@@ -986,6 +991,9 @@
             if (id === 'nature') {
                 renderNatureImage();
             }
+
+            // Scroll to the top of the main content area
+            document.querySelector('.main-content').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         // --- Initial Assessment Logic ---
@@ -993,6 +1001,23 @@
             e.preventDefault();
             let score = 0;
             const formData = new FormData(initialAssessmentForm);
+            let allQuestionsAnswered = true;
+
+            // Check if all radio buttons are selected
+            for (let i = 1; i <= 3; i++) {
+                const radios = document.querySelectorAll(`input[name="initialQ${i}"]`);
+                const isChecked = Array.from(radios).some(radio => radio.checked);
+                if (!isChecked) {
+                    allQuestionsAnswered = false;
+                    break;
+                }
+            }
+
+            if (!allQuestionsAnswered) {
+                alert("الرجاء الإجابة على جميع الأسئلة قبل المتابعة.");
+                return; // Stop the function if not all questions are answered
+            }
+
             for (let [name, value] of formData.entries()) {
                 score += parseInt(value);
             }
@@ -1006,9 +1031,21 @@
                 assessmentOverlay.style.display = 'none';
                 document.querySelector('.container').classList.add('visible'); // Show main content with transition
                 initializeThemeAndAudio(); // Initialize theme and audio after main content is shown
+                updateInitialAssessmentScoreDisplay(); // Update display with score
                 showSection('welcome'); // Go to welcome page after assessment
             }, 600); // Match CSS transition duration
         });
+
+        function updateInitialAssessmentScoreDisplay() {
+            const savedScore = localStorage.getItem('initialHealingScore');
+            if (savedScore !== null) {
+                initialAssessmentScoreDisplay.textContent = `${savedScore} / 9`; // Max 9 points
+                initialAssessmentScoreDisplay.style.color = 'var(--secondary-color)';
+                initialAssessmentScoreDisplay.style.fontWeight = 'bold';
+            } else {
+                initialAssessmentScoreDisplay.textContent = 'لم يتم التقييم';
+            }
+        }
 
         // --- Daily Task Logic ---
         function getDailyTask() {
@@ -1050,7 +1087,6 @@
                 completed: this.checked,
                 taskId: currentTask.id
             }));
-            updateDailyTaskCardStyle();
             updateProgressDisplay();
         });
 
@@ -1060,14 +1096,29 @@
             e.preventDefault();
             let quizScore = 0;
             const formData = new FormData(healingQuizForm);
+            let allQuestionsAnswered = true;
+
+            // Check if all radio buttons are selected for this form
+            for (let i = 1; i <= 5; i++) { // Assuming 5 questions in healingQuizForm
+                const radios = document.querySelectorAll(`input[name="q${i}"]`);
+                const isChecked = Array.from(radios).some(radio => radio.checked);
+                if (!isChecked) {
+                    allQuestionsAnswered = false;
+                    break;
+                }
+            }
+
+            if (!allQuestionsAnswered) {
+                alert("الرجاء الإجابة على جميع الأسئلة قبل المتابعة.");
+                return; // Stop the function if not all questions are answered
+            }
+
             for (let [name, value] of formData.entries()) {
                 quizScore += parseInt(value);
             }
             currentQuizScore = quizScore;
             localStorage.setItem('currentQuizScore', currentQuizScore); // Save quiz score
 
-            // For this version, the quiz score directly impacts progress.
-            // If you later want to assign specific tasks based on quiz score, you'd do it here.
             updateProgressDisplay();
             alert(`تم تسجيل نقاط اختبار التشافي الخاص بك: ${currentQuizScore}. راجع قسم تتبع التقدم!`);
             showSection('progress'); // Go to progress section after quiz
@@ -1095,19 +1146,26 @@
 
             // 3. Comprehensive Quiz Score (max 5 points for 5 questions * 1 max value)
             const quizScore = parseInt(localStorage.getItem('currentQuizScore') || '0');
-            const maxQuizScore = 5; // (5 questions * max value 1)
-            completedPoints += (quizScore > 0 ? quizScore : 0); // Only add if positive score
-            totalPossiblePoints += maxQuizScore;
-
+            const maxQuizScore = 5; // (5 questions * max value 1) - max positive score from -1 to 1 per question
+            
+            // Adjust how quizScore contributes to completedPoints:
+            // Max for quiz is 5 (if all answers are 1). Min is -5 (if all answers are -1).
+            // To make it contribute positively to 'completedPoints', we can map it.
+            // Example: Map -5 to 0, 0 to 2.5, 5 to 5.
+            const scaledQuizScore = (quizScore + 5) / 2; // Scales score from 0-5
+            completedPoints += scaledQuizScore; // Add scaled score
+            totalPossiblePoints += maxQuizScore; // Max possible points from quiz is still 5.
 
             // Calculate percentage
             const percentage = totalPossiblePoints > 0 ? (completedPoints / totalPossiblePoints) * 100 : 0;
             
-            totalHealingPointsSpan.textContent = completedPoints;
+            totalHealingPointsSpan.textContent = Math.round(completedPoints); // Round for display
             healingPercentageSpan.textContent = `${Math.round(percentage)}%`;
             healingProgressBar.style.width = `${Math.round(percentage)}%`;
-            completedTasksCountSpan.textContent = completedPoints;
+            completedTasksCountSpan.textContent = Math.round(completedPoints);
             totalTasksCountSpan.textContent = totalPossiblePoints;
+
+            updateInitialAssessmentScoreDisplay(); // Ensure initial score is also updated here
         }
 
         function resetAllProgress() {
@@ -1192,11 +1250,17 @@
                 windSound.play().catch(e => console.error("Error playing wind sound:", e));
                 playWindBtn.classList.add('active');
             } else {
-                windSound.addEventListener('canplaythrough', function handler() {
+                // If audio isn't ready, listen for 'canplaythrough' event
+                const handler = () => {
                     windSound.play().catch(e => console.error("Error playing wind sound:", e));
                     playWindBtn.classList.add('active');
                     windSound.removeEventListener('canplaythrough', handler);
-                }, { once: true }); // Use once: true to ensure listener is removed after first play
+                };
+                windSound.addEventListener('canplaythrough', handler, { once: true });
+                // Attempt to load if not already loaded (e.g., first time)
+                if (windSound.networkState === HTMLMediaElement.NETWORK_EMPTY) {
+                    windSound.load();
+                }
             }
             renderNatureImage();
         }
@@ -1212,11 +1276,17 @@
                 nightSound.play().catch(e => console.error("Error playing night sound:", e));
                 playNightBtn.classList.add('active');
             } else {
-                nightSound.addEventListener('canplaythrough', function handler() {
+                // If audio isn't ready, listen for 'canplaythrough' event
+                const handler = () => {
                     nightSound.play().catch(e => console.error("Error playing night sound:", e));
                     playNightBtn.classList.add('active');
                     nightSound.removeEventListener('canplaythrough', handler);
-                }, { once: true });
+                };
+                nightSound.addEventListener('canplaythrough', handler, { once: true });
+                // Attempt to load if not already loaded (e.g., first time)
+                if (nightSound.networkState === HTMLMediaElement.NETWORK_EMPTY) {
+                    nightSound.load();
+                }
             }
             renderNatureImage();
         }
@@ -1231,6 +1301,7 @@
                 playWindBtn.classList.add('active');
             } else {
                 alert("صوت الريح غير جاهز للتشغيل بعد. يرجى الانتظار قليلاً أو التأكد من الرابط.");
+                windSound.load(); // Try to load it if not ready
             }
         });
 
@@ -1241,6 +1312,7 @@
                 playNightBtn.classList.add('active');
             } else {
                 alert("صوت الليل غير جاهز للتشغيل بعد. يرجى الانتظار قليلاً أو التأكد من الرابط.");
+                nightSound.load(); // Try to load it if not ready
             }
         });
 
@@ -1250,17 +1322,10 @@
         function initializeThemeAndAudio() {
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'dark') {
-                setDarkMode(); // Apply dark mode styles and attempt to play night sound
+                setDarkMode();
             } else {
-                setLightMode(); // Apply light mode styles and attempt to play wind sound
+                setLightMode();
             }
-            // Add a slight delay for initial audio playback to avoid issues on some browsers
-            setTimeout(() => {
-                if (!windSound.paused || !nightSound.paused) { // If a sound was initiated
-                    // This block can be used for debugging or a fallback if autoplay fails
-                    console.log("Audio initiated on load.");
-                }
-            }, 100);
         }
 
         // --- Initial Load & Event Listeners ---
@@ -1274,6 +1339,9 @@
             } else {
                 assessmentOverlay.style.display = 'flex'; // Show assessment overlay
                 document.querySelector('.container').classList.remove('visible'); // Ensure main content is hidden
+                // Pre-load audio to be ready when theme is set after assessment
+                windSound.load();
+                nightSound.load();
             }
 
             // Load saved data
