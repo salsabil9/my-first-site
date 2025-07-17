@@ -451,11 +451,11 @@
 <body>
 
     <audio id="windSound" loop>
-        <source src="https://www.learning-arabic.com/pronunciation/wind.mp3" type="audio/mpeg">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
         متصفحك لا يدعم عنصر الصوت.
     </audio>
     <audio id="nightSound" loop>
-        <source src="https://www.soundboard.com/mediafiles/hr/hr5/hr58/hr588289d0234a413d93b3f27f8a70659_67303.mp3" type="audio/mpeg">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
         متصفحك لا يدعم عنصر الصوت.
     </audio>
 
@@ -573,413 +573,413 @@
                         <label><input type="radio" name="q12" value="-1"> أستطيع التسامح بسهولة.</label>
                     </div>
                     <div class="quiz-question">
-                        <p>13. هل تشعر أحيانًا أنك تستحق ما حدث لك في الماضي؟</p>
-                        <label><input type="radio" name="q13" value="1"> نعم، هذا الشعور يراودني.</label>
-                        <label><input type="radio" name="q13" value="0"> أحيانًا، لكنني أعلم أنه غير صحيح.</label>
-                        <label><input type="radio" name="q13" value="-1"> لا، أعلم أنني لم أكن أستحق ذلك.</label>
-                    </div>
-                    <div class="quiz-question">
-                        <p>14. هل تجد صعوبة في طلب المساعدة أو الدعم عندما تحتاج إليه؟</p>
-                        <label><input type="radio" name="q14" value="1"> نعم، أجد الأمر محرجًا أو صعبًا.</label>
-                        <label><input type="radio" name="q14" value="0"> أحيانًا، حسب الموقف.</label>
-                        <label><input type="radio" name="q14" value="-1"> لا، أستطيع طلب المساعدة بسهولة.</label>
-                    </div>
-                    <div class="quiz-question">
-                        <p>15. هل تشعر أن صدمات الطفولة لا تزال تؤثر بشكل كبير على حياتك اليومية؟</p>
-                        <label><input type="radio" name="q15" value="1"> نعم، بشكل كبير جدًا.</label>
-                        <label><input type="radio" name="q15" value="0"> نعم، بشكل متوسط.</label>
-                        <label><input type="radio" name="q15" value="-1"> لا، تأثيرها محدود أو تلاشى.</label>
-                    </div>
-                    <button type="submit" class="btn">احصل على المهام المخصصة</button>
-                </form>
-            </section>
+                <p>13. هل تشعر أحيانًا أنك تستحق ما حدث لك في الماضي؟</p>
+                <label><input type="radio" name="q13" value="1"> نعم، هذا الشعور يراودني.</label>
+                <label><input type="radio" name="q13" value="0"> أحيانًا، لكنني أعلم أنه غير صحيح.</label>
+                <label><input type="radio" name="q13" value="-1"> لا، أعلم أنني لم أكن أستحق ذلك.</label>
+            </div>
+            <div class="quiz-question">
+                <p>14. هل تجد صعوبة في طلب المساعدة أو الدعم عندما تحتاج إليه؟</p>
+                <label><input type="radio" name="q14" value="1"> نعم، أجد الأمر محرجًا أو صعبًا.</label>
+                <label><input type="radio" name="q14" value="0"> أحيانًا، حسب الموقف.</label>
+                <label><input type="radio" name="q14" value="-1"> لا، أستطيع طلب المساعدة بسهولة.</label>
+            </div>
+            <div class="quiz-question">
+                <p>15. هل تشعر أن صدمات الطفولة لا تزال تؤثر بشكل كبير على حياتك اليومية؟</p>
+                <label><input type="radio" name="q15" value="1"> نعم، بشكل كبير جدًا.</label>
+                <label><input type="radio" name="q15" value="0"> نعم، بشكل متوسط.</label>
+                <label><input type="radio" name="q15" value="-1"> لا، تأثيرها محدود أو تلاشى.</label>
+            </div>
+            <button type="submit" class="btn">احصل على المهام المخصصة</button>
+        </form>
+    </section>
 
-            <section id="tasks">
-                <h2>مهام التشافي المخصصة</h2>
-                <p>بناءً على إجاباتك، إليك مجموعة من المهام المقترحة لمساعدتك في رحلة التشافي. تذكر أن هذه المهام هي دليل إرشادي، والالتزام بها سيساهم في تقدمك.</p>
-                <div class="tasks-grid" id="assignedTasks">
-                    </div>
-            </section>
+    <section id="tasks">
+        <h2>مهام التشافي المخصصة</h2>
+        <p>بناءً على إجاباتك، إليك مجموعة من المهام المقترحة لمساعدتك في رحلة التشافي. تذكر أن هذه المهام هي دليل إرشادي، والالتزام بها سيساهم في تقدمك.</p>
+        <div class="tasks-grid" id="assignedTasks">
+            </div>
+    </section>
 
-            <section id="progress">
-                <h2>تتبع التقدم الأسبوعي</h2>
-                <p>تابع تقدمك في مهام التشافي. كل مهمة تنجزها تساهم في نقطة تشافي. تذكر أن التشافي عملية مستمرة.</p>
-                <div class="progress-container">
-                    <h3>نقاط التشافي الكلية: <span id="totalHealingPoints">0</span></h3>
-                    <h3>نسبة التشافي التقديرية: <span id="healingPercentage">0%</span></h3>
-                    <div class="progress-bar-wrapper">
-                        <div class="progress-bar" id="healingProgressBar"></div>
-                    </div>
-                    <div class="score-info">
-                        <span>أنجزت <span id="completedTasksCount">0</span> من <span id="totalTasksCount">0</span> مهام.</span>
-                        <button class="btn btn-secondary" onclick="resetWeeklyProgress()">إعادة تعيين التقدم الأسبوعي</button>
-                    </div>
-                </div>
-            </section>
+    <section id="progress">
+        <h2>تتبع التقدم الأسبوعي</h2>
+        <p>تابع تقدمك في مهام التشافي. كل مهمة تنجزها تساهم في نقطة تشافي. تذكر أن التشافي عملية مستمرة.</p>
+        <div class="progress-container">
+            <h3>نقاط التشافي الكلية: <span id="totalHealingPoints">0</span></h3>
+            <h3>نسبة التشافي التقديرية: <span id="healingPercentage">0%</span></h3>
+            <div class="progress-bar-wrapper">
+                <div class="progress-bar" id="healingProgressBar"></div>
+            </div>
+            <div class="score-info">
+                <span>أنجزت <span id="completedTasksCount">0</span> من <span id="totalTasksCount">0</span> مهام.</span>
+                <button class="btn btn-secondary" onclick="resetWeeklyProgress()">إعادة تعيين التقدم الأسبوعي</button>
+            </div>
+        </div>
+    </section>
 
-            <section id="journal">
-                <h2>مذكرة التدوين</h2>
-                <p>هنا يمكنك تدوين أفكارك ومشاعرك وتجاربك. الكتابة تساعد على معالجة المشاعر واكتشاف الذات. سيتم حفظ ما تكتبه تلقائيًا في متصفحك.</p>
-                <div class="notebook-container">
-                    <textarea id="journalEntry" placeholder="ابدأ بالكتابة هنا..."></textarea>
-                    <button id="saveJournalBtn" class="btn">حفظ المذكرة</button>
-                    <p style="margin-top: 10px; font-size: 0.9em; color: gray;">*ملاحظة: يتم حفظ المذكرة تلقائيًا في متصفحك. لن تكون متاحة على أجهزة أخرى.*</p>
-                </div>
-            </section>
+    <section id="journal">
+        <h2>مذكرة التدوين</h2>
+        <p>هنا يمكنك تدوين أفكارك ومشاعرك وتجاربك. الكتابة تساعد على معالجة المشاعر واكتشاف الذات. سيتم حفظ ما تكتبه تلقائيًا في متصفحك.</p>
+        <div class="notebook-container">
+            <textarea id="journalEntry" placeholder="ابدأ بالكتابة هنا..."></textarea>
+            <button id="saveJournalBtn" class="btn">حفظ المذكرة</button>
+            <p style="margin-top: 10px; font-size: 0.9em; color: gray;">*ملاحظة: يتم حفظ المذكرة تلقائيًا في متصفحك. لن تكون متاحة على أجهزة أخرى.*</p>
+        </div>
+    </section>
 
-            <section id="resources">
-                <h2>مصادر الدعم والتعافي</h2>
-                <p>لا تتردد في طلب المساعدة. هناك العديد من الموارد المتاحة لمساعدتك في رحلة التعافي.</p>
-                <div class="tasks-grid">
-                    <div class="task-card">
-                        <h4>العلاج النفسي</h4>
-                        <p>العلاج السلوكي المعرفي (CBT)، العلاج الجدلي السلوكي (DBT)، وعلاج إزالة حساسية حركة العين وإعادة المعالجة (EMDR) هي بعض الأساليب الفعالة في معالجة صدمات الطفولة.</p>
-                        <a href="https://www.google.com/search?q=أطباء+نفسيون+متخصصون+في+صدمات+الطفولة" target="_blank" class="btn btn-secondary">ابحث عن معالج</a>
-                    </div>
-                    <div class="task-card">
-                        <h4>مجموعات الدعم</h4>
-                        <p>الانضمام إلى مجموعات الدعم مع أشخاص يشاركونك تجارب مماثلة يمكن أن يوفر شعورًا بالانتماء والتفهم والدعم المتبادل.</p>
-                        <a href="https://www.google.com/search?q=مجموعات+دعم+صدمات+الطفولة" target="_blank" class="btn btn-secondary">تعرف على المجموعات</a>
-                    </div>
-                    <div class="task-card">
-                        <h4>كتب وموارد إلكترونية</h4>
-                        <p>قراءة الكتب والمقالات المتخصصة حول صدمات الطفولة والتعافي منها يمكن أن تزيد من وعيك وتفهمك للموضوع.</p>
-                        <a href="https://www.google.com/search?q=كتب+عن+علاج+صدمات+الطفولة" target="_blank" class="btn btn-secondary">استكشف الموارد</a>
-                    </div>
-                </div>
-            </section>
-        </main>
-    </div>
+    <section id="resources">
+        <h2>مصادر الدعم والتعافي</h2>
+        <p>لا تتردد في طلب المساعدة. هناك العديد من الموارد المتاحة لمساعدتك في رحلة التعافي.</p>
+        <div class="tasks-grid">
+            <div class="task-card">
+                <h4>العلاج النفسي</h4>
+                <p>العلاج السلوكي المعرفي (CBT)، العلاج الجدلي السلوكي (DBT)، وعلاج إزالة حساسية حركة العين وإعادة المعالجة (EMDR) هي بعض الأساليب الفعالة في معالجة صدمات الطفولة.</p>
+                <a href="https://www.google.com/search?q=أطباء+نفسيون+متخصصون+في+صدمات+الطفولة" target="_blank" class="btn btn-secondary">ابحث عن معالج</a>
+            </div>
+            <div class="task-card">
+                <h4>مجموعات الدعم</h4>
+                <p>الانضمام إلى مجموعات الدعم مع أشخاص يشاركونك تجارب مماثلة يمكن أن يوفر شعورًا بالانتماء والتفهم والدعم المتبادل.</p>
+                <a href="https://www.google.com/search?q=مجموعات+دعم+صدمات+الطفولة" target="_blank" class="btn btn-secondary">تعرف على المجموعات</a>
+            </div>
+            <div class="task-card">
+                <h4>كتب وموارد إلكترونية</h4>
+                <p>قراءة الكتب والمقالات المتخصصة حول صدمات الطفولة والتعافي منها يمكن أن تزيد من وعيك وتفهمك للموضوع.</p>
+                <a href="https://www.google.com/search?q=كتب+عن+علاج+صدمات+الطفولة" target="_blank" class="btn btn-secondary">استكشف الموارد</a>
+            </div>
+        </div>
+    </section>
+</main>
+</div>
 
-    <script>
-        // --- Global Variables & Initial Setup ---
-        const sections = document.querySelectorAll('main section');
-        const navLinks = document.querySelectorAll('.nav-link');
-        const healingQuizForm = document.getElementById('healingQuiz');
-        const assignedTasksDiv = document.getElementById('assignedTasks');
-        const totalHealingPointsSpan = document.getElementById('totalHealingPoints');
-        const healingPercentageSpan = document.getElementById('healingPercentage');
-        const healingProgressBar = document.getElementById('healingProgressBar');
-        const completedTasksCountSpan = document.getElementById('completedTasksCount');
-        const totalTasksCountSpan = document.getElementById('totalTasksCount');
-        const journalEntry = document.getElementById('journalEntry');
-        const saveJournalBtn = document.getElementById('saveJournalBtn');
-        const dayModeBtn = document.getElementById('dayModeBtn');
-        const nightModeBtn = document.getElementById('nightModeBtn');
-        const windSound = document.getElementById('windSound');
-        const nightSound = document.getElementById('nightSound');
-        const playWindBtn = document.getElementById('playWindBtn');
-        const playNightBtn = document.getElementById('playNightBtn');
-        const stopAllAudioBtn = document.getElementById('stopAllAudioBtn');
+<script>
+// --- Global Variables & Initial Setup ---
+const sections = document.querySelectorAll('main section');
+const navLinks = document.querySelectorAll('.nav-link');
+const healingQuizForm = document.getElementById('healingQuiz');
+const assignedTasksDiv = document.getElementById('assignedTasks');
+const totalHealingPointsSpan = document.getElementById('totalHealingPoints');
+const healingPercentageSpan = document.getElementById('healingPercentage');
+const healingProgressBar = document.getElementById('healingProgressBar');
+const completedTasksCountSpan = document.getElementById('completedTasksCount');
+const totalTasksCountSpan = document.getElementById('totalTasksCount');
+const journalEntry = document.getElementById('journalEntry');
+const saveJournalBtn = document.getElementById('saveJournalBtn');
+const dayModeBtn = document.getElementById('dayModeBtn');
+const nightModeBtn = document.getElementById('nightModeBtn');
+const windSound = document.getElementById('windSound');
+const nightSound = document.getElementById('nightSound');
+const playWindBtn = document.getElementById('playWindBtn');
+const playNightBtn = document.getElementById('playNightBtn');
+const stopAllAudioBtn = document.getElementById('stopAllAudioBtn');
 
 
-        let userHealingScore = 0; // Total score from the quiz
+let userHealingScore = 0; // Total score from the quiz
 
-        // Task definitions for both genders
-        const tasks = {
-            general: [
-                { id: 'task1', text: 'مارس التنفس الواعي لمدة 5 دقائق يوميًا.' },
-                { id: 'task2', text: 'اكتب في المذكرة عن مشاعرك مرة واحدة على الأقل هذا الأسبوع.' },
-                { id: 'task3', text: 'تواصل مع صديق مقرب أو فرد من العائلة واقضِ وقتًا ممتعًا.' },
-                { id: 'task4', text: 'خصص 30 دقيقة لنشاط تستمتع به ويجلب لك الهدوء.' },
-                { id: 'task5', text: 'تعلم معلومة جديدة عن صدمات الطفولة أو آليات التأقلم الصحية.' },
-            ],
-            females: [
-                { id: 'taskF1', text: 'تدربي على قول "لا" لطلب لا تشعرين بالراحة تجاهه.' },
-                { id: 'taskF2', text: 'مارسي التأمل الموجه لتعزيز تقدير الذات.' },
-                { id: 'taskF3', text: 'شاركي مشاعر الخجل أو الذنب مع شخص تثقين به أو معالج.' },
-                { id: 'taskF4', text: 'دللي نفسك بنشاط بسيط (مثل حمام دافئ، قراءة كتاب، مشاهدة فيلم).' },
-                { id: 'taskF5', text: 'ابحثي عن مجموعة دعم نسائية عبر الإنترنت أو في مجتمعك.' },
-            ],
-            males: [
-                { id: 'taskM1', text: 'اسمح لنفسك بالشعور بالحزن أو الغضب دون الحكم عليه.' },
-                { id: 'taskM2', text: 'مارس نشاطًا بدنيًا قويًا لتفريغ الطاقة السلبية.' },
-                { id: 'taskM3', text: 'تحدث مع مرشد أو ذكر موثوق به عن تحدياتك.' },
-                { id: 'taskM4', text: 'حدد هدفًا صغيرًا وحققه لتعزيز إحساسك بالإنجاز والقوة.' },
-                { id: 'taskM5', text: 'تحدّى فكرة "الرجل القوي الذي لا يبكي" بداخلك.' },
-            ]
-        };
+// Task definitions for both genders
+const tasks = {
+    general: [
+        { id: 'task1', text: 'مارس التنفس الواعي لمدة 5 دقائق يوميًا.' },
+        { id: 'task2', text: 'اكتب في المذكرة عن مشاعرك مرة واحدة على الأقل هذا الأسبوع.' },
+        { id: 'task3', text: 'تواصل مع صديق مقرب أو فرد من العائلة واقضِ وقتًا ممتعًا.' },
+        { id: 'task4', text: 'خصص 30 دقيقة لنشاط تستمتع به ويجلب لك الهدوء.' },
+        { id: 'task5', text: 'تعلم معلومة جديدة عن صدمات الطفولة أو آليات التأقلم الصحية.' },
+    ],
+    females: [
+        { id: 'taskF1', text: 'تدربي على قول "لا" لطلب لا تشعرين بالراحة تجاهه.' },
+        { id: 'taskF2', text: 'مارسي التأمل الموجه لتعزيز تقدير الذات.' },
+        { id: 'taskF3', text: 'شاركي مشاعر الخجل أو الذنب مع شخص تثقين به أو معالج.' },
+        { id: 'taskF4', text: 'دللي نفسك بنشاط بسيط (مثل حمام دافئ، قراءة كتاب، مشاهدة فيلم).' },
+        { id: 'taskF5', text: 'ابحثي عن مجموعة دعم نسائية عبر الإنترنت أو في مجتمعك.' },
+    ],
+    males: [
+        { id: 'taskM1', text: 'اسمح لنفسك بالشعور بالحزن أو الغضب دون الحكم عليه.' },
+        { id: 'taskM2', text: 'مارس نشاطًا بدنيًا قويًا لتفريغ الطاقة السلبية.' },
+        { id: 'taskM3', text: 'تحدث مع مرشد أو ذكر موثوق به عن تحدياتك.' },
+        { id: 'taskM4', text: 'حدد هدفًا صغيرًا وحققه لتعزيز إحساسك بالإنجاز والقوة.' },
+        { id: 'taskM5', text: 'تحدّى فكرة "الرجل القوي الذي لا يبكي" بداخلك.' },
+    ]
+};
 
-        let currentAssignedTasks = []; // To store tasks assigned to the user
-        let completedTasks = {}; // To store completion status for each task { taskId: true/false }
-        let currentWeeklyScore = 0;
-        const MAX_WEEKLY_SCORE = 100; // Example max score for calculating percentage
+let currentAssignedTasks = []; // To store tasks assigned to the user
+let completedTasks = {}; // To store completion status for each task { taskId: true/false }
+let currentWeeklyScore = 0;
+const MAX_WEEKLY_SCORE = 100; // Example max score for calculating percentage
 
-        // --- Utility Functions ---
+// --- Utility Functions ---
 
-        // Function to show/hide sections
-        function showSection(id) {
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
-            document.getElementById(id).classList.add('active');
+// Function to show/hide sections
+function showSection(id) {
+    sections.forEach(section => {
+        section.classList.remove('active');
+    });
+    document.getElementById(id).classList.add('active');
 
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === '#' + id) {
-                    link.classList.add('active');
-                }
-            });
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + id) {
+            link.classList.add('active');
         }
+    });
+}
 
-        // Function to calculate quiz score and assign tasks
-        healingQuizForm.addEventListener('submit', function(e) {
+// Function to calculate quiz score and assign tasks
+healingQuizForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    userHealingScore = 0;
+    const formData = new FormData(healingQuizForm);
+    const answers = {};
+    for (let [name, value] of formData.entries()) {
+        answers[name] = parseInt(value);
+        userHealingScore += parseInt(value);
+    }
+
+    console.log("Quiz Score:", userHealingScore); // Debugging
+
+    assignHealingTasks(userHealingScore);
+    showSection('tasks'); // Show tasks section after quiz
+});
+
+function assignHealingTasks(score) {
+    let tasksToAssign = [...tasks.general]; // Start with general tasks
+
+    // Adjust based on score (example logic, refine as needed)
+    // Higher positive score means more impact from trauma, need more specialized tasks
+    if (score >= 5) { // Significant impact
+        // Ask user for gender, this is a simplified example
+        // In a real app, you'd have a gender selection in the quiz or profile
+        const userGender = prompt("الرجاء إدخال جنسك (ذكر/أنثى) لتخصيص المهام:", "ذكر").trim();
+        if (userGender === "أنثى") {
+            tasksToAssign = tasksToAssign.concat(tasks.females);
+        } else if (userGender === "ذكر") {
+            tasksToAssign = tasksToAssign.concat(tasks.males);
+        } else {
+            alert("لم يتم تحديد الجنس، سيتم عرض المهام العامة فقط.");
+        }
+    } else if (score > -5 && score < 5) { // Moderate impact
+        tasksToAssign = tasksToAssign.concat(tasks.general.slice(0, 3)); // Add few general tasks
+    }
+    // If score is very low (less impact), maybe just offer general awareness.
+
+    currentAssignedTasks = tasksToAssign;
+    totalTasksCountSpan.textContent = currentAssignedTasks.length; // Update total tasks count
+    renderTasks();
+    saveTasksToLocalStorage();
+}
+
+function renderTasks() {
+    assignedTasksDiv.innerHTML = ''; // Clear previous tasks
+    currentAssignedTasks.forEach(task => {
+        const isCompleted = completedTasks[task.id] || false;
+        const taskCard = document.createElement('div');
+        taskCard.classList.add('task-card');
+        if (isCompleted) {
+            taskCard.classList.add('completed');
+        }
+        taskCard.innerHTML = `
+            <h4>${task.text}</h4>
+            <p>أنجز هذه المهمة لتسجيل نقطة تشافي.</p>
+            <div class="task-completion">
+                <span>أنجزت؟</span>
+                <input type="checkbox" data-task-id="${task.id}" ${isCompleted ? 'checked' : ''}>
+            </div>
+        `;
+        assignedTasksDiv.appendChild(taskCard);
+    });
+    addCheckboxListeners();
+    updateProgressDisplay(); // Update progress after rendering tasks
+}
+
+function addCheckboxListeners() {
+    document.querySelectorAll('.task-completion input[type="checkbox"]').forEach(checkbox => {
+        checkbox.removeEventListener('change', handleTaskCompletion); // Prevent duplicate listeners
+        checkbox.addEventListener('change', handleTaskCompletion);
+    });
+}
+
+function handleTaskCompletion(event) {
+    const taskId = event.target.dataset.taskId;
+    const isChecked = event.target.checked;
+    completedTasks[taskId] = isChecked;
+
+    const taskCard = event.target.closest('.task-card');
+    if (isChecked) {
+        taskCard.classList.add('completed');
+    } else {
+        taskCard.classList.remove('completed');
+    }
+    updateProgressDisplay();
+    saveTasksToLocalStorage();
+}
+
+function updateProgressDisplay() {
+    let completedCount = 0;
+    currentAssignedTasks.forEach(task => {
+        if (completedTasks[task.id]) {
+            completedCount++;
+        }
+    });
+    currentWeeklyScore = completedCount * (MAX_WEEKLY_SCORE / currentAssignedTasks.length || 0);
+    if (currentAssignedTasks.length === 0) { // Handle division by zero if no tasks
+        currentWeeklyScore = 0;
+    }
+
+    totalHealingPointsSpan.textContent = completedCount;
+    healingPercentageSpan.textContent = `${Math.round(currentWeeklyScore)}%`;
+    healingProgressBar.style.width = `${Math.round(currentWeeklyScore)}%`;
+    completedTasksCountSpan.textContent = completedCount;
+}
+
+function resetWeeklyProgress() {
+    if (confirm("هل أنت متأكد أنك تريد إعادة تعيين تقدم المهام الأسبوعي؟")) {
+        completedTasks = {};
+        currentWeeklyScore = 0;
+        saveTasksToLocalStorage();
+        renderTasks(); // Re-render tasks to reflect reset
+        alert("تم إعادة تعيين تقدم المهام الأسبوعي.");
+    }
+}
+
+// --- Local Storage Management ---
+function saveTasksToLocalStorage() {
+    localStorage.setItem('assignedTasks', JSON.stringify(currentAssignedTasks));
+    localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+}
+
+function loadTasksFromLocalStorage() {
+    const savedAssignedTasks = localStorage.getItem('assignedTasks');
+    const savedCompletedTasks = localStorage.getItem('completedTasks');
+
+    if (savedAssignedTasks) {
+        currentAssignedTasks = JSON.parse(savedAssignedTasks);
+    } else {
+        // If no tasks saved, assign general tasks by default
+        currentAssignedTasks = [...tasks.general];
+    }
+
+    if (savedCompletedTasks) {
+        completedTasks = JSON.parse(savedCompletedTasks);
+    }
+    totalTasksCountSpan.textContent = currentAssignedTasks.length; // Update total tasks count on load
+}
+
+// --- Journal Functionality ---
+function loadJournalEntry() {
+    const savedEntry = localStorage.getItem('journalEntry');
+    if (savedEntry) {
+        journalEntry.value = savedEntry;
+    }
+}
+
+function saveJournalEntry() {
+    localStorage.setItem('journalEntry', journalEntry.value);
+    alert('تم حفظ المذكرة بنجاح!');
+}
+
+journalEntry.addEventListener('input', () => {
+         // Optional: Auto-save on input with a debounce
+         // This prevents saving too frequently while typing.
+         clearTimeout(journalEntry.timeout);
+         journalEntry.timeout = setTimeout(() => {
+             localStorage.setItem('journalEntry', journalEntry.value);
+             console.log("Journal auto-saved!");
+         }, 1000); // Save after 1 second of no typing
+});
+saveJournalBtn.addEventListener('click', saveJournalEntry);
+
+
+// --- Day/Night Mode & Sound ---
+function stopAllAudio() {
+    windSound.pause();
+    windSound.currentTime = 0; // Reset to start
+    nightSound.pause();
+    nightSound.currentTime = 0; // Reset to start
+    // Remove active class from audio buttons if any
+    playWindBtn.classList.remove('active');
+    playNightBtn.classList.remove('active');
+}
+
+function setLightMode() {
+    document.body.classList.remove('dark-mode');
+    dayModeBtn.classList.add('active');
+    nightModeBtn.classList.remove('active');
+    localStorage.setItem('theme', 'light');
+    // When changing mode, stop current sounds and try to play wind
+    stopAllAudio();
+    playWindBtn.click(); // Simulate click to trigger play
+}
+
+function setDarkMode() {
+    document.body.classList.add('dark-mode');
+    nightModeBtn.classList.add('active');
+    dayModeBtn.classList.remove('active');
+    localStorage.setItem('theme', 'dark');
+    // When changing mode, stop current sounds and try to play night
+    stopAllAudio();
+    playNightBtn.click(); // Simulate click to trigger play
+}
+
+dayModeBtn.addEventListener('click', setLightMode);
+nightModeBtn.addEventListener('click', setDarkMode);
+
+playWindBtn.addEventListener('click', () => {
+    stopAllAudio(); // Stop other sounds first
+    windSound.play().then(() => {
+        playWindBtn.classList.add('active');
+    }).catch(e => {
+        console.log("Wind sound play failed:", e);
+        alert("تعذر تشغيل صوت الريح. قد تحتاج إلى التفاعل مع الصفحة أولاً أو قد تكون هناك مشكلة في رابط الصوت.");
+    });
+});
+
+playNightBtn.addEventListener('click', () => {
+    stopAllAudio(); // Stop other sounds first
+    nightSound.play().then(() => {
+        playNightBtn.classList.add('active');
+    }).catch(e => {
+        console.log("Night sound play failed:", e);
+        alert("تعذر تشغيل صوت الليل. قد تحتاج إلى التفاعل مع الصفحة أولاً أو قد تكون هناك مشكلة في رابط الصوت.");
+    });
+});
+
+stopAllAudioBtn.addEventListener('click', stopAllAudio);
+
+
+// Initialize theme and sound on page load
+function initializeTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        nightModeBtn.classList.add('active');
+        dayModeBtn.classList.remove('active');
+    } else {
+        document.body.classList.remove('dark-mode');
+        dayModeBtn.classList.add('active');
+        nightModeBtn.classList.remove('active');
+    }
+    // Do NOT attempt to play audio here directly on load, as it will likely be blocked.
+    // Rely on user interaction (mode change or explicit play buttons).
+}
+
+// --- Initial Load & Event Listeners ---
+document.addEventListener('DOMContentLoaded', () => {
+    initializeTheme();
+    loadTasksFromLocalStorage();
+    renderTasks();
+    loadJournalEntry();
+
+    // Setup navigation links
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
             e.preventDefault();
-            userHealingScore = 0;
-            const formData = new FormData(healingQuizForm);
-            const answers = {};
-            for (let [name, value] of formData.entries()) {
-                answers[name] = parseInt(value);
-                userHealingScore += parseInt(value);
-            }
-
-            console.log("Quiz Score:", userHealingScore); // Debugging
-
-            assignHealingTasks(userHealingScore);
-            showSection('tasks'); // Show tasks section after quiz
+            const targetId = this.getAttribute('href').substring(1);
+            showSection(targetId);
         });
+    });
 
-        function assignHealingTasks(score) {
-            let tasksToAssign = [...tasks.general]; // Start with general tasks
-
-            // Adjust based on score (example logic, refine as needed)
-            // Higher positive score means more impact from trauma, need more specialized tasks
-            if (score >= 5) { // Significant impact
-                // Ask user for gender, this is a simplified example
-                // In a real app, you'd have a gender selection in the quiz or profile
-                const userGender = prompt("الرجاء إدخال جنسك (ذكر/أنثى) لتخصيص المهام:", "ذكر").trim();
-                if (userGender === "أنثى") {
-                    tasksToAssign = tasksToAssign.concat(tasks.females);
-                } else if (userGender === "ذكر") {
-                    tasksToAssign = tasksToAssign.concat(tasks.males);
-                } else {
-                    alert("لم يتم تحديد الجنس، سيتم عرض المهام العامة فقط.");
-                }
-            } else if (score > -5 && score < 5) { // Moderate impact
-                tasksToAssign = tasksToAssign.concat(tasks.general.slice(0, 3)); // Add few general tasks
-            }
-            // If score is very low (less impact), maybe just offer general awareness.
-
-            currentAssignedTasks = tasksToAssign;
-            totalTasksCountSpan.textContent = currentAssignedTasks.length; // Update total tasks count
-            renderTasks();
-            saveTasksToLocalStorage();
-        }
-
-        function renderTasks() {
-            assignedTasksDiv.innerHTML = ''; // Clear previous tasks
-            currentAssignedTasks.forEach(task => {
-                const isCompleted = completedTasks[task.id] || false;
-                const taskCard = document.createElement('div');
-                taskCard.classList.add('task-card');
-                if (isCompleted) {
-                    taskCard.classList.add('completed');
-                }
-                taskCard.innerHTML = `
-                    <h4>${task.text}</h4>
-                    <p>أنجز هذه المهمة لتسجيل نقطة تشافي.</p>
-                    <div class="task-completion">
-                        <span>أنجزت؟</span>
-                        <input type="checkbox" data-task-id="${task.id}" ${isCompleted ? 'checked' : ''}>
-                    </div>
-                `;
-                assignedTasksDiv.appendChild(taskCard);
-            });
-            addCheckboxListeners();
-            updateProgressDisplay(); // Update progress after rendering tasks
-        }
-
-        function addCheckboxListeners() {
-            document.querySelectorAll('.task-completion input[type="checkbox"]').forEach(checkbox => {
-                checkbox.removeEventListener('change', handleTaskCompletion); // Prevent duplicate listeners
-                checkbox.addEventListener('change', handleTaskCompletion);
-            });
-        }
-
-        function handleTaskCompletion(event) {
-            const taskId = event.target.dataset.taskId;
-            const isChecked = event.target.checked;
-            completedTasks[taskId] = isChecked;
-
-            const taskCard = event.target.closest('.task-card');
-            if (isChecked) {
-                taskCard.classList.add('completed');
-            } else {
-                taskCard.classList.remove('completed');
-            }
-            updateProgressDisplay();
-            saveTasksToLocalStorage();
-        }
-
-        function updateProgressDisplay() {
-            let completedCount = 0;
-            currentAssignedTasks.forEach(task => {
-                if (completedTasks[task.id]) {
-                    completedCount++;
-                }
-            });
-            currentWeeklyScore = completedCount * (MAX_WEEKLY_SCORE / currentAssignedTasks.length || 0);
-            if (currentAssignedTasks.length === 0) { // Handle division by zero if no tasks
-                currentWeeklyScore = 0;
-            }
-
-            totalHealingPointsSpan.textContent = completedCount;
-            healingPercentageSpan.textContent = `${Math.round(currentWeeklyScore)}%`;
-            healingProgressBar.style.width = `${Math.round(currentWeeklyScore)}%`;
-            completedTasksCountSpan.textContent = completedCount;
-        }
-
-        function resetWeeklyProgress() {
-            if (confirm("هل أنت متأكد أنك تريد إعادة تعيين تقدم المهام الأسبوعي؟")) {
-                completedTasks = {};
-                currentWeeklyScore = 0;
-                saveTasksToLocalStorage();
-                renderTasks(); // Re-render tasks to reflect reset
-                alert("تم إعادة تعيين تقدم المهام الأسبوعي.");
-            }
-        }
-
-        // --- Local Storage Management ---
-        function saveTasksToLocalStorage() {
-            localStorage.setItem('assignedTasks', JSON.stringify(currentAssignedTasks));
-            localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
-        }
-
-        function loadTasksFromLocalStorage() {
-            const savedAssignedTasks = localStorage.getItem('assignedTasks');
-            const savedCompletedTasks = localStorage.getItem('completedTasks');
-
-            if (savedAssignedTasks) {
-                currentAssignedTasks = JSON.parse(savedAssignedTasks);
-            } else {
-                // If no tasks saved, assign general tasks by default
-                currentAssignedTasks = [...tasks.general];
-            }
-
-            if (savedCompletedTasks) {
-                completedTasks = JSON.parse(savedCompletedTasks);
-            }
-            totalTasksCountSpan.textContent = currentAssignedTasks.length; // Update total tasks count on load
-        }
-
-        // --- Journal Functionality ---
-        function loadJournalEntry() {
-            const savedEntry = localStorage.getItem('journalEntry');
-            if (savedEntry) {
-                journalEntry.value = savedEntry;
-            }
-        }
-
-        function saveJournalEntry() {
-            localStorage.setItem('journalEntry', journalEntry.value);
-            alert('تم حفظ المذكرة بنجاح!');
-        }
-
-        journalEntry.addEventListener('input', () => {
-             // Optional: Auto-save on input with a debounce
-             // This prevents saving too frequently while typing.
-             clearTimeout(journalEntry.timeout);
-             journalEntry.timeout = setTimeout(() => {
-                 localStorage.setItem('journalEntry', journalEntry.value);
-                 console.log("Journal auto-saved!");
-             }, 1000); // Save after 1 second of no typing
-        });
-        saveJournalBtn.addEventListener('click', saveJournalEntry);
-
-
-        // --- Day/Night Mode & Sound ---
-        function stopAllAudio() {
-            windSound.pause();
-            windSound.currentTime = 0; // Reset to start
-            nightSound.pause();
-            nightSound.currentTime = 0; // Reset to start
-            // Remove active class from audio buttons if any
-            playWindBtn.classList.remove('active');
-            playNightBtn.classList.remove('active');
-        }
-
-        function setLightMode() {
-            document.body.classList.remove('dark-mode');
-            dayModeBtn.classList.add('active');
-            nightModeBtn.classList.remove('active');
-            localStorage.setItem('theme', 'light');
-            // When changing mode, stop current sounds and try to play wind
-            stopAllAudio();
-            playWindBtn.click(); // Simulate click to trigger play
-        }
-
-        function setDarkMode() {
-            document.body.classList.add('dark-mode');
-            nightModeBtn.classList.add('active');
-            dayModeBtn.classList.remove('active');
-            localStorage.setItem('theme', 'dark');
-            // When changing mode, stop current sounds and try to play night
-            stopAllAudio();
-            playNightBtn.click(); // Simulate click to trigger play
-        }
-
-        dayModeBtn.addEventListener('click', setLightMode);
-        nightModeBtn.addEventListener('click', setDarkMode);
-
-        playWindBtn.addEventListener('click', () => {
-            stopAllAudio(); // Stop other sounds first
-            windSound.play().then(() => {
-                playWindBtn.classList.add('active');
-            }).catch(e => {
-                console.log("Wind sound play failed:", e);
-                alert("تعذر تشغيل صوت الريح. قد تحتاج إلى التفاعل مع الصفحة أولاً أو قد تكون هناك مشكلة في رابط الصوت.");
-            });
-        });
-
-        playNightBtn.addEventListener('click', () => {
-            stopAllAudio(); // Stop other sounds first
-            nightSound.play().then(() => {
-                playNightBtn.classList.add('active');
-            }).catch(e => {
-                console.log("Night sound play failed:", e);
-                alert("تعذر تشغيل صوت الليل. قد تحتاج إلى التفاعل مع الصفحة أولاً أو قد تكون هناك مشكلة في رابط الصوت.");
-            });
-        });
-
-        stopAllAudioBtn.addEventListener('click', stopAllAudio);
-
-
-        // Initialize theme and sound on page load
-        function initializeTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-                nightModeBtn.classList.add('active');
-                dayModeBtn.classList.remove('active');
-            } else {
-                document.body.classList.remove('dark-mode');
-                dayModeBtn.classList.add('active');
-                nightModeBtn.classList.remove('active');
-            }
-            // Do NOT attempt to play audio here directly on load, as it will likely be blocked.
-            // Rely on user interaction (mode change or explicit play buttons).
-        }
-
-        // --- Initial Load & Event Listeners ---
-        document.addEventListener('DOMContentLoaded', () => {
-            initializeTheme();
-            loadTasksFromLocalStorage();
-            renderTasks();
-            loadJournalEntry();
-
-            // Setup navigation links
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
-                    showSection(targetId);
-                });
-            });
-
-            // Show welcome section by default
-            showSection('welcome');
-        });
-    </script>
+    // Show welcome section by default
+    showSection('welcome');
+});
+</script>
 
 </body>
 </html>
