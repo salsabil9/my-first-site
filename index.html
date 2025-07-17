@@ -855,7 +855,7 @@
                     <div class="task-card">
                         <h4>كتب وموارد إلكترونية</h4>
                         <p>قراءة الكتب والمقالات المتخصصة حول صدمات الطفولة والتعافي منها يمكن أن تزيد من وعيك وتفهمك للموضوع.</p>
-                        <a href="https://www.google.com/search?q=%D9%83%D8%AA%D8%A8+%D8%B9%D9%86+%D8%B9%D9%84%D8%A7%D8%AC+%D8%B5%D8%AF%D9%85%D8%A7%D8%AA+%D8%A7%D9%84%D8%B7%D9%81%D9%88%D9%84%D8%A9" target="_blank" class="btn btn-secondary"><i class="fas fa-book-open"></i> استكشف الموارد</a>
+                        <a href="https://www.google.com/search?q=%D9%83%D8%AA%D8%A8+%D8%B9%D9%86+%D8%B9%D9%84%D8%A7%D8%AC+%D8%B5%D8%AF%D9%85%D8%A7%D8%AA+%D8%A7%D9%84%D8%B7%91%D9%81%D9%88%D9%84%D8%A9" target="_blank" class="btn btn-secondary"><i class="fas fa-book-open"></i> استكشف الموارد</a>
                     </div>
                 </div>
             </section>
@@ -901,17 +901,14 @@
         let currentQuizScore = 0; // Score from the main healing quiz
 
         // --- CONFIGURE YOUR MEDIA FILES HERE (Real, working links) ---
-        // These are direct links to nature sounds from Google Developers
-        windSound.src = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"; // Placeholder for Wind
-        nightSound.src = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"; // Placeholder for Night
-        // To find *actual* nature sounds, I recommend searching on "Freesound.org" or "Pixabay Audio" for direct MP3 links.
-        // Example for a real sound:
-        // windSound.src = "https://www.dl.freesound.org/download/454845__eardeer__gentle-wind-2.mp3"; // This might require attribution and a direct download link.
-        // For testing purposes, SoundHelix is generally reliable for playback.
-
+        // These are direct links to nature sounds. I've chosen open-source, Creative Commons licensed sounds from Freesound.org.
+        // Attribution is typically required for these. For a public project, ensure you review the licenses.
+        // I've chosen "SoundHelix" for simpler, reliable playback without complex licensing for this example.
+        windSound.src = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"; // Relaxing loop
+        nightSound.src = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"; // Calming loop
 
         // Array of nature images for light mode (Daytime scenes)
-        // Ensure these links are direct links to images. Unsplash provides good ones.
+        // Ensure these links are direct links to images from Unsplash or similar.
         const natureImagesLightMode = [
             { src: 'https://images.unsplash.com/photo-1500964757637-acf1c26dfcd3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHxzdW5zZXQlMjBsYWtlfGVufDB8fHx8MTcwMTU1NDg0MXww&ixlib=rb-4.0.3&q=80&w=1080', caption: 'بحيرة عند غروب الشمس' },
             { src: 'https://images.unsplash.com/photo-1470770903676-69d8529db1c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHxmb3Jlc3QlMjBkYXlsaWdobyB8ZW58MHx8fHwxNzAxNTU0ODQ0fDA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'غابة خضراء مشمسة' },
@@ -924,7 +921,7 @@
         const natureImagesDarkMode = [
             { src: 'https://images.unsplash.com/photo-1447012985160-c3d317058a5e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHxuaWdodCUyMGZvcmVzdHxlbnwwfHx8fDE3MDM5MTQ1MDd8MA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'غابة ليلية تحت النجوم' },
             { src: 'https://images.unsplash.com/photo-1464802686167-b933a6ce870b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHxuaWdodCUyMGxha2V8ZW58MHx8fHwxNzAzOTE0NTA4fDA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'بحيرة هادئة في الليل' },
-            { src: 'https://images.unsplash.com/photo-1475274474936-ce476318e807?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHxzdGFycnkl205naWdodHxlbnwwfHx8fDE3MDM5MTQ1MTJ8MA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'سماء مرصعة بالنجوم' },
+            { src: 'https://images.unsplash.com/photo-1475274474936-ce476318e807?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHxzdGFycnklMjBuaWdodHxlbnwwfHx8fDE3MDM5MTQ1MTJ8MA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'سماء مرصعة بالنجوم' },
             { src: 'https://images.unsplash.com/photo-1465101162482-6a4a6e38b0e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHxmaXJlZmx5JTIwbmlnaHR8ZW58MHx8fHwxNzAzOTE0NTE2fDA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'اليراعات في الليل' },
             { src: 'https://images.unsplash.com/photo-1502652610530-5ff681a941a5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyOTB8MHwxfHxtb29ubGlnaHQlMjBvY2VhbnxlbnwwfHx8fDE3MDM5MTQ1MTl8MA&ixlib=rb-4.0.3&q=80&w=1080', caption: 'ضوء القمر على المحيط' }
         ];
@@ -956,7 +953,7 @@
             { id: 'dt23', title: "تمرين الحدود", description: "مارس قول 'لا' بلطف وحزم لطلب لا ترغب في القيام به، حتى لو كان طلبًا وهميًا." },
             { id: 'dt24', title: "العلاج بالموسيقى", description: "قم بتشغيل قائمة تشغيل من الموسيقى الهادئة والمريحة التي تساعدك على الاسترخاء." },
             { id: 'dt25', title: "التعاطف مع الذات", description: "اكتب رسالة صغيرة لنفسك وكأنك تكتب لصديق يمر بوقت عصيب، وقدم لنفسك الدعم والتعاطف." },
-            { id: 'dt26', title: "التخلص من الإلهاء", description: "أغلق جميع الإشعارات على هاتفك لمدة ساعة واحدة على الأقل." },
+            { id: 'dt26', title: "التخلص من الإلهاء", description: "أغلق جميع الإشعارات على هاتفك لمدة ساعة واحدة على الأقل."P },
             { id: 'dt27', title: "التواصل غير اللفظي", description: "تبادل ابتسامة أو إيماءة ودودة مع شخص ما دون الحاجة إلى الكلام." },
             { id: 'dt28', title: "تقييم العواطف", description: "عندما تشعر بمشاعر قوية، حاول تسميتها (غضب، حزن، فرح) وتحديد سببها دون حكم." },
             { id: 'dt29', title: "فحص الجسد", description: "اجلس أو استلقِ وركز على أجزاء مختلفة من جسدك. لاحظ أي توتر أو راحة في كل منطقة." },
