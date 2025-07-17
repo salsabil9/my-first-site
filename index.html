@@ -38,6 +38,9 @@
         }
 
         /* --- Base Styles --- */
+        html, body {
+            min-height: 100%; /* Ensure html and body expand to fit content */
+        }
         body {
             font-family: var(--font-body);
             margin: 0;
@@ -47,7 +50,7 @@
             direction: rtl; /* Right-to-left for Arabic */
             text-align: right;
             transition: background-color var(--transition-speed), color var(--transition-speed);
-            overflow-x: hidden;
+            /* overflow-x: hidden;  <-- REMOVED THIS LINE */
             line-height: 1.7;
         }
 
@@ -131,6 +134,9 @@
             opacity: 1;
             visibility: visible;
             transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+            overflow-y: auto; /* Allow scrolling within the overlay if content is too tall */
+            padding: 20px; /* Add padding for small screens */
+            box-sizing: border-box; /* Include padding in element's total width and height */
         }
 
         #assessment-overlay.hidden {
@@ -148,6 +154,7 @@
             text-align: center;
             animation: fadeInScale 0.7s ease-out;
             border: 1px solid var(--border-color); /* Subtle border */
+            width: 100%; /* Ensure it takes full width on small screens */
         }
 
         .assessment-card h2 {
@@ -219,7 +226,7 @@
             padding: 0 20px;
             display: flex;
             gap: 25px;
-            flex-wrap: wrap;
+            flex-wrap: wrap; /* Ensure items wrap to next line on smaller screens */
             justify-content: center;
             opacity: 0; /* Hidden initially */
             transform: translateY(20px);
@@ -241,7 +248,7 @@
             flex-shrink: 0;
             position: sticky;
             top: 20px;
-            height: fit-content;
+            height: fit-content; /* Allow height to adjust to content */
             transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
         }
 
@@ -1084,4 +1091,208 @@
             if (savedDailyTask.completed && savedDailyTask.date === new Date().toDateString()) {
                 completedPoints += 1;
             }
-            totalPossiblePoints += 1; // Daily task always contributes 1 potential
+            totalPossiblePoints += 1; // Daily task always contributes 1 potential point
+
+            // 3. Comprehensive Quiz Score (max 5 points for 5 questions * 1 max value)
+            const quizScore = parseInt(localStorage.getItem('currentQuizScore') || '0');
+            const maxQuizScore = 5; // (5 questions * max value 1)
+            completedPoints += (quizScore > 0 ? quizScore : 0); // Only add if positive score
+            totalPossiblePoints += maxQuizScore;
+
+
+            // Calculate percentage
+            const percentage = totalPossiblePoints > 0 ? (completedPoints / totalPossiblePoints) * 100 : 0;
+            
+            totalHealingPointsSpan.textContent = completedPoints;
+            healingPercentageSpan.textContent = `${Math.round(percentage)}%`;
+            healingProgressBar.style.width = `${Math.round(percentage)}%`;
+            completedTasksCountSpan.textContent = completedPoints;
+            totalTasksCountSpan.textContent = totalPossiblePoints;
+        }
+
+        function resetAllProgress() {
+            if (confirm("هل أنت متأكد أنك تريد إعادة تعيين كل التقدم؟ سيتم إعادة تعيين التقييمات والمهام المكتملة.")) {
+                localStorage.removeItem('initialHealingScore');
+                localStorage.removeItem('assessmentCompleted');
+                localStorage.removeItem('dailyTaskStatus');
+                localStorage.removeItem('currentQuizScore');
+                localStorage.removeItem('journalEntry'); // Reset journal too if desired
+
+                // Reset internal state variables
+                initialHealingScore = 0;
+                currentQuizScore = 0;
+
+                // Reload the page to show assessment overlay again
+                location.reload();
+            }
+        }
+
+        // --- Journal Functionality ---
+        function loadJournalEntry() {
+            const savedEntry = localStorage.getItem('journalEntry');
+            if (savedEntry) {
+                journalEntry.value = savedEntry;
+            }
+        }
+
+        function saveJournalEntry() {
+            localStorage.setItem('journalEntry', journalEntry.value);
+            alert('تم حفظ المذكرة بنجاح!');
+        }
+
+        journalEntry.addEventListener('input', () => {
+            clearTimeout(journalEntry.timeout);
+            journalEntry.timeout = setTimeout(() => {
+                localStorage.setItem('journalEntry', journalEntry.value);
+                console.log("Journal auto-saved!");
+            }, 1000);
+        });
+        saveJournalBtn.addEventListener('click', saveJournalEntry);
+
+        // --- Nature Connection Section Logic ---
+        function renderNatureImage() {
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            const imagesArray = isDarkMode ? natureImagesDarkMode : natureImagesLightMode;
+
+            currentNatureImageIndex = currentNatureImageIndex % imagesArray.length;
+            if (currentNatureImageIndex < 0) { // Wrap around if using previous button
+                currentNatureImageIndex = imagesArray.length - 1;
+            }
+
+            const image = imagesArray[currentNatureImageIndex];
+            natureImageContainer.style.backgroundImage = `url('${image.src}')`;
+            natureImageCaption.textContent = image.caption;
+        }
+
+        nextNatureImageBtn.addEventListener('click', () => {
+            currentNatureImageIndex++;
+            renderNatureImage();
+        });
+
+
+        // --- Day/Night Mode & Sound ---
+        function stopAllAudio() {
+            windSound.pause();
+            windSound.currentTime = 0;
+            nightSound.pause();
+            nightSound.currentTime = 0;
+
+            playWindBtn.classList.remove('active');
+            playNightBtn.classList.remove('active');
+        }
+
+        function setLightMode() {
+            document.body.classList.remove('dark-mode');
+            dayModeBtn.classList.add('active');
+            nightModeBtn.classList.remove('active');
+            localStorage.setItem('theme', 'light');
+            stopAllAudio();
+            // Play wind sound automatically when switching to light mode
+            if (windSound.readyState >= 2) {
+                windSound.play().catch(e => console.error("Error playing wind sound:", e));
+                playWindBtn.classList.add('active');
+            } else {
+                windSound.addEventListener('canplaythrough', function handler() {
+                    windSound.play().catch(e => console.error("Error playing wind sound:", e));
+                    playWindBtn.classList.add('active');
+                    windSound.removeEventListener('canplaythrough', handler);
+                }, { once: true }); // Use once: true to ensure listener is removed after first play
+            }
+            renderNatureImage();
+        }
+
+        function setDarkMode() {
+            document.body.classList.add('dark-mode');
+            nightModeBtn.classList.add('active');
+            dayModeBtn.classList.remove('active');
+            localStorage.setItem('theme', 'dark');
+            stopAllAudio();
+            // Play night sound automatically when switching to dark mode
+            if (nightSound.readyState >= 2) {
+                nightSound.play().catch(e => console.error("Error playing night sound:", e));
+                playNightBtn.classList.add('active');
+            } else {
+                nightSound.addEventListener('canplaythrough', function handler() {
+                    nightSound.play().catch(e => console.error("Error playing night sound:", e));
+                    playNightBtn.classList.add('active');
+                    nightSound.removeEventListener('canplaythrough', handler);
+                }, { once: true });
+            }
+            renderNatureImage();
+        }
+
+        dayModeBtn.addEventListener('click', setLightMode);
+        nightModeBtn.addEventListener('click', setDarkMode);
+
+        playWindBtn.addEventListener('click', () => {
+            stopAllAudio();
+            if (windSound.readyState >= 2) {
+                windSound.play().catch(e => console.error("Error playing wind sound:", e));
+                playWindBtn.classList.add('active');
+            } else {
+                alert("صوت الريح غير جاهز للتشغيل بعد. يرجى الانتظار قليلاً أو التأكد من الرابط.");
+            }
+        });
+
+        playNightBtn.addEventListener('click', () => {
+            stopAllAudio();
+            if (nightSound.readyState >= 2) {
+                nightSound.play().catch(e => console.error("Error playing night sound:", e));
+                playNightBtn.classList.add('active');
+            } else {
+                alert("صوت الليل غير جاهز للتشغيل بعد. يرجى الانتظار قليلاً أو التأكد من الرابط.");
+            }
+        });
+
+        stopAllAudioBtn.addEventListener('click', stopAllAudio);
+
+        // Initialize theme and sound on page load
+        function initializeThemeAndAudio() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                setDarkMode(); // Apply dark mode styles and attempt to play night sound
+            } else {
+                setLightMode(); // Apply light mode styles and attempt to play wind sound
+            }
+            // Add a slight delay for initial audio playback to avoid issues on some browsers
+            setTimeout(() => {
+                if (!windSound.paused || !nightSound.paused) { // If a sound was initiated
+                    // This block can be used for debugging or a fallback if autoplay fails
+                    console.log("Audio initiated on load.");
+                }
+            }, 100);
+        }
+
+        // --- Initial Load & Event Listeners ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if initial assessment is completed
+            const assessmentCompleted = localStorage.getItem('assessmentCompleted');
+            if (assessmentCompleted === 'true') {
+                assessmentOverlay.style.display = 'none';
+                document.querySelector('.container').classList.add('visible'); // Show main content
+                initializeThemeAndAudio(); // Initialize theme and audio
+            } else {
+                assessmentOverlay.style.display = 'flex'; // Show assessment overlay
+                document.querySelector('.container').classList.remove('visible'); // Ensure main content is hidden
+            }
+
+            // Load saved data
+            initialHealingScore = parseInt(localStorage.getItem('initialHealingScore') || '0');
+            currentQuizScore = parseInt(localStorage.getItem('currentQuizScore') || '0');
+            loadJournalEntry();
+            renderDailyTask(); // Render today's task
+            updateProgressDisplay(); // Update progress based on loaded data
+
+            // Setup navigation links
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    showSection(targetId);
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
