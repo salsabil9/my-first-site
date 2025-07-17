@@ -3,934 +3,498 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المنزل الآمن</title>
+    <title>علاج صدمات الطفولة: دليل شامل</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --primary-color: #4CAF50; /* أخضر */
+            --secondary-color: #2196F3; /* أزرق */
+            --accent-color: #FFC107; /* أصفر */
+            --text-color: #333;
+            --light-bg: #f9f9f9;
+            --dark-bg: #e0e0e0;
+            --border-color: #ddd;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: #333;
-            overflow-x: hidden;
-        }
-
-        /* Welcome Screen Styles */
-        .welcome-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9)),
-                        url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            z-index: 1000;
-            animation: fadeIn 2s ease-in-out;
-        }
-
-        .welcome-content {
-            text-align: center;
-            color: white;
-            max-width: 800px;
-            padding: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            animation: slideUp 1.5s ease-out;
-        }
-
-        .welcome-title {
-            font-size: 3.5em;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        .welcome-subtitle {
-            font-size: 1.5em;
-            margin-bottom: 30px;
-            opacity: 0.9;
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-bg);
+            color: var(--text-color);
             line-height: 1.6;
-        }
-
-        .welcome-description {
-            font-size: 1.1em;
-            line-height: 1.8;
-            margin-bottom: 40px;
-            opacity: 0.85;
-        }
-
-        .enter-btn {
-            background: linear-gradient(45deg, #48bb78, #38a169);
-            color: white;
-            border: none;
-            padding: 18px 40px;
-            border-radius: 30px;
-            font-size: 1.3em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(72, 187, 120, 0.3);
-            animation: pulse 2s infinite;
-        }
-
-        .enter-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(72, 187, 120, 0.5);
-        }
-
-        .nature-elements {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-
-        .floating-leaf {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background: rgba(72, 187, 120, 0.6);
-            border-radius: 50% 0;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .floating-leaf:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
-        .floating-leaf:nth-child(2) { top: 60%; left: 80%; animation-delay: 2s; }
-        .floating-leaf:nth-child(3) { top: 40%; left: 20%; animation-delay: 4s; }
-
-        /* Main App Styles */
-        .main-app {
-            display: none;
-            animation: fadeIn 1s ease-in-out;
+            direction: rtl; /* لضبط اتجاه النص للعربية */
+            text-align: right; /* لضبط محاذاة النص للعربية */
         }
 
         .container {
             max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+            margin: 20px auto;
+            padding: 0 20px;
         }
 
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            animation: shimmer 3s infinite;
-        }
-
-        .header h1 {
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 0;
             text-align: center;
-            color: #4a5568;
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .nav-menu {
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        nav {
+            background-color: var(--secondary-color);
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 15px;
         }
 
-        .nav-btn {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .nav-btn:hover::before {
-            left: 100%;
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .nav-btn.active {
-            background: linear-gradient(45deg, #4299e1, #667eea);
-            transform: translateY(-2px);
-        }
-
-        .content {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            min-height: 500px;
-        }
-
-        .section {
-            display: none;
-        }
-
-        .section.active {
-            display: block;
-            animation: fadeInUp 0.5s ease-out;
-        }
-
-        .notes-area {
-            width: 100%;
-            min-height: 300px;
-            padding: 20px;
-            border: 2px solid #e2e8f0;
-            border-radius: 15px;
-            font-size: 16px;
-            resize: vertical;
-            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
-            transition: all 0.3s ease;
-        }
-
-        .notes-area:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-            background: #ffffff;
-        }
-
-        .save-btn {
-            background: linear-gradient(45deg, #48bb78, #38a169);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .save-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(72, 187, 120, 0.4);
-        }
-
-        .tasks-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-top: 20px;
-        }
-
-        .task-section {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .task-section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .task-section.female {
-            border-left: 5px solid #ed64a6;
-            background: linear-gradient(135deg, #fed7e2 0%, #fbb6ce 100%);
-        }
-
-        .task-section.male {
-            border-left: 5px solid #4299e1;
-            background: linear-gradient(135deg, #bee3f8 0%, #90cdf4 100%);
-        }
-
-        .task-section h3 {
-            color: #2d3748;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-            text-align: center;
-        }
-
-        .task-item {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .task-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-        }
-
-        .task-item.completed {
-            opacity: 0.8;
-            background: linear-gradient(135deg, #c6f6d5, #9ae6b4);
-            text-decoration: line-through;
-        }
-
-        .task-checkbox {
-            width: 20px;
-            height: 20px;
-            margin-left: 10px;
-            cursor: pointer;
-        }
-
-        .task-points {
-            background: #f7fafc;
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .female .task-points {
-            color: #d53f8c;
-            background: rgba(237, 100, 166, 0.1);
-        }
-
-        .male .task-points {
-            color: #3182ce;
-            background: rgba(66, 153, 225, 0.1);
-        }
-
-        .score-display {
-            text-align: center;
-            margin: 20px 0;
-            padding: 25px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-radius: 20px;
-            font-size: 1.2em;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        .score-item {
-            display: inline-block;
-            margin: 0 20px;
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            backdrop-filter: blur(5px);
-        }
-
-        .progress-tracker {
-            margin-top: 30px;
-        }
-
-        .progress-overview {
-            background: linear-gradient(135deg, #48bb78, #38a169);
-            color: white;
-            padding: 25px;
-            border-radius: 20px;
-            margin-bottom: 30px;
-            text-align: center;
-            box-shadow: 0 8px 25px rgba(72, 187, 120, 0.3);
-        }
-
-        .healing-percentage {
-            font-size: 3em;
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .healing-status {
-            font-size: 1.3em;
-            opacity: 0.9;
-        }
-
-        .progress-week {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .progress-week:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .progress-bar {
-            width: 50%;
-            height: 12px;
-            background: #e2e8f0;
-            border-radius: 6px;
-            overflow: hidden;
+        nav ul li {
             margin: 0 15px;
         }
 
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(45deg, #48bb78, #38a169);
-            transition: width 0.8s ease;
-            border-radius: 6px;
-        }
-
-        .week-points {
-            font-size: 14px;
-            color: #666;
-            margin-right: 10px;
-        }
-
-        .add-task-btn {
-            background: linear-gradient(45deg, #667eea, #764ba2);
+        nav ul li a {
             color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            margin-top: 15px;
-            transition: all 0.3s ease;
-            width: 100%;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            transition: background-color 0.3s ease;
+            border-radius: 5px;
         }
 
-        .add-task-btn:hover {
+        nav ul li a:hover,
+        nav ul li a.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://via.placeholder.com/1200x400/2196F3/FFFFFF?text=صدمات+الطفولة'); /* صورة توضيحية */
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-section h2 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero-section p {
+            font-size: 1.2em;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #FFD54F; /* لون أغمق قليلاً */
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        section {
+            background-color: white;
+            padding: 40px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
 
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        h2 {
+            color: var(--primary-color);
+            font-size: 2em;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            text-align: right;
         }
 
-        @keyframes fadeInUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        h3 {
+            color: var(--secondary-color);
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            text-align: right;
         }
 
-        @keyframes glow {
-            from { text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3); }
-            to { text-shadow: 2px 2px 20px rgba(255, 255, 255, 0.5); }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        .card {
+            background-color: var(--dark-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            text-align: right;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
+        .card:hover {
+            transform: translateY(-5px);
         }
 
-        @keyframes shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
+        .card h4 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            font-size: 1.3em;
+            margin-bottom: 10px;
         }
 
+        .accordion {
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: right;
+            outline: none;
+            font-size: 1.1em;
+            transition: 0.4s;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .active, .accordion:hover {
+            background-color: var(--border-color);
+        }
+
+        .accordion:after {
+            content: '\002B'; /* رمز زائد */
+            color: var(--text-color);
+            font-weight: bold;
+            float: left; /* لضبط موضعه للعربية */
+            margin-left: 5px; /* لضبط موضعه للعربية */
+        }
+
+        .active:after {
+            content: "\2212"; /* رمز ناقص */
+        }
+
+        .panel {
+            padding: 0 18px;
+            background-color: white;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border: 1px solid var(--border-color);
+            border-top: none;
+            margin-bottom: 10px;
+        }
+
+        .panel p {
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+
+        footer {
+            background-color: var(--text-color);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        /* تنسيقات خاصة بالذكور والإناث */
+        .gender-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .gender-card {
+            flex: 1 1 calc(50% - 20px); /* عرض 50% مع فجوة */
+            background-color: var(--dark-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: right;
+        }
+
+        .gender-card h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            font-size: 1.8em;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+        }
+
+        .gender-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .gender-card ul li {
+            margin-bottom: 10px;
+            padding-right: 25px; /* مسافة للأيقونة */
+            position: relative;
+        }
+
+        .gender-card ul li:before {
+            content: '✓'; /* أيقونة علامة صح */
+            color: var(--primary-color);
+            font-weight: bold;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        /* Responsive adjustments */
         @media (max-width: 768px) {
-            .welcome-title {
-                font-size: 2.5em;
+            .container {
+                margin: 10px auto;
+                padding: 0 10px;
             }
-            
-            .tasks-container {
-                grid-template-columns: 1fr;
+
+            header h1 {
+                font-size: 1.8em;
             }
-            
-            .nav-menu {
-                flex-direction: column;
-                align-items: center;
+
+            .hero-section {
+                padding: 60px 10px;
             }
-            
-            .header h1 {
+
+            .hero-section h2 {
                 font-size: 2em;
             }
-            
-            .score-item {
-                display: block;
-                margin: 10px 0;
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 5px 0;
+            }
+
+            .card-grid, .gender-section {
+                grid-template-columns: 1fr;
+            }
+
+            .gender-card {
+                flex: 1 1 100%;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Welcome Screen -->
-    <div class="welcome-screen" id="welcomeScreen">
-        <div class="nature-elements">
-            <div class="floating-leaf"></div>
-            <div class="floating-leaf"></div>
-            <div class="floating-leaf"></div>
-        </div>
-        
-        <div class="welcome-content">
-            <h1 class="welcome-title">🏠 المنزل الآمن</h1>
-            <p class="welcome-subtitle">رحلة الشفاء تبدأ من هنا</p>
-            <p class="welcome-description">
-                مرحباً بك في مساحتك الآمنة للتعافي والنمو. هنا ستجد أدوات مصممة خصيصاً لمساعدتك في رحلة تشافي صدمات الطفولة، 
-                مع مذكرة شخصية للتعبير عن مشاعرك، ومهام علاجية مخصصة، ونظام تتبع يرافقك في كل خطوة نحو الشفاء.
-                كل نقطة تحصل عليها تقربك أكثر من السلام الداخلي والتوازن النفسي.
-            </p>
-            <button class="enter-btn" onclick="enterApp()">🌱 ابدأ رحلة الشفاء</button>
-        </div>
-    </div>
 
-    <!-- Main App -->
-    <div class="main-app" id="mainApp">
+    <header>
         <div class="container">
-            <div class="header">
-                <h1>🏠 المنزل الآمن</h1>
-                <div class="nav-menu">
-                    <button class="nav-btn active" onclick="showSection('home')">المنزل الآمن</button>
-                    <button class="nav-btn" onclick="showSection('tasks')">المهمات</button>
-                    <button class="nav-btn" onclick="showSection('progress')">تتبع التشافي</button>
-                </div>
-            </div>
-
-            <div class="content">
-                <!-- Home Section -->
-                <div id="home" class="section active">
-                    <h2>📝 مذكرة الكتابة الآمنة</h2>
-                    <p style="margin-bottom: 20px; color: #666; font-style: italic;">
-                        هذه مساحتك الخاصة للتعبير عن مشاعرك وأفكارك بحرية تامة. اكتب ما تشعر به دون قيود...
-                    </p>
-                    <textarea id="notes" class="notes-area" placeholder="اكتب هنا... مشاعرك وأفكارك آمنة معنا. كل كلمة تكتبها خطوة نحو الشفاء..."></textarea>
-                    <button class="save-btn" onclick="saveNotes()">💾 حفظ المذكرة</button>
-                </div>
-
-                <!-- Tasks Section -->
-                <div id="tasks" class="section">
-                    <div class="score-display">
-                        <h3>🏆 نقاط رحلة التشافي</h3>
-                        <div class="score-item">💖 الإناث: <span id="femaleScore">0</span> نقطة</div>
-                        <div class="score-item">💙 الذكور: <span id="maleScore">0</span> نقطة</div>
-                        <div class="score-item">🌟 المجموع: <span id="totalScore">0</span> نقطة</div>
-                    </div>
-
-                    <div class="tasks-container">
-                        <!-- Female Tasks -->
-                        <div class="task-section female">
-                            <h3>💖 مهمات الإناث - رحلة الشفاء</h3>
-                            <div id="femaleTasks">
-                                <div class="task-item">
-                                    <div>
-                                        <input type="checkbox" class="task-checkbox" onchange="updateScore('female', 15, this)">
-                                        <span>كتابة رسالة حب للطفلة الداخلية</span>
-                                    </div>
-                                    <div class="task-points">15 نقطة</div>
-                                </div>
-                                <div class="task-item">
-                                    <div>
-                                        <input type="checkbox" class="task-checkbox" onchange="updateScore('female', 20, this)">
-                                        <span>ممارسة تمارين التنفس العميق لمدة 10 دقائق</span>
-                                    </div>
-                                    <div class="task-points">20 نقطة</div>
-                                </div>
-                                <div class="task-item">
-                                    <div>
-                                        <input type="checkbox" class="task-checkbox" onchange="updateScore('female', 25, this)">
-                                        <span>إنشاء قائمة بالإنجازات والقوة الداخلية</span>
-                                    </div>
-                                    <div class="task-points">25 نقطة</div>
-                                </div>
-                                <div class="task-item">
-                                    <div>
-                                        <input type="checkbox" class="task-checkbox" onchange="updateScore('female', 30, this)">
-                                        <span>التحدث مع شخص موثوق عن المشاعر</span>
-                                    </div>
-                                    <div class="task-points">30 نقطة</div>
-                                </div>
-                                <div class="task-item">
-                                    <div>
-                                        <input type="checkbox" class="task-checkbox" onchange="updateScore('female', 35, this)">
-                                        <span>ممارسة نشاط إبداعي للتعبير عن الذات</span>
-                                    </div>
-                                    <div class="task-points">35 نقطة</div>
-                                </div>
-                            </div>
-                            <button class="add-task-btn" onclick="addTask('female')">➕ إضافة مهمة شفاء جديدة</button>
-                        </div>
-
-                        <!-- Male Tasks -->
-                        <div class="task-section male">
-                            <h3>💙 مهمات الذكور - رحلة الشفاء</h3>
-                            <div id="maleTasks">
-                                <div class="task-item">
-                                    <div>
-                                        <input type="checkbox" class="task-checkbox" onchange="updateScore('male', 15, this)">
-                                        <span>كتابة مذكرة صادقة عن المشاعر</span>
-                                    </div>
-                                    <div class="task-points">15 نقطة</div>
-                                </div>
-                                <div class="task-item">
-                                    <div>
-                                        <input type="checkbox" class="task-checkbox" onchange="updateScore('male', 20, this)">
-                                        <span>ممارسة الرياضة كوسيلة تفريغ إيجابية</span>
-                                    </div>
-                                    <div class="task-points">20 نقطة</div>
-                                </div>
-                                <div class="task-item">
-                                    <div>
-                                        <input type="checkbox" class="task-checkbox" onchange="updateScore('male', 25, this)">
-                                        <span>تحديد الأهداف الشخصية للمستقبل</span>
-                                    </div>
-                                    <div class="task-points">25 نقطة</div>
-                                </div>
-                                <div class="task-item">
-                                    <div>
-                                        <input type="checkbox" class="task-checkbox" onchange="updateScore('male', 30, this)">
-                                        <span>التعبير عن المشاعر بطريقة صحية</span>
-                                    </div>
-                                    <div class="task-points">30 نقطة</div>
-                                </div>
-                                <div class="task-item">
-                                    <div>
-                                        <input type="checkbox" class="task-checkbox" onchange="updateScore('male', 35, this)">
-                                        <span>ممارسة التأمل أو اليقظة الذهنية</span>
-                                    </div>
-                                    <div class="task-points">35 نقطة</div>
-                                </div>
-                            </div>
-                            <button class="add-task-btn" onclick="addTask('male')">➕ إضافة مهمة شفاء جديدة</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Progress Section -->
-                <div id="progress" class="section">
-                    <div class="progress-overview">
-                        <h2>🌱 مسار التشافي</h2>
-                        <div class="healing-percentage" id="healingPercentage">0%</div>
-                        <div class="healing-status" id="healingStatus">بداية الرحلة</div>
-                        <p style="margin-top: 15px; opacity: 0.9;">
-                            النقاط المجمعة: <span id="totalProgressPoints">0</span> من 1000 نقطة
-                        </p>
-                    </div>
-
-                    <h3>📊 التتبع الأسبوعي</h3>
-                    <div class="progress-tracker">
-                        <div class="progress-week">
-                            <div>
-                                <strong>الأسبوع الأول</strong>
-                                <div class="week-points">190 نقطة</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 76%"></div>
-                            </div>
-                            <span>76%</span>
-                        </div>
-                        
-                        <div class="progress-week">
-                            <div>
-                                <strong>الأسبوع الثاني</strong>
-                                <div class="week-points">165 نقطة</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 66%"></div>
-                            </div>
-                            <span>66%</span>
-                        </div>
-                        
-                        <div class="progress-week">
-                            <div>
-                                <strong>الأسبوع الثالث</strong>
-                                <div class="week-points">220 نقطة</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 88%"></div>
-                            </div>
-                            <span>88%</span>
-                        </div>
-                        
-                        <div class="progress-week">
-                            <div>
-                                <strong>الأسبوع الحالي</strong>
-                                <div class="week-points" id="currentWeekPoints">0 نقطة</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" id="currentWeekProgress" style="width: 0%"></div>
-                            </div>
-                            <span id="currentWeekPercent">0%</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <h1>علاج صدمات الطفولة</h1>
+            <p>دليل شامل للتوعية والدعم</p>
         </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#about" class="active">ما هي صدمات الطفولة؟</a></li>
+                <li><a href="#impact">تأثيرها على الكبار</a></li>
+                <li><a href="#tips-females">نصائح للإناث</a></li>
+                <li><a href="#tips-males">نصائح للذكور</a></li>
+                <li><a href="#resources">مصادر الدعم</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section class="hero-section">
+            <h2>ابدأ رحلة التعافي الآن</h2>
+            <p>التعرف على صدمات الطفولة وفهم تأثيرها هو الخطوة الأولى نحو الشفاء والحياة الصحية.</p>
+            <a href="#resources" class="cta-button">اكتشف مصادر الدعم</a>
+        </section>
+
+        <section id="about">
+            <h2>ما هي صدمات الطفولة؟</h2>
+            <p>صدمات الطفولة هي تجارب مؤلمة أو مهددة للحياة تحدث خلال سنوات التكوين، ويمكن أن تشمل الإساءة الجسدية أو العاطفية أو الجنسية، الإهمال، العنف الأسري، فقدان أحد الوالدين، أو التعرض لحوادث مروعة. هذه التجارب يمكن أن تترك آثارًا عميقة على النمو النفسي والعاطفي للطفل، وتستمر في التأثير عليه في مرحلة البلوغ.</p>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>أنواع الصدمات</h4>
+                    <ul>
+                        <li>الإساءة العاطفية</li>
+                        <li>الإساءة الجسدية</li>
+                        <li>الإساءة الجنسية</li>
+                        <li>الإهمال الجسدي والعاطفي</li>
+                        <li>العنف المنزلي</li>
+                        <li>فقدان شخص عزيز (صدمة)</li>
+                        <li>الكوارث الطبيعية أو الحوادث</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>كيف تؤثر على الدماغ؟</h4>
+                    <p>يمكن أن تغير الصدمات بنية ووظيفة الدماغ النامي، مما يؤثر على مناطق مثل اللوزة الدماغية (المرتبطة بالخوف) وقشرة الفص الجبهي (المرتبطة بالتنظيم العاطفي والتفكير). هذا يمكن أن يؤدي إلى استجابات مبالغ فيها للتوتر وصعوبات في التنظيم العاطفي.</p>
+                </div>
+                <div class="card">
+                    <h4>أهمية الوعي</h4>
+                    <p>الوعي بوجود صدمات الطفولة وتأثيرها هو مفتاح البدء في عملية الشفاء. كثير من الأشخاص لا يدركون أن سلوكياتهم أو أنماط تفكيرهم الحالية قد تكون نتيجة لتجارب سابقة.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="impact">
+            <h2>تأثير صدمات الطفولة على الكبار</h2>
+            <p>تظهر آثار صدمات الطفولة في مرحلة البلوغ بأشكال مختلفة، غالبًا ما تكون غير واضحة للناجين أنفسهم. قد تشمل هذه الآثار مشاكل صحية نفسية وجسدية، صعوبات في العلاقات، وأنماط سلوكية ضارة.</p>
+
+            <h3>مشاكل صحية ونفسية شائعة:</h3>
+            <div class="accordion">القلق والاكتئاب</div>
+            <div class="panel">
+                <p>الناجون من الصدمات غالبًا ما يعانون من مستويات عالية من القلق المزمن ونوبات الاكتئاب، نتيجة لخلل في تنظيم الجهاز العصبي.</p>
+            </div>
+
+            <div class="accordion">اضطراب ما بعد الصدمة (PTSD)</div>
+            <div class="panel">
+                <p>يمكن أن تتطور الصدمات المعقدة في الطفولة إلى اضطراب ما بعد الصدمة، والذي يتميز بالذكريات المتطفلة، التجنب، وفرط اليقظة.</p>
+            </div>
+
+            <div class="accordion">صعوبات في العلاقات</div>
+            <div class="panel">
+                <p>قد يجد الأشخاص الذين عانوا من صدمات الطفولة صعوبة في بناء علاقات صحية وآمنة، أو قد ينجذبون إلى أنماط علاقات غير صحية يعكسون فيها تجاربهم السابقة.</p>
+            </div>
+
+            <div class="accordion">مشاكل في التنظيم العاطفي</div>
+            <div class="panel">
+                <p>تتمثل في صعوبة إدارة المشاعر الشديدة مثل الغضب أو الحزن، واللجوء إلى آليات تأقلم غير صحية مثل الإفراط في الأكل أو تعاطي المخدرات.</p>
+            </div>
+        </section>
+
+        <section id="tips-gender">
+            <h2>نصائح توعوية مُخصصة</h2>
+            <div class="gender-section">
+                <div class="gender-card" id="tips-females">
+                    <h3>نصائح توعوية للإناث</h3>
+                    <p>النساء اللواتي عانين من صدمات الطفولة قد يواجهن تحديات فريدة تتطلب استراتيجيات تأقلم خاصة. من المهم فهم هذه التحديات والعمل على تجاوزها.</p>
+                    <ul>
+                        <li>**التعبير عن المشاعر:** شجعي نفسك على التحدث عن مشاعرك وأفكارك بصراحة، سواء مع معالج نفسي أو صديقة موثوقة. كبت المشاعر يزيد العبء النفسي.</li>
+                        <li>**بناء شبكة دعم:** احرصي على بناء علاقات قوية وداعمة مع صديقات أو أفراد عائلة تثقين بهم. الدعم الاجتماعي حيوي للتعافي.</li>
+                        <li>**العناية الذاتية:** خصصي وقتًا لنفسك لممارسة الأنشطة التي تستمتعين بها وتهدئ أعصابك، مثل اليوجا، التأمل، القراءة، أو الفن.</li>
+                        <li>**التعامل مع الشعور بالذنب والعار:** غالبًا ما تحمل النساء الناجيات من الصدمات مشاعر عميقة بالذنب أو العار. تذكري أنكِ لستِ المسؤولة عما حدث لكِ.</li>
+                        <li>**الحدود الشخصية:** تعلمي وضع حدود صحية في علاقاتك لكي تحمي مساحتك الشخصية وتمنعي تكرار الأنماط الضارة.</li>
+                        <li>**طلب المساعدة المهنية:** لا تترددي في طلب المساعدة من معالج نفسي متخصص في صدمات الطفولة. العلاج بالكلام والعلاج السلوكي المعرفي يمكن أن يكونا فعالين للغاية.</li>
+                    </ul>
+                </div>
+
+                <div class="gender-card" id="tips-males">
+                    <h3>نصائح توعوية للذكور</h3>
+                    <p>قد يواجه الرجال صعوبة في الاعتراف بصدمات الطفولة بسبب التوقعات المجتمعية حول "الرجولة" والقوة. ومع ذلك، فإن معالجة هذه الصدمات أمر بالغ الأهمية للصحة العقلية والجسدية.</p>
+                    <ul>
+                        <li>**تحدي وصمة العار:** تخلص من فكرة أن طلب المساعدة أو التعبير عن الضعف هو علامة على الضعف. الشجاعة الحقيقية تكمن في مواجهة الألم والسعي للشفاء.</li>
+                        <li>**البحث عن مخرج صحي للمشاعر:** بدلًا من كبت الغضب أو الحزن، ابحث عن طرق صحية للتعبير عنها مثل ممارسة الرياضة، الكتابة، أو التحدث مع مرشد موثوق.</li>
+                        <li>**التواصل بصراحة:** تدرب على التواصل المفتوح والصادق مع شركائك أو أصدقائك المقربين. يمكن أن يساعد ذلك في بناء الثقة وتقليل العزلة.</li>
+                        <li>**تجنب آليات التأقلم السلبية:** كن واعيًا للاتجاهات التي قد تدفعك نحو تعاطي الكحول، المخدرات، أو السلوكيات المتهورة كوسيلة للتعامل مع الألم.</li>
+                        <li>**العمل على الثقة بالنفس:** صدمات الطفولة يمكن أن تؤثر على احترام الذات. ركز على بناء الثقة من خلال الإنجازات الصغيرة وتأكيد الذات الإيجابي.</li>
+                        <li>**الدعم الاحترافي:** استشر معالجًا متخصصًا. يمكن للمعالجين مساعدة الرجال على فهم كيفية تأثير الصدمات على سلوكهم وعلاقاتهم، وتقديم استراتيجيات للتعافي.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="resources">
+            <h2>مصادر الدعم والتعافي</h2>
+            <p>لا تتردد في طلب المساعدة. هناك العديد من الموارد المتاحة لمساعدتك في رحلة التعافي.</p>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>العلاج النفسي</h4>
+                    <p>العلاج السلوكي المعرفي (CBT)، العلاج الجدلي السلوكي (DBT)، وعلاج إزالة حساسية حركة العين وإعادة المعالجة (EMDR) هي بعض الأساليب الفعالة في معالجة صدمات الطفولة.</p>
+                    <a href="#" class="cta-button">ابحث عن معالج</a> </div>
+                <div class="card">
+                    <h4>مجموعات الدعم</h4>
+                    <p>الانضمام إلى مجموعات الدعم مع أشخاص يشاركونك تجارب مماثلة يمكن أن يوفر شعورًا بالانتماء والتفهم والدعم المتبادل.</p>
+                    <a href="#" class="cta-button">تعرف على المجموعات</a>
+                </div>
+                <div class="card">
+                    <h4>كتب وموارد إلكترونية</h4>
+                    <p>قراءة الكتب والمقالات المتخصصة حول صدمات الطفولة والتعافي منها يمكن أن تزيد من وعيك وتفهمك للموضوع.</p>
+                    <a href="#" class="cta-button">استكشف الموارد</a>
+                </div>
+            </div>
+        </section>
     </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 علاج صدمات الطفولة. جميع الحقوق محفوظة.</p>
+            <p>تم التصميم لأغراض توعوية فقط. يُرجى استشارة متخصص للحصول على مشورة طبية.</p>
+        </div>
+    </footer>
 
     <script>
-        let femaleScore = 0;
-        let maleScore = 0;
-        let totalScore = 0;
-        let currentWeekPoints = 0;
-        const maxWeeklyPoints = 250; // النقاط القصوى في الأسبوع
+        // JavaScript for Accordion
+        var acc = document.getElementsByClassName("accordion");
+        var i;
 
-        // مستويات الشفاء
-        const healingLevels = {
-            0: { status: "بداية الرحلة", color: "#ed8936" },
-            100: { status: "خطوات أولى", color: "#d69e2e" },
-            200: { status: "تقدم ملحوظ", color: "#ecc94b" },
-            300: { status: "نمو داخلي", color: "#9f7aea" },
-            400: { status: "تطور إيجابي", color: "#667eea" },
-            500: { status: "قوة داخلية", color: "#4299e1" },
-            600: { status: "شفاء متقدم", color: "#0bc5ea" },
-            700: { status: "تحول جذري", color: "#00b5d8" },
-            800: { status: "سلام داخلي", color: "#38b2ac" },
-            900: { status: "تشافي عميق", color: "#48bb78" },
-            1000: { status: "الشفاء الكامل", color: "#38a169" }
-        };
-
-        function enterApp() {
-            document.getElementById('welcomeScreen').style.display = 'none';
-            document.getElementById('mainApp').style.display = 'block';
-            loadSavedData();
-        }
-
-        // Load saved data
-        function loadSavedData() {
-            const savedNotes = localStorage.getItem('safeHomeNotes');
-            if (savedNotes) {
-                document.getElementById('notes').value = savedNotes;
-            }
-            
-            const savedFemaleScore = localStorage.getItem('femaleScore');
-            const savedMaleScore = localStorage.getItem('maleScore');
-            const savedCurrentWeekPoints = localStorage.getItem('currentWeekPoints');
-            
-            if (savedFemaleScore) {
-                femaleScore = parseInt(savedFemaleScore);
-                document.getElementById('femaleScore').textContent = femaleScore;
-            }
-            if (savedMaleScore) {
-                maleScore = parseInt(savedMaleScore);
-                document.getElementById('maleScore').textContent = maleScore;
-            }
-            if (savedCurrentWeekPoints) {
-                currentWeekPoints = parseInt(savedCurrentWeekPoints);
-            }
-            
-            updateTotalScore();
-            updateProgress();
-            updateHealingStatus();
-        }
-
-        function showSection(sectionId) {
-            // Hide all sections
-            document.querySelectorAll('.section').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Remove active class from all buttons
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            // Show selected section
-            document.getElementById(sectionId).classList.add('active');
-            
-            // Add active class to clicked button
-            event.target.classList.add('active');
-        }
-
-        function saveNotes() {
-            const notes = document.getElementById('notes').value;
-            localStorage.setItem('safeHomeNotes', notes);
-            
-            // Show success message
-            const btn = event.target;
-            const originalText = btn.textContent;
-            btn.textContent = '✅ تم الحفظ!';
-            btn.style.background = 'linear-gradient(45deg, #48bb78, #38a169)';
-            
-            setTimeout(() => {
-                btn.textContent = originalText;
-                btn.style.background = 'linear-gradient(45deg, #48bb78, #38a169)';
-            }, 2000);
-        }
-
-        function updateScore(gender, points, checkbox) {
-            const taskItem = checkbox.closest('.task-item');
-            
-            if (checkbox.checked) {
-                if (gender === 'female') {
-                    femaleScore += points;
-                    localStorage.setItem('femaleScore', femaleScore);
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
                 } else {
-                    maleScore += points;
-                    localStorage.setItem('maleScore', maleScore);
+                    panel.style.maxHeight = panel.scrollHeight + "px";
                 }
-                currentWeekPoints += points;
-                taskItem.classList.add('completed');
-            } else {
-                if (gender === 'female') {
-                    femaleScore -= points;
-                    localStorage.setItem('femaleScore', femaleScore);
-                } else {
-                    maleScore -= points;
-                    localStorage.setItem('maleScore', maleScore);
+            });
+        }
+
+        // JavaScript for smooth scrolling for navigation links
+        document.querySelectorAll('nav ul li a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector('nav ul li a.active').classList.remove('active');
+                this.classList.add('active');
+
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - document.querySelector('nav').offsetHeight, // Adjust for fixed header/nav if any
+                        behavior: 'smooth'
+                    });
                 }
-                currentWeekPoints -= points;
-                taskItem.classList.remove('completed');
-            }
-            
-            localStorage.setItem('currentWeekPoints', currentWeekPoints);
-            updateTotalScore();
-            updateProgress();
-            updateHealingStatus();
-        }
-
-        function updateTotalScore() {
-            totalScore = femaleScore + maleScore;
-            document.getElementById('femaleScore').textContent = femaleScore;
-            document.getElementById('maleScore').textContent = maleScore;
-            document.getElementById('totalScore').textContent = totalScore;
-            document.getElementById('totalProgressPoints').textContent = totalScore;
-        }
-
-        function updateProgress() {
-            const progressPercent = Math.min(Math.round((currentWeekPoints / maxWeeklyPoints) * 100), 100);
-            document.getElementById('currentWeekProgress').style.width = progressPercent + '%';
-            document.getElementById('currentWeekPercent').textContent = progressPercent + '%';
-            document.getElementById('currentWeekPoints').textContent = currentWeekPoints + ' نقطة';
-        }
-
-        function updateHealingStatus() {
-            const healingPercent = Math.min(Math.round((totalScore / 1000) * 100), 100);
-            document.getElementById('healingPercentage').textContent = healingPercent + '%';
-            
-            // تحديد مستوى الشفاء
-            let currentLevel = healingLevels[0];
-            for (let points in healingLevels) {
-                if (totalScore >= parseInt(points)) {
-                    currentLevel = healingLevels[points];
-                }
-            }
-            
-            document.getElementById('healingStatus').textContent = currentLevel.status;
-            document.getElementById('healingPercentage').style.color = currentLevel.color;
-            
-            // تحديث لون شريط التقدم
-            const progressOverview = document.querySelector('.progress-overview');
-            progressOverview.style.background = `linear-gradient(135deg, ${currentLevel.color}, ${adjustBrightness(currentLevel.color, -20)})`;
-        }
-
-        function adjustBrightness(color, amount) {
-            const usePound = color[0] === '#';
-            const col = usePound ? color.slice(1) : color;
-            const num = parseInt(col, 16);
-            let r = (num >> 16) + amount;
-            let g = (num >> 8 & 0x00FF) + amount;
-            let b = (num & 0x0000FF) + amount;
-            r = r > 255 ? 255 : r < 0 ? 0 : r;
-            g = g > 255 ? 255 : g < 0 ? 0 : g;
-            b = b > 255 ? 255 : b < 0 ? 0 : b;
-            return (usePound ? '#' : '') + (r << 16 | g << 8 | b).toString(16);
-        }
-
-        function addTask(gender) {
-            const taskText = prompt('أدخل نص المهمة الجديدة:');
-            if (!taskText) return;
-            
-            const taskPoints = parseInt(prompt('أدخل عدد النقاط (10-50):')) || 20;
-            const validPoints = Math.min(Math.max(taskPoints, 10), 50); // تحديد النقاط بين 10 و 50
-            
-            if (taskText && validPoints) {
-                const tasksContainer = document.getElementById(gender + 'Tasks');
-                const taskItem = document.createElement('div');
-                taskItem.className = 'task-item';
-                taskItem.innerHTML = `
-                    <div>
-                        <input type="checkbox" class="task-checkbox" onchange="updateScore('${gender}', ${validPoints}, this)">
-                        <span>${taskText}</span>
-                    </div>
-                    <div class="task-points">${validPoints} نقطة</div>
-                `;
-                tasksContainer.appendChild(taskItem);
-                
-                // إضافة تأثير ظهور تدريجي
-                setTimeout(() => {
-                    taskItem.style.opacity = '0';
-                    taskItem.style.transform = 'translateY(20px)';
-                    taskItem.style.transition = 'all 0.5s ease';
-                    
-                    setTimeout(() => {
-                        taskItem.style.opacity = '1';
-                        taskItem.style.transform = 'translateY(0)';
-                    }, 100);
-                }, 50);
-            }
-        }
-
-        // Auto-save notes
-        document.addEventListener('DOMContentLoaded', function() {
-            const notesArea = document.getElementById('notes');
-            if (notesArea) {
-                notesArea.addEventListener('input', function() {
-                    localStorage.setItem('safeHomeNotes', this.value);
-                });
-            }
+            });
         });
-
-        // إضافة تأثيرات صوتية (اختيارية)
-        function playSuccessSound() {
-            // يمكن إضافة صوت نجاح هنا
-            console.log('مهمة مكتملة! 🎉');
-        }
-
-        // تحديث دوري لعرض الوقت
-        function updateTime() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('ar-SA');
-            // يمكن إضافة عرض الوقت في الواجهة
-        }
-
-        // تشغيل التحديث كل ثانية
-        setInterval(updateTime, 1000);
     </script>
+
 </body>
 </html>
